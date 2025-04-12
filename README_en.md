@@ -6,6 +6,7 @@
 [![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-4.2.0-brightgreen)](https://spring.io/projects/spring-cloud)
 [![Eureka Client](https://img.shields.io/badge/Eureka%20Client-2.0.4-lightgrey)](https://spring.io/projects/spring-cloud-netflix)
 [![Angus Infra](https://img.shields.io/badge/Angus%20Infra-1.0.0-red)](https://github.com/xcancloud/AngusInfra)
+[![Open API](https://img.shields.io/badge/Open%20API-3.0.1-blue)](https://swagger.io/specification/)
 
 **AngusStorage** is an enterprise-grade unified file storage service designed for hybrid cloud environments. Through standardized RESTFul APIs and granular governance tools, it delivers secure, scalable, and business-aligned storage management capabilities, particularly suited for multi-tenant SaaS applications.
 

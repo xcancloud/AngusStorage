@@ -6,6 +6,7 @@
 [![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-4.2.0-brightgreen)](https://spring.io/projects/spring-cloud)
 [![Eureka Client](https://img.shields.io/badge/Eureka%20Client-2.0.4-lightgrey)](https://spring.io/projects/spring-cloud-netflix)
 [![Angus Infra](https://img.shields.io/badge/Angus%20Infra-1.0.0-red)](https://github.com/xcancloud/AngusInfra)
+[![Open API](https://img.shields.io/badge/Open%20API-3.0.1-blue)](https://swagger.io/specification/)
 
 **AngusStorage** 是面向混合云环境设计的企业级统一文件存储服务。通过标准化 RESTFul API 和精细化治理工具，提供安全、可扩展且贴合业务需求的存储管理能力，尤其适合多租户 SaaS 应用。
 
