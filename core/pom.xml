@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>cloud.xcan.angus</groupId>
+    <artifactId>xcan-angusstorage.parent</artifactId>
+    <version>1.0.0</version>
+  </parent>
+
+  <artifactId>xcan-angusstorage.core</artifactId>
+  <name>AngusStorage :: Core</name>
+  <packaging>jar</packaging>
+
+  <dependencies>
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-infra.core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-infra.lettucex</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusstorage.api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusgm.api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>jakarta.servlet</groupId>
+      <artifactId>jakarta.servlet-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.aliyun.oss</groupId>
+      <artifactId>aliyun-sdk-oss</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-s3</artifactId>
+    </dependency>
+  </dependencies>
+</project>

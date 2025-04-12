@@ -1,0 +1,126 @@
+server:
+  port: ${STORAGE_PORT:1819}
+  servlet:
+    context-path: /
+
+xcan:
+  core:
+    enabled: true
+  global:
+    cors:
+      startWithPaths: [ '/' ]
+      credentials: true
+      origin: '*'
+      headers: '*'
+      methods: 'POST, GET, PUT, DELETE, PATCH, HEAD'
+  api-log:
+    enabled: false
+  id-gen:
+    enabled: true
+  datasource:
+    enabled: true
+    commonlink:
+      enabled: true
+  redis:
+    enabled: true
+  jackson:
+    defaultPropertyInclusion: always
+    dateFormat: yyyy-MM-dd HH:mm:ss
+    timeZone: ${info.app.timezone}
+    generator:
+      write_numbers_as_strings: true
+  validator:
+    enabled: true
+    extraMessages:
+      - classpath:/i18n/messages-angusstorage-api
+      - classpath:/i18n/messages-angusstorage-core
+      - classpath:/i18n/messages-angusgm-api
+
+info:
+  app:
+    name: '@project.name@'
+    editionType: '@editionType@'
+    version: '@project.version@'
+    artifactId: '@artifactId@'
+    instanceId: ${spring.cloud.client.ip-address}:${server.port}
+    description: '@project.description@'
+    timezone: ${TIMEZONE:Asia/Shanghai}
+    profile: '@profile.active@'
+    runtime: ${RUNTIME:HOST}
+    license: XCan Business License, Version 1.0
+    licenseUrl: http://www.xcan.cloud/licenses/XCBL-1.0.txt
+    organization: '@organization.name@'
+    organizationUrl: '@organization.url@'
+
+spring:
+  application:
+    name: '@artifactId@'
+  profiles:
+    active: '@profile.active@'
+  jmx:
+    enabled: true
+  main:
+    allow-circular-references: true
+    allow-bean-definition-overriding: true
+    banner-mode: OFF
+  web:
+    resources:
+      add-mappings: false
+  servlet:
+    multipart:
+      ## @see CoreAutoConfigurer#multipartConfigElement()
+      ## mkdir -p /workdata/tmp/upload -> NoSuchFileException: /workdata/tmp/upload/undertow14992992440132119540upload
+      # location: ${upload.tmp.dir:/workdata/tmp/upload} # Fix:: java.nio.file.NoSuchFileException: /tmp/undertow.1819.4153244082753775934/undertow6191513646749224630upload
+      max-request-size: ${FILE_MAX_SIZE:20GB}
+      max-file-size: ${FILE_MAX_SIZE:20GB}
+
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+  open-api:
+    info:
+      title: AngusStorage RESTFul OpenAPI Documentation
+      description: >
+        AngusStorage OpenAPI Documentation is a comprehensive, standards-compliant technical reference 
+        that provides detailed specifications for all API endpoints, including authentication methods, 
+        request/response schemas (with JSON/XML examples), HTTP status codes, error handling patterns,
+        and interactive testing capabilities through Swagger UI integration, designed to empower developers 
+        with version-controlled documentation for seamless third-party system integration.
+
+logging:
+  config: classpath:spring-logback.xml
+  level:
+    org.springframework.web: WARN
+    org.springframework.security: WARN
+    org.springframework.cloud: WARN
+    cloud.xcan.angus.api: debug
+  file:
+    path: ${log.dir:logs}
+
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - enums
+          - systemlog
+          - appworkspace
+          - health
+          - info
+          - metrics
+          - serviceregistry
+  endpoint:
+    health:
+      show-details: always
+      access: read_only
+  health:
+    ldap:
+      enabled: false
