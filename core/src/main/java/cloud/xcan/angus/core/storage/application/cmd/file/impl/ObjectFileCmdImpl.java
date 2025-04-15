@@ -10,7 +10,7 @@ import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectCon
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isUserAction;
-import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSD_ERROR_T;
+import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_TOKEN_ERROR_T;
 import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT_11;
 import static cloud.xcan.angus.spec.experimental.BizConstant.DEFAULT_ROOT_PID;
@@ -303,7 +303,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
           assertUnauthorized(spt.equals(spaceShareDb.getPublicToken()), SHARE_TOKEN_ERROR_T);
           // Check the password where public0 = false
           assertUnauthorized(spaceShareDb.getPublic0() ||
-              spaceShareDb.getPassword().equals(password), SHARE_PASSD_ERROR_T);
+              spaceShareDb.getPassword().equals(password), SHARE_PASSWORD_ERROR_T);
           // Check the share oid existed
           assertResourceNotFound(spaceShareDb.getWideObjectIds()
               .contains(objectFileDb.getOid()), objectFileDb.getOid());

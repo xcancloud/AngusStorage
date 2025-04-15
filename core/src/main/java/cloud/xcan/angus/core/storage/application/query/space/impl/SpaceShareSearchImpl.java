@@ -3,7 +3,7 @@ package cloud.xcan.angus.core.storage.application.query.space.impl;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotNull;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertUnauthorized;
 import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.findFirstValue;
-import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSD_ERROR_T;
+import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_TOKEN_ERROR_T;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
@@ -91,7 +91,7 @@ public class SpaceShareSearchImpl implements SpaceShareSearch {
         assertUnauthorized(spt.equals(spaceShareDb.getPublicToken()), SHARE_TOKEN_ERROR_T);
         // Check password where public0 = false
         assertUnauthorized(spaceShareDb.getPublic0() ||
-            spaceShareDb.getPassword().equals(password), SHARE_PASSD_ERROR_T);
+            spaceShareDb.getPassword().equals(password), SHARE_PASSWORD_ERROR_T);
       }
 
       @Override

@@ -4,7 +4,7 @@ import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotNull;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertTrue;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertUnauthorized;
-import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSD_ERROR_T;
+import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_TOKEN_ERROR_T;
 import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.findFirstValue;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
@@ -109,7 +109,7 @@ public class SpaceShareQueryImpl implements SpaceShareQuery {
         assertUnauthorized(spt.equals(spaceShareDb.getPublicToken()), SHARE_TOKEN_ERROR_T);
         // Check the password where public0 = false
         assertUnauthorized(spaceShareDb.getPublic0() ||
-            spaceShareDb.getPassword().equals(password), SHARE_PASSD_ERROR_T);
+            spaceShareDb.getPassword().equals(password), SHARE_PASSWORD_ERROR_T);
       }
 
       @Override
@@ -143,7 +143,7 @@ public class SpaceShareQueryImpl implements SpaceShareQuery {
             SHARE_TOKEN_ERROR_T);
         // Check the password where public = false
         assertUnauthorized(spaceShareDb.getPublic0() ||
-            spaceShareDb.getPassword().equals(password), SHARE_PASSD_ERROR_T);
+            spaceShareDb.getPassword().equals(password), SHARE_PASSWORD_ERROR_T);
       }
 
       @Override

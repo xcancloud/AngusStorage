@@ -26,7 +26,7 @@
   </modules>
 
   <organization>
-    <name>XCan Company</name>
+    <name>XCan Cloud</name>
     <url>http://www.xcan.cloud</url>
   </organization>
 
@@ -64,6 +64,17 @@
     </developer>
   </developers>
 
+  <mailingLists>
+    <mailingList>
+      <name>Dev Mailing List</name>
+      <post>dev@xcan.cloud</post>
+      <subscribe>dev-subscribe@xcan.cloud</subscribe>
+      <unsubscribe>dev-unsubscribe@xcan.cloud</unsubscribe>
+    </mailingList>
+  </mailingLists>
+
+  <contributors/>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -74,6 +85,7 @@
 
     <xcan-infra.bom.version>1.0.0</xcan-infra.bom.version>
     <xcan-angusgm.api.version>1.0.0</xcan-angusgm.api.version>
+
     <commons-compress.version>1.21</commons-compress.version>
     <aws-java-sdk-s3.version>1.11.939</aws-java-sdk-s3.version>
     <aliyun-sdk-oss.version>3.10.2</aliyun-sdk-oss.version>
