@@ -35,9 +35,9 @@ xcan:
   validator:
     enabled: true
     extraMessages:
-      - classpath:/i18n/messages-angusstorage-api
-      - classpath:/i18n/messages-angusstorage-core
-      - classpath:/i18n/messages-angusgm-api
+      - classpath:/i18n/messages-storage-api
+      - classpath:/i18n/messages-storage-core
+      - classpath:/i18n/messages-gm-api
 
 info:
   app:
