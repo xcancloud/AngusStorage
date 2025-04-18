@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.application.cmd.file.impl;
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.FILE_QUERY_ID_NAME;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.FILE_QUERY_ID_NAME;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotEmpty;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertTrue;
@@ -82,7 +82,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;

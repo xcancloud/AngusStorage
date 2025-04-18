@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth;
 
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.SPACE_PERMISSION_NUM;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.SPACE_PERMISSION_NUM;
 
 import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;

@@ -1,9 +1,9 @@
 package cloud.xcan.angus.core.storage.application.query.file.impl;
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.DOWNLOAD_FILE_API_PATH;
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.DOWNLOAD_FILE_PUB_API_PATH;
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.FILE_PUBLIC_TOKEN_NAME;
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.FILE_QUERY_ID_NAME;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.DOWNLOAD_FILE_API_PATH;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.DOWNLOAD_FILE_PUB_API_PATH;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.FILE_PUBLIC_TOKEN_NAME;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.FILE_QUERY_ID_NAME;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isPrivateEdition;
 import static cloud.xcan.angus.spec.SpecConstant.DEFAULT_ENCODING;
 

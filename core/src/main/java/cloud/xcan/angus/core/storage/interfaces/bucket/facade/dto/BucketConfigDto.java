@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.bucket.facade.dto;
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.MAX_BUCKET_NAME_LENGTH;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.MAX_BUCKET_NAME_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_BIZ_KEY_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_CODE_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_REMARK_LENGTH;

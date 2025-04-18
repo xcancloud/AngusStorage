@@ -1,8 +1,8 @@
 package cloud.xcan.angus.core.storage.interfaces.bucket.facade.dto;
 
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.MAX_BUCKET_NAME_LENGTH;
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.MIN_BUCKET_NAME_LENGTH;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.MAX_BUCKET_NAME_LENGTH;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.MIN_BUCKET_NAME_LENGTH;
 
 import cloud.xcan.angus.core.storage.infra.store.model.AccessControl;
 import io.swagger.v3.oas.annotations.media.Schema;

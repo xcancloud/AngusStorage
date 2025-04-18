@@ -1,7 +1,7 @@
 package cloud.xcan.angus.api.storage.file.dto;
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.DEFAULT_DATA_FILE_BIZ_KEY;
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.MAX_REQUEST_FILES_NUM;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.DEFAULT_DATA_FILE_BIZ_KEY;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.MAX_REQUEST_FILES_NUM;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_BIZ_KEY_LENGTH;
 
 import io.swagger.v3.oas.annotations.media.Schema;

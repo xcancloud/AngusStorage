@@ -2,7 +2,7 @@ package cloud.xcan.angus.core.storage.domain.space.object;
 
 import static cloud.xcan.angus.spec.experimental.BizConstant.DEFAULT_ROOT_PID;
 
-import cloud.xcan.angus.api.commonlink.FileProxyConstant;
+import cloud.xcan.angus.api.commonlink.StorageConstant;
 import cloud.xcan.angus.api.enums.FileType;
 import cloud.xcan.angus.api.enums.PlatformStoreType;
 import cloud.xcan.angus.core.jpa.multitenancy.TenantAuditingEntity;
@@ -56,7 +56,7 @@ public class SpaceObject extends TenantAuditingEntity<SpaceObject, Long> impleme
   /**
    * Folder or file hierarchy: 1+5+1, Folder up to 5 levels.
    *
-   * @see FileProxyConstant#MAX_FILE_DIR_LEVEL
+   * @see StorageConstant#MAX_FILE_DIR_LEVEL
    */
   private int level;
 

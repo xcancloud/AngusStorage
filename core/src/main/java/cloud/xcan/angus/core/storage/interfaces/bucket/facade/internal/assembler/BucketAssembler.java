@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.bucket.facade.internal.assembler;
 
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.DEFAULT_APP_CODE;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.DEFAULT_APP_CODE;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 

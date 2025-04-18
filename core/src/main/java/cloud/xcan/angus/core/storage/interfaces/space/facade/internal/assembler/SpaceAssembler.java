@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler;
 
-import static cloud.xcan.angus.api.commonlink.FileProxyConstant.DEFAULT_DATA_FILE_BIZ_KEY;
+import static cloud.xcan.angus.api.commonlink.StorageConstant.DEFAULT_DATA_FILE_BIZ_KEY;
 import static cloud.xcan.angus.core.storage.interfaces.bucket.facade.internal.assembler.BucketAssembler.toConfigVo;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;

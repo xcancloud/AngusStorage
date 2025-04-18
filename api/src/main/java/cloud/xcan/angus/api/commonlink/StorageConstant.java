@@ -2,7 +2,7 @@ package cloud.xcan.angus.api.commonlink;
 
 import cloud.xcan.angus.spec.annotations.Unmodifiable;
 
-public interface FileProxyConstant {
+public interface StorageConstant {
 
   String DEFAULT_DATA_FILE_BIZ_KEY = "angusTesterDataFiles";
   String DEFAULT_APP_CODE = "AngusTester";
