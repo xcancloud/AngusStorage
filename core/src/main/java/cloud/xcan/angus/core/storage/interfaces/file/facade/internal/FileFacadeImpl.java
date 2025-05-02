@@ -3,7 +3,7 @@ package cloud.xcan.angus.core.storage.interfaces.file.facade.internal;
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.formatShareDownloadUrl;
 import static cloud.xcan.angus.core.storage.interfaces.file.facade.internal.assembler.FileAssembler.toUploadVo;
 import static cloud.xcan.angus.core.utils.CoreUtils.getUrlInputStream;
-import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isDoorApi;
+import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isInnerApi;
 import static cloud.xcan.angus.core.utils.ServletUtils.buildSupportRangeDownload;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;
@@ -19,6 +19,7 @@ import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
 import cloud.xcan.angus.core.storage.infra.store.utils.FileBytesCache;
 import cloud.xcan.angus.core.storage.interfaces.file.facade.FileFacade;
 import cloud.xcan.angus.core.storage.interfaces.file.facade.internal.assembler.FileAssembler;
+import cloud.xcan.angus.core.utils.PrincipalContextUtils;
 import cloud.xcan.angus.spec.principal.PrincipalContext;
 import cloud.xcan.angus.spec.utils.DateUtils;
 import jakarta.annotation.Resource;
@@ -45,7 +46,7 @@ public class FileFacadeImpl implements FileFacade {
 
   @Override
   public List<FileUploadVo> upload(FileUploadDto dto) {
-    if (isDoorApi()) {
+    if (PrincipalContextUtils.isInnerApi()) {
       PrincipalContext.get().setOptTenantId(((FileUploadInnerDto) dto).getTenantId());
     }
     return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
