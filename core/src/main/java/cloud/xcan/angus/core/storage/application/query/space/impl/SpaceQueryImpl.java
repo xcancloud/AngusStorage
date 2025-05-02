@@ -173,10 +173,6 @@ public class SpaceQueryImpl implements SpaceQuery {
 
       Set<Long> createdBys = null;
 
-      @Override
-      protected void checkParams() {
-        // NOOP
-      }
 
       @Override
       protected StorageResourcesCreationCount process() {

@@ -36,10 +36,6 @@ public class SpaceSearchImpl implements SpaceSearch {
   @Override
   public Page<Space> search(Set<SearchCriteria> criteria, Pageable pageable, Class<Space> clazz) {
     return new BizTemplate<Page<Space>>() {
-      @Override
-      protected void checkParams() {
-        // NOOP
-      }
 
       @Override
       protected Page<Space> process() {

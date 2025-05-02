@@ -31,10 +31,6 @@ public class StorageSettingQueryImpl implements StorageSettingQuery {
   @Override
   public SettingData setting() {
     return new BizTemplate<SettingData>() {
-      @Override
-      protected void checkParams() {
-        // NOOP
-      }
 
       @Override
       protected SettingData process() {
