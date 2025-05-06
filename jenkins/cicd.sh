@@ -1,0 +1,136 @@
+#!/bin/sh
+
+# ---------------------------------------------------------------------------
+# Jenkins CI/CD Pipeline Script for AngusStorage Project.
+# Usage: sh cicd.sh --env env.dev --editionType edition.cloudService --hosts 127.0.0.1 --dbType db.mysql
+# Author: XiaoLong Liu
+# ---------------------------------------------------------------------------
+
+# Global Variables
+REMOTE_APP_DIR="/data/app/AngusStorage"
+
+# Validate input parameters
+validate_parameters() {
+  # Validate mandatory parameters
+  if [ -z "$env" ] || [ -z "$editionType" ]; then
+    echo "ERROR: Missing required parameters (env, editionType)"
+    exit 1
+  fi
+
+  # Validate editionType and env compatibility
+  case "$editionType" in
+    edition.cloudService)
+      case "$env" in
+        env.local|env.dev|env.prod) ;;
+        *) echo "ERROR: Cloud edition requires env.local/dev/prod"; exit 1 ;;
+      esac ;;
+    edition.community|edition.enterprise|edition.datacenter)
+      if [ "$env" != "env.priv" ]; then
+        echo "ERROR: Private edition requires env.priv"; exit 1
+      fi ;;
+    *) echo "ERROR: Invalid editionType"; exit 1 ;;
+  esac
+}
+
+# Check and clean environment
+prepare_environment() {
+  echo "INFO: Preparing build environment..."
+
+  # Load system profile for environment variables
+  if [ -f "/etc/profile" ]; then
+    echo "INFO: Loading system environment variables"
+    . /etc/profile
+  fi
+
+    echo "INFO: Checking Java/Maven environment"
+    if ! command -v java >/dev/null || ! command -v mvn >/dev/null; then
+      echo "ERROR: Java/Maven not found"; exit 1
+    fi
+
+    echo "INFO: Cleaning Maven repository"
+    if [ -n "$MAVEN_HOME" ]; then
+      CLEAR_MAVEN_REPO="${MAVEN_HOME}/repository/cloud/xcan"
+    else
+      CLEAR_MAVEN_REPO="${HOME}/.m2/repository/cloud/xcan"
+    fi
+
+    echo "INFO: Cleaning Maven repository at ${CLEAR_MAVEN_REPO}"
+    rm -rf "${CLEAR_MAVEN_REPO}"/*
+}
+
+# Build service module
+maven_build () {
+  echo "INFO: mvn build start"
+  mvn -B -e -U clean package -Dmaven.test.skip=true -s ${MAVEN_HOME}/conf/xcan_repo_settings.xml -f pom.xml -P${editionType},${env},${dbType}
+  if [ $? -ne 0 ]; then
+    echo "ERROR: mvn build failed"
+    exit 1
+  fi
+  echo "INFO: mvn build end"
+}
+
+# Deploy service module
+deploy_service() {
+  echo "INFO: Deploying service module to ${host}"
+  ssh "$host" "cd ${REMOTE_APP_DIR} && sh shutdown-storage.sh" || {
+    echo "WARN: Failed to stop service, proceeding anyway"
+  }
+  ssh "$host" "cd ${REMOTE_APP_DIR} && find . -mindepth 1 -maxdepth 1 -not \( -name ${REMOTE_APP_STATIC_DIR_NAME} -o -name ".*" \) -exec rm -rf {} +" || {
+    echo "ERROR: Failed to clean service directory"; exit 1
+  }
+  scp -r "boot/target"/* "${host}:${REMOTE_APP_DIR}/" || {
+    echo "ERROR: Failed to copy service files"; exit 1
+  }
+  ssh "$host" "cd ${REMOTE_APP_DIR} && mkdir -p conf && mv classes/spring-logback.xml conf/storage-logback.xml" || {
+    echo "ERROR: Failed to rename logback file"; exit 1
+  }
+  scp "jenkins/set-opts.sh" "${host}:${REMOTE_APP_DIR}/" || {
+    echo "ERROR: Failed to copy service files"; exit 1
+  }
+  ssh "$host" "cd ${REMOTE_APP_DIR} && sh set-opts.sh ${host} && sh startup-storage.sh" || {
+    echo "ERROR: Failed to start service"; exit 1
+  }
+  ssh "sh check-health.sh ${host}" || {
+    echo "ERROR: Service health check failed"; exit 1
+  }
+}
+
+# Main execution flow
+while [ $# -gt 0 ]; do
+  case "$1" in
+    --env) env="$2"; shift ;;
+    --editionType) editionType="$2"; shift ;;
+    --hosts) hosts="$2"; shift ;;
+    --dbType) dbType="${2:-db.mysql}"; shift ;;
+    *) echo "WARN: Unknown parameter $1"; shift ;;
+  esac
+  shift
+done
+
+# Step 1: Parameter validation
+validate_parameters
+
+# Step 2: Environment preparation
+prepare_environment
+
+# Step 3: CI Phase
+# clone_repository
+
+echo "INFO: Building service module"
+maven_build || {
+  echo "ERROR: Service build failed"; exit 1
+}
+
+# Step 4: CD Phase
+if [ -n "$hosts" ]; then
+  echo "INFO: Starting deployment to hosts: ${hosts}"
+  IFS=',' read -ra HOST_LIST <<< "$hosts"
+  for host in "${HOST_LIST[@]}"; do
+      deploy_service
+  done
+else
+  echo "INFO: No hosts specified, skipping deployment"
+fi
+
+echo "SUCCESS: CI/CD pipeline completed successfully"
+exit 0

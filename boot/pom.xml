@@ -14,6 +14,12 @@
   <name>AngusStorage :: Boot</name>
   <packaging>jar</packaging>
 
+  <properties>
+    <archive.name>storage</archive.name>
+    <hump.name>AngusStorage</hump.name>
+    <docker.image.name>angusstorage</docker.image.name>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>cloud.xcan.angus</groupId>
@@ -32,7 +38,7 @@
   </dependencies>
 
   <build>
-    <finalName>${project.artifactId}-${project.version}</finalName>
+    <finalName>${hump.name}-${editionName}-${project.version}</finalName>
     <filters>
       <filter>src/main/resources/application.yml</filter>
       <filter>src/main/resources/application-${profile.active}.yml</filter>
