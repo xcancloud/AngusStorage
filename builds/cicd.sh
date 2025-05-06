@@ -7,7 +7,7 @@
 # ---------------------------------------------------------------------------
 
 # Global Variables
-REMOTE_APP_DIR="/data/app/AngusStorage"
+REMOTE_APP_DIR="/data/apps/AngusStorage"
 
 # Validate input parameters
 validate_parameters() {
@@ -72,13 +72,16 @@ maven_build () {
 # Deploy service module
 deploy_service() {
   echo "INFO: Deploying service module to ${host}"
+  ssh "$host" "mkdir -p ${REMOTE_APP_DIR}" || {
+    echo "ERROR: Failed to init app directory"; exit 1
+  }
   ssh "$host" "cd ${REMOTE_APP_DIR} && sh shutdown-storage.sh" || {
     echo "WARN: Failed to stop service, proceeding anyway"
   }
   ssh "$host" "cd ${REMOTE_APP_DIR} && find . -mindepth 1 -maxdepth 1 -not \( -name ${REMOTE_APP_STATIC_DIR_NAME} -o -name ".*" \) -exec rm -rf {} +" || {
     echo "ERROR: Failed to clean service directory"; exit 1
   }
-  scp -r "boot/target"/* "${host}:${REMOTE_APP_DIR}/" || {
+  scp -rp "boot/target"/* "${host}:${REMOTE_APP_DIR}/" || {
     echo "ERROR: Failed to copy service files"; exit 1
   }
   ssh "$host" "cd ${REMOTE_APP_DIR} && mkdir -p conf && mv classes/spring-logback.xml conf/storage-logback.xml" || {

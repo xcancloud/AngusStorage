@@ -12,8 +12,7 @@ CURRENT_HOME=`dirname "$0"`
 echo "App Home: $STORAGE_HOME"
 
 # Init java environment
-eval "$(./init-jdk.sh)"
-echo "Java Home: ${JAVA_HOME}"
+sh init-jdk.sh
 
 # Check that target jar exists
 EXECUTABLE=@project.build.finalName@.jar
