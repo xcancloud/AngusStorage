@@ -9,6 +9,8 @@
 # Global Variables
 REMOTE_APP_DIR="/data/apps/AngusStorage"
 REMOTE_APP_LOGS_DIR_NAME="logs"
+REMOTE_APP_CONF_DIR="/data/apps/conf/storage"
+
 CLEAR_MAVEN_REPO="/data/repository"
 
 # Validate input parameters

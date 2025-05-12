@@ -21,7 +21,7 @@ if [ $# -eq 0 ]; then
 fi
 
 REMOTE_HOST="$1"
-TARGET_DIR="/data/apps/conf/tester"
+TARGET_DIR="/data/apps/conf/storage"
 
 # Validate environment configuration
 validate_environment() {
