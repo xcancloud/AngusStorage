@@ -2,7 +2,7 @@
 
 # ---------------------------------------------------------------------------
 # Jenkins CI/CD Pipeline Script for AngusStorage Project.
-# Usage: sh cicd.sh --env env.dev --editionType edition.cloudService --hosts 127.0.0.1 --dbType db.mysql
+# Usage: sh cicd.sh --env env.dev --editionType edition.cloud_service --hosts 127.0.0.1 --dbType db.mysql
 # Author: XiaoLong Liu
 # ---------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ validate_parameters() {
 
   # Validate editionType and env compatibility
   case "$editionType" in
-    edition.cloudService)
+    edition.cloud_service)
       case "$env" in
         env.local|env.dev|env.prod) ;;
         *) echo "ERROR: Cloud edition requires env.local/dev/prod"; exit 1 ;;
@@ -85,10 +85,7 @@ deploy_service() {
   ssh "$host" "cd ${REMOTE_APP_DIR} && cp -f ${REMOTE_APP_CONF_DIR}/.*.env conf/" || {
     echo "ERROR: Failed to copy env files"; exit 1
   }
-  scp "builds/set-opts.sh" "${host}:${REMOTE_APP_DIR}/" || {
-    echo "ERROR: Failed to copy service files"; exit 1
-  }
-  ssh "$host" "cd ${REMOTE_APP_DIR} && sh set-opts.sh ${host} && sh startup-storage.sh" || {
+  ssh "$host" "cd ${REMOTE_APP_DIR} && sh startup-storage.sh debug" || {
     echo "ERROR: Failed to start service"; exit 1
   }
   sh builds/check-health.sh ${host} || {

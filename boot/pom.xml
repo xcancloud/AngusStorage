@@ -44,6 +44,63 @@
       <filter>src/main/resources/application-${profile.active}.yml</filter>
     </filters>
 
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>**/*</include>
+        </includes>
+        <excludes>
+          <exclude>static/**</exclude>
+        </excludes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>false</filtering>
+        <includes>
+          <include>static/**</include>
+        </includes>
+      </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+        <filtering>true</filtering>
+        <includes>
+          <include>spring-logback.xml</include>
+        </includes>
+      </resource>
+
+      <resource>
+        <directory>src/main/scripts</directory>
+        <includes>
+          <include>init-jdk.sh</include>
+          <include>startup-storage.sh</include>
+          <include>shutdown-storage.sh</include>
+        </includes>
+        <filtering>true</filtering>
+        <targetPath>${project.basedir}/target</targetPath>
+      </resource>
+
+      <resource>
+        <directory>src/main/docker</directory>
+        <includes>
+          <include>Dockerfile</include>
+        </includes>
+        <filtering>true</filtering>
+        <targetPath>${project.basedir}/target</targetPath>
+      </resource>
+
+      <resource>
+        <directory>conf</directory>
+        <includes>
+          <include>*.properties</include>
+          <include>*.xml</include>
+        </includes>
+        <filtering>true</filtering>
+        <targetPath>${project.basedir}/target</targetPath>
+      </resource>
+    </resources>
+
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>

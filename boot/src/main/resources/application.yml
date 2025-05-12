@@ -8,11 +8,7 @@ xcan:
     enabled: true
   global:
     cors:
-      startWithPaths: [ '/' ]
-      credentials: true
-      origin: '*'
-      headers: '*'
-      methods: 'POST, GET, PUT, DELETE, PATCH, HEAD'
+      enabled: true
   opt-log:
     enabled: true
     clearBeforeDay: 360
@@ -26,12 +22,6 @@ xcan:
       enabled: true
   redis:
     enabled: true
-  jackson:
-    defaultPropertyInclusion: always
-    dateFormat: yyyy-MM-dd HH:mm:ss
-    timeZone: ${info.app.timezone}
-    generator:
-      write_numbers_as_strings: true
   validator:
     enabled: true
     extraMessages:
@@ -62,6 +52,14 @@ spring:
     active: '@profile.active@'
   jmx:
     enabled: true
+  jackson:
+    defaultPropertyInclusion: always
+    dateFormat: ${JACKSON_DATE_FORMAT:yyyy-MM-dd HH:mm:ss}
+    localeDateFormat: ${JACKSON_LOCALE_DATE_FORMAT:yyyy-MM-dd}
+    localeTimeFormat: ${JACKSON_LOCALE_TIME_FORMAT:HH:mm:ss}
+    timeZone: ${TIMEZONE:Asia/Shanghai}
+    generator:
+      write_numbers_as_strings: true
   main:
     allow-circular-references: true
     allow-bean-definition-overriding: true
@@ -82,6 +80,8 @@ springdoc:
     enabled: true
   swagger-ui:
     enabled: true
+    operations-sorter: alpha
+    tags-sorter: alpha
   open-api:
     info:
       title: AngusStorage RESTFul OpenAPI Documentation
