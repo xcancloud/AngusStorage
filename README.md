@@ -1,6 +1,6 @@
 # AngusStorage
 
-[English](README_en.md) | [中文](README.md)
+[English](README.md) | [中文](README_zh.md)
 
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.4.0-brightgreen)](https://spring.io/projects/spring-boot)
 [![Spring Cloud](https://img.shields.io/badge/Spring%20Cloud-4.2.0-brightgreen)](https://spring.io/projects/spring-cloud)
@@ -8,47 +8,47 @@
 [![Angus Infra](https://img.shields.io/badge/Angus%20Infra-1.0.0-red)](https://github.com/xcancloud/AngusInfra)
 [![Open API](https://img.shields.io/badge/Open%20API-3.0.1-blue)](https://swagger.io/specification/)
 
-**AngusStorage** 是面向混合云环境设计的企业级统一文件存储服务。通过标准化 RESTFul API 和精细化治理工具，提供安全、可扩展且贴合业务需求的存储管理能力，尤其适合多租户 SaaS 应用。
+**AngusStorage** is an enterprise-grade unified file storage service designed for hybrid cloud environments. Through standardized RESTFul APIs and granular governance tools, it delivers secure, scalable, and business-aligned storage management capabilities, particularly suited for multi-tenant SaaS applications.
 
-## 🚀 核心特点
+## 🚀 Key Features
 
-- **统一文件存储入口**
-  - ***集中化管理***: 通过单一入口管理多后端存储（兼容 S3 协议的对象存储/本地磁盘），消除工具碎片化，降低运维复杂度。
-  - ***精细化安全管控***: 支持多维度的安全配置、访问策略和审计追踪。
-  - ***合规性简化***: 通过访问控制和系统日志满足安全与合规审计要求。
-- **多租户支持**：租户级数据隔离与配额管理。
-- **灵活存储后端**：根据业务需求和系统复杂度选择存储方案。
-- **高性能传输**：支持断点续传的下载功能。
+- **Unified File Storage Gateway**
+    - ***Centralized Management***: Manage multi-backend storage (S3-compatible OSS/local disks) through a single entrypoint, eliminating tool fragmentation and reducing operational complexity.
+    - ***Granular Security Controls***: Support multi-dimensional security configurations, access policies, and audit trails.
+    - ***Compliance Simplified***: Meet security and compliance audit requirements through access controls and system logs.
+- **Multi-Tenancy Support**: Tenant-level data isolation and quota management.
+- **Flexible Storage Backends**: Choose backend storage solutions based on business needs and system complexity.
+- **High-Performance Transfers**: Resumeable downloads with breakpoint continuation.
 
-## 🚀 核心功能
+## 🚀 Core Functionalities
 
-| 功能模块         | 描述                                                                 |  
-|------------------|--------------------------------------------------------------------|  
-| **存储配置**       | 管理存储后端设置（兼容 S3 协议的对象存储/本地磁盘），支持多节点文件自动路由定位。        |  
-| **桶管理**        | 创建、配置和管理存储桶，实现命名空间隔离与权限控制。                              |  
-| **业务桶映射**     | 将存储桶映射至业务单元，实现数据分类和维护流程管理。                              |  
-| **空间管理**       | 细粒度存储空间配额分配与访问策略实施。                                      |  
-| **空间授权**       | 基于角色的空间级权限控制（用户/部门/用户组）。                                |  
-| **对象管理**       | 空间内文件/目录的增删改查（CRUD）与元数据管理。                              |  
-| **分享管理**       | 支持跨租户/用户的安全文件共享（含链接时效和密码保护）。                           |  
-| **文件访问**       | 统一多协议（HTTP/S3）文件上传下载接口。                                   |  
+| Functionality | Description |  
+|---------------|-------------|  
+| **Storage Configuration** | Manage storage backend settings (S3-compatible object storage/local disks) with multi-node file auto-routing. |  
+| **Bucket Management** | Create, configure, and manage buckets with namespace isolation and permission controls. |  
+| **Business Bucket Mapping** | Map buckets to business units for data categorization and maintenance workflows. |  
+| **Space Management** | Granular space quota allocation and access policy enforcement. |  
+| **Space Authorization** | Role-based space-level access control (users/departments/groups). |  
+| **Object Management** | CRUD operations and metadata management for files/directories within spaces. |  
+| **Share Management** | Secure cross-tenant/user file sharing with link expiration and password protection. |  
+| **File Access** | Unified multi-protocol (HTTP/S3) upload/download interfaces. |  
 
-## Angus 系列应用初始化数据
+## Angus Series Application Initialization Data
 
-- **默认初始化桶**
-  - ***xcan-angustester***: 存储 AngusTester 测试生成或用户上传的数据文件。
-  - ***xcan-baseapp***: 基础应用数据（如用户头像、任务附件、图片等）。
+- **Default Initial Buckets**
+    - ***xcan-angustester***: Stores test-generated or user-uploaded data files for AngusTester.
+    - ***xcan-baseapp***: Base application data (e.g., user avatars, task attachments, images).
 
-- ***常见问题***
-  - 桶名格式错误（例如：不支持大写字母！）。
-  - 在阿里云 OSS 创建桶时，名称被其他账号占用会返回 403 错误！
-  - 本地配置修改未生效？请检查 `storage_setting` 中的配置是否更新——其优先级高于通用配置文件！
+- ***Common Issues***
+    - Invalid bucket name format (e.g., uppercase letters are not allowed!).
+    - 403 errors when creating buckets on Alibaba Cloud OSS due to name conflicts with other accounts!
+    - Configuration changes not taking effect? Verify updates in `storage_setting` – its priority overrides general config files!
 
-> 💡 **注意**: 私有化部署时需配置存储设置，选择本地存储或 AWS 兼容的对象存储。若选择对象存储：
-> 1. 在对象存储服务中创建桶。
-> 2. 更新 `bucket` 和 `bucket_biz_config` 中的对应桶名。
-> 3. 为简化流程，初次部署时可合并使用单一桶。
+> 💡 **Note**: For private deployments, configure storage settings to choose between local storage or AWS-compatible OSS. If using object storage:
+> 1. Create buckets in the object storage service.
+> 2. Update corresponding bucket names in `bucket` and `bucket_biz_config`.
+> 3. For simplicity, use a single bucket during initial private deployment.
 
-## 开源协议
+## License
 
-📜 本项目采用 [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) 开源协议。
+📜 Licensed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html).
