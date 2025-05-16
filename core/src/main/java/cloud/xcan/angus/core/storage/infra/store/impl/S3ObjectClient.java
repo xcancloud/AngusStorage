@@ -61,7 +61,7 @@ public class S3ObjectClient extends ObjectClient {
     try {
       this.amazonS3 = buildAmazonS3Client(objectProperties, true);
     } catch (Exception e) {
-      log.error("Configuration parameter error", e);
+      log.error("Configuration S3 storage parameter error, cause: {}", e.getMessage());
     }
   }
 
