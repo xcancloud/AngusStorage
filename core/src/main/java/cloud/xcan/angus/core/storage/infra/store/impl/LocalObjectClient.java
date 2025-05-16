@@ -6,6 +6,7 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.OBJECT_LOCAL_D
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.OBJECT_LOCAL_DOWNLOAD_ERROR_T;
 import static cloud.xcan.angus.spec.experimental.BizConstant.DEFAULT_ROOT_PID;
 import static cloud.xcan.angus.spec.http.ContentType.TYPE_OCTET_STREAM;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import cloud.xcan.angus.api.commonlink.user.User;
 import cloud.xcan.angus.api.enums.FileType;
@@ -16,12 +17,14 @@ import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectClient;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.core.storage.infra.store.model.AccessControl;
+import cloud.xcan.angus.core.utils.SpringAppDirUtils;
 import cloud.xcan.angus.remote.message.SysException;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.spec.annotations.DoInFuture;
 import cloud.xcan.angus.spec.utils.DateUtils;
 import cloud.xcan.angus.spec.utils.FileUtils;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
+import cloud.xcan.angus.spec.utils.StringUtils;
 import com.amazonaws.HttpMethod;
 import com.amazonaws.services.s3.model.Bucket;
 import com.amazonaws.services.s3.model.CreateBucketRequest;
@@ -63,11 +66,14 @@ public class LocalObjectClient extends ObjectClient {
 
   private final UserManager userManager;
 
-  public LocalObjectClient(SpaceObjectRepo spaceObjectRepo,
-      ObjectProperties objectProperties, UserManager userManager) {
+  private final SpringAppDirUtils appDirUtils;
+
+  public LocalObjectClient(SpaceObjectRepo spaceObjectRepo, ObjectProperties objectProperties,
+      UserManager userManager, SpringAppDirUtils appDirUtils) {
     this.spaceObjectRepo = spaceObjectRepo;
     this.objectProperties = objectProperties;
     this.userManager = userManager;
+    this.appDirUtils = appDirUtils;
   }
 
   /**
@@ -76,12 +82,20 @@ public class LocalObjectClient extends ObjectClient {
   @Override
   public void init(List<cloud.xcan.angus.core.storage.domain.bucket.Bucket> buckets)
       throws Exception {
+    String storagePath = isNotBlank(objectProperties.getLocalDir())
+        ? objectProperties.getLocalDir() : appDirUtils.getBizDataDir("files");
+    storagePath = StringUtils.removeEnd(storagePath, File.separator);
+
+    if (!FileUtils.isExisted(storagePath)) {
+      FileUtils.forceMkdir(new File(storagePath));
+      log.info("Create storage directory: {}", storagePath);
+    }
+
     for (cloud.xcan.angus.core.storage.domain.bucket.Bucket bucket : buckets) {
-      File dir = new File(objectProperties.getLocalDir()
-          + File.separator + bucket.getName());
-      if (!dir.exists()) {
-        FileUtils.forceMkdir(dir);
-        log.info("Create storage directory: {}", dir.getAbsolutePath());
+      File bucketDir = new File(storagePath + File.separator + bucket.getName());
+      if (!FileUtils.isExisted(bucketDir)) {
+        FileUtils.forceMkdir(bucketDir);
+        log.info("Create storage bucket directory: {}", bucketDir.getAbsolutePath());
       }
     }
   }
