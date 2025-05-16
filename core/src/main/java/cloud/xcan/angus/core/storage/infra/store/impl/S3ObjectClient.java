@@ -3,6 +3,7 @@ package cloud.xcan.angus.core.storage.infra.store.impl;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_CREATE_FAIL_CODE;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_CREATE_FAIL_T;
 import static cloud.xcan.angus.spec.http.ContentType.TYPE_OCTET_STREAM;
+import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.enums.PlatformStoreType;
 import cloud.xcan.angus.core.storage.infra.store.ObjectClient;
@@ -52,12 +53,16 @@ import org.springframework.stereotype.Component;
 @Component("s3ObjectClient")
 public class S3ObjectClient extends ObjectClient {
 
-  private final AmazonS3 amazonS3;
+  private AmazonS3 amazonS3;
   private final ObjectProperties objectProperties;
 
   public S3ObjectClient(ObjectProperties objectProperties) {
     this.objectProperties = objectProperties;
-    this.amazonS3 = buildAmazonS3(objectProperties);
+    try {
+      this.amazonS3 = buildAmazonS3Client(objectProperties, true);
+    } catch (Exception e) {
+      log.error("Configuration parameter error", e);
+    }
   }
 
   @Override
@@ -291,7 +296,10 @@ public class S3ObjectClient extends ObjectClient {
     return result;
   }
 
-  private AmazonS3 buildAmazonS3(ObjectProperties objectProperties) {
+  public AmazonS3 buildAmazonS3Client(ObjectProperties objectProperties, boolean force) {
+    if (!force && nonNull(amazonS3)) {
+      return amazonS3;
+    }
     ClientConfiguration configuration = new ClientConfiguration();
     configuration.setMaxErrorRetry(1);
     configuration.setConnectionTimeout(6 * 1000);
@@ -304,10 +312,11 @@ public class S3ObjectClient extends ObjectClient {
         objectProperties.getSecretKey());
     AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(
         credentials);
-    return AmazonS3Client.builder().withEndpointConfiguration(endpointConfig)
+    amazonS3 = AmazonS3Client.builder().withEndpointConfiguration(endpointConfig)
         .withClientConfiguration(configuration).withCredentials(credentialsProvider)
         .disableChunkedEncoding().withPathStyleAccessEnabled(false)
         .build();
+    return amazonS3;
   }
 
   @Override
