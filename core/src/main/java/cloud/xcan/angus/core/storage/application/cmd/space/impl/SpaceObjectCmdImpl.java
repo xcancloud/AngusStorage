@@ -80,13 +80,13 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
       @Override
       protected IdKey<Long, Object> process() {
         // Calc level, likeId
-        directory.setLevel(nonNull(parentDirectoryDb)
-            ? parentDirectoryDb.getLevel() + 1 : 1);
+        directory.setLevel(nonNull(parentDirectoryDb) ? parentDirectoryDb.getLevel() + 1 : 1);
         // All parent-child folder ID symbols are connected by "-" (up to 10 levels are supported for 200 characters)
-        directory.setParentLikeId(nonNull(parentDirectoryDb)
-            ? (isNotEmpty(parentDirectoryDb.getParentLikeId())
-            ? parentDirectoryDb.getParentLikeId() + "-" + parentDirectoryDb.getId()
-            : String.valueOf(parentDirectoryDb.getId())) : "");
+        directory.setParentLikeId(nonNull(parentDirectoryDb) ? (
+            isNotEmpty(parentDirectoryDb.getParentLikeId())
+                ? parentDirectoryDb.getParentLikeId() + "-" + parentDirectoryDb.getId()
+                : String.valueOf(parentDirectoryDb.getId())
+        ) : "");
         directory.setProjectId(spaceDb.getProjectId());
         return insert(directory);
       }
@@ -189,7 +189,7 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
                     oldSubParentLikeId, newSubParentLikeId);
               }
 
-              // Modify the level,spaceId,parentId,subobject likeId of moved object
+              // Modify the level,spaceId,parentId, sub object likeId of moved object
               movedObject.setLevel(hasTargetDir ? targetDirectoryDb.getLevel() + 1 : 1);
               movedObject.setSpaceId(targetSpaceId);
               movedObject.setParentDirectoryId(hasTargetDir ? targetDirId : DEFAULT_ROOT_PID);

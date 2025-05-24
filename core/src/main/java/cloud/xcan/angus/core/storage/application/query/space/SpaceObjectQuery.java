@@ -38,7 +38,7 @@ public interface SpaceObjectQuery {
 
   void setObjectStatsAndSummary(List<SpaceObject> objects);
 
-  void setSpaceObjectStats(List<Space> spaces);
+  void setSpaceStats(List<Space> spaces);
 
   void setObjectStats(List<SpaceObject> objects);
 }

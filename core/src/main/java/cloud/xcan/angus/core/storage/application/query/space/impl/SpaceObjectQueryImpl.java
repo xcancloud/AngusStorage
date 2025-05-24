@@ -237,22 +237,20 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
   }
 
   @Override
-  public void setSpaceObjectStats(List<Space> spaces) {
+  public void setSpaceStats(List<Space> spaces) {
     if (isNotEmpty(spaces)) {
       List<SpaceObject> spaceObjects = spaceObjectRepo.findAllBySpaceIdIn(
           spaces.stream().map(Space::getId).collect(Collectors.toSet()));
-      SpaceObjectCalculator.computeStats(spaceObjects);
       Map<Long, List<SpaceObject>> spaceObjectsMap = spaceObjects.stream()
           .collect(Collectors.groupingBy(SpaceObject::getSpaceId));
       for (Space space : spaces) {
         List<SpaceObject> objects = spaceObjectsMap.get(space.getId());
         if (isNotEmpty(objects)) {
-          space.setSize(objects.stream().filter(x -> x.getLevel() == 1)
+          space.setSize(objects.stream().filter(SpaceObject::isFile)
               .map(SpaceObject::getSize).reduce(0L, Long::sum));
           space.setSubDirectoryNum(
-              objects.stream().filter(x -> x.getLevel() == 1 && x.isDirectory()).toList().size());
-          space.setSubFileNum(
-              objects.stream().filter(x -> x.getLevel() == 1 && x.isFile()).toList().size());
+              objects.stream().filter(SpaceObject::isDirectory).toList().size());
+          space.setSubFileNum(objects.stream().filter(SpaceObject::isFile).toList().size());
         }
       }
     }

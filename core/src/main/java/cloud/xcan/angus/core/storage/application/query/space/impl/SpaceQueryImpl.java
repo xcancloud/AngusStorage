@@ -300,7 +300,7 @@ public class SpaceQueryImpl implements SpaceQuery {
 
   @Override
   public void setObjectStats(List<Space> spaces) {
-    spaceObjectQuery.setSpaceObjectStats(spaces);
+    spaceObjectQuery.setSpaceStats(spaces);
   }
 
   private void countSpace(StorageResourcesCount result, Set<SearchCriteria> allFilters) {
