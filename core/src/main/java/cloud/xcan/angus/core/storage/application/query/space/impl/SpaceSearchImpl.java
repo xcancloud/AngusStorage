@@ -4,7 +4,6 @@ import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.findFirstValueAnd
 import static cloud.xcan.angus.core.storage.application.query.space.impl.SpaceQueryImpl.assembleFilterParam;
 
 import cloud.xcan.angus.api.manager.UserManager;
-import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.ProtocolAssert;
@@ -13,8 +12,9 @@ import cloud.xcan.angus.core.storage.application.query.space.SpaceSearch;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfigRepo;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.SpaceSearchRepo;
-import java.util.Set;
+import cloud.xcan.angus.remote.search.SearchCriteria;
 import jakarta.annotation.Resource;
+import java.util.Set;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -31,6 +31,9 @@ public class SpaceSearchImpl implements SpaceSearch {
   private SpaceAuthQuery spaceAuthQuery;
 
   @Resource
+  private SpaceQueryImpl spaceQuery;
+
+  @Resource
   private UserManager userManager;
 
   @Override
@@ -44,7 +47,9 @@ public class SpaceSearchImpl implements SpaceSearch {
 
         assembleFilterParam(criteria, spaceAuthQuery, userManager, bucketBizConfigRepo, appCode);
 
-        return scenarioSearchRepo.find(criteria, pageable, Space.class, null);
+        Page<Space> page = scenarioSearchRepo.find(criteria, pageable, Space.class, null);
+        spaceQuery.setObjectStats(page.getContent());
+        return page;
       }
     }.execute();
   }

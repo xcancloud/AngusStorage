@@ -77,7 +77,7 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
 
       @Override
       protected SpaceObject process() {
-        setObjectSummary(List.of(objectDb));
+        setObjectStatsAndSummary(List.of(objectDb));
         objectDb.setSummary(toSpaceObjectSummary(objectDb));
         if (objectDb.isFile()) {
           associateFile(objectDb);
@@ -152,7 +152,7 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
       protected Page<SpaceObject> process() {
         Page<SpaceObject> page = spaceObjectListRepo.find(spec.getCriteria(),
             pageable, SpaceObject.class, null);
-        setObjectSummary(page.getContent());
+        setObjectStatsAndSummary(page.getContent());
         return page;
       }
     }.execute();
@@ -265,13 +265,13 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
         SpaceObject object = objects.get(0);
         if (object.isDirectory()) {
           List<SpaceObject> allObjects = new ArrayList<>(objects);
-          List<SpaceObject> dirSubObjectsDb = spaceObjectRepo.findByParentLikeId(
+          List<SpaceObject> dirSubObjects = spaceObjectRepo.findByParentLikeId(
               object.getId().toString());
-          if (isNotEmpty(dirSubObjectsDb)) {
-            allObjects.addAll(dirSubObjectsDb);
+          if (isNotEmpty(dirSubObjects)) {
+            allObjects.addAll(dirSubObjects);
           }
           SpaceObjectCalculator.computeStats(allObjects);
-        } /*else {
+        }/*else {
           // isFile -> None calculate count
         }*/
       } else {
@@ -283,7 +283,7 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
   }
 
   @Override
-  public void setObjectSummary(List<SpaceObject> objects) {
+  public void setObjectStatsAndSummary(List<SpaceObject> objects) {
     if (isNotEmpty(objects)) {
       setObjectStats(objects);
       for (SpaceObject object : objects) {

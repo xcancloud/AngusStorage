@@ -49,7 +49,7 @@ public class SpaceObjectSearchImpl implements SpaceObjectSearch {
       protected Page<SpaceObject> process() {
         Page<SpaceObject> page = spaceObjectSearchRepo
             .find(criteria, pageable, SpaceObject.class, null);
-        spaceObjectQuery.setObjectSummary(page.getContent());
+        spaceObjectQuery.setObjectStatsAndSummary(page.getContent());
         return page;
       }
     }.execute();

@@ -36,7 +36,7 @@ public interface SpaceObjectQuery {
 
   void associateFile(SpaceObject objectDb);
 
-  void setObjectSummary(List<SpaceObject> objects);
+  void setObjectStatsAndSummary(List<SpaceObject> objects);
 
   void setSpaceObjectStats(List<Space> spaces);
 

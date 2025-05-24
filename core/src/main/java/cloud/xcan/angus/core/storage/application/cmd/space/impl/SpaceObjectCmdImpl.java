@@ -56,12 +56,13 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
   @Override
   public IdKey<Long, Object> directoryAdd(SpaceObject directory) {
     return new BizTemplate<IdKey<Long, Object>>() {
+      Space spaceDb;
       SpaceObject parentDirectoryDb;
 
       @Override
       protected void checkParams() {
         // Check the space existed
-        spaceQuery.check(directory.getSpaceId());
+        spaceDb = spaceQuery.checkAndFind(directory.getSpaceId());
         // Check the write object permission
         spaceAuthQuery.checkObjectWriteAuth(getUserId(), directory.getSpaceId());
         // Check and find parent
@@ -86,6 +87,7 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
             ? (isNotEmpty(parentDirectoryDb.getParentLikeId())
             ? parentDirectoryDb.getParentLikeId() + "-" + parentDirectoryDb.getId()
             : String.valueOf(parentDirectoryDb.getId())) : "");
+        directory.setProjectId(spaceDb.getProjectId());
         return insert(directory);
       }
     }.execute();

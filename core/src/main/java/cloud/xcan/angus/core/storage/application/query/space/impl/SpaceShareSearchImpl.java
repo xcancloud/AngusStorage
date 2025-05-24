@@ -113,7 +113,7 @@ public class SpaceShareSearchImpl implements SpaceShareSearch {
 
         Page<SpaceObject> page = spaceObjectSearchRepo
             .find(criteria, pageable, SpaceObject.class, null);
-        spaceObjectQuery.setObjectSummary(page.getContent());
+        spaceObjectQuery.setObjectStatsAndSummary(page.getContent());
         return page;
       }
     }.execute();

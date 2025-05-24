@@ -20,6 +20,7 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.commonlink.setting.quota.QuotaResource;
+import cloud.xcan.angus.api.commonlink.setting.tenant.quota.SettingTenantQuota;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCount;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
 import cloud.xcan.angus.api.enums.AuthObjectType;
@@ -46,6 +47,7 @@ import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.remote.search.SearchCriteria;
+import cloud.xcan.angus.spec.experimental.Assert;
 import cloud.xcan.angus.spec.principal.PrincipalContext;
 import cloud.xcan.angus.spec.unit.DataSize;
 import jakarta.annotation.Resource;
@@ -110,9 +112,17 @@ public class SpaceQueryImpl implements SpaceQuery {
 
       @Override
       protected Space process() {
-        long tenantQuotaSize = 0;  // TODO 获取租户配额
+
         spaceDb.setStoreType(objectProperties.getStoreType());
+
+        setObjectStats(List.of(spaceDb));
+
+        SettingTenantQuota tenantQuota = settingTenantQuotaManager.findTenantQuota(
+            getOptTenantId(), QuotaResource.FileStore);
+        Assert.assertNotNull(tenantQuota, "Tenant quota setting not found");
+        long tenantQuotaSize = tenantQuota.getQuota();
         spaceDb.setSummary(toSpaceSummary(spaceDb, tenantQuotaSize));
+
         spaceDb.setConfig(bucketBizConfigQuery.findByBizKey(spaceDb.getBizKey()));
         return spaceDb;
       }
@@ -128,7 +138,9 @@ public class SpaceQueryImpl implements SpaceQuery {
         assertNotNull(appCode, "appCode is required");
         assembleFilterParam(spec.getCriteria(), spaceAuthQuery, userManager,
             bucketBizConfigRepo, appCode);
-        return spaceListRepo.find(spec.getCriteria(), pageable, Space.class, null);
+        Page<Space> page = spaceListRepo.find(spec.getCriteria(), pageable, Space.class, null);
+        setObjectStats(page.getContent());
+        return page;
       }
     }.execute();
   }
@@ -289,7 +301,6 @@ public class SpaceQueryImpl implements SpaceQuery {
   public void setObjectStats(List<Space> spaces) {
     spaceObjectQuery.setSpaceObjectStats(spaces);
   }
-
 
   private void countSpace(StorageResourcesCount result, Set<SearchCriteria> allFilters) {
     result.setAllSpaces(spaceRepo.countAllByFilters(allFilters));
