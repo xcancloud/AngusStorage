@@ -239,20 +239,21 @@ public class SpaceQueryImpl implements SpaceQuery {
   public void checkTenantSizeQuota(Space space) {
     // Check the tenant quota
     if (space.hasQuotaLimit()) {
-      long tenantSize = spaceObjectRepo.sumSizeByTenantId(getOptTenantId());
-      settingTenantQuotaManager.checkTenantQuota(QuotaResource.FileStore, null,
-          space.getSize() + tenantSize);
+      Long tenantSize = spaceObjectRepo.sumSizeByTenantId(getOptTenantId());
+      if (nonNull(tenantSize)) {
+        settingTenantQuotaManager.checkTenantQuota(QuotaResource.FileStore, null, tenantSize);
+      }
     }
   }
 
   @Override
   public void checkSpaceSizeQuota(Space space) {
-    // Check the space quota
     if (space.hasQuotaLimit()) {
-      long spaceSize = spaceObjectRepo.sumSizeBySpaceId(space.getId());
-      if (spaceSize >= DataSize.parse(space.getQuotaSize()).toBytes()) {
+      DataSize spaceQuota = DataSize.parse(space.getQuotaSize());
+      Long spaceSize = spaceObjectRepo.sumSizeBySpaceId(space.getId());
+      if (nonNull(spaceSize) && spaceSize >= spaceQuota.toBytes()) {
         throw QuotaException.of(SPACE_SIZE_OVER_LIMIT_CODE, SPACE_SIZE_OVER_LIMIT_T,
-            new Object[]{DataSize.ofBytes(space.getSize()).toHumanString()});
+            new Object[]{spaceQuota.toHumanString()});
       }
     }
   }

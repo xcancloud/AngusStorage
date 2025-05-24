@@ -22,10 +22,10 @@ public interface SpaceObjectRepo extends BaseRepository<SpaceObject, Long>,
       String name, Long id);
 
   @Query(value = "SELECT SUM(size) FROM object_space_object WHERE tenant_id = ?1 AND type = 'FILE'", nativeQuery = true)
-  long sumSizeByTenantId(Long optTenantId);
+  Long sumSizeByTenantId(Long optTenantId);
 
   @Query(value = "SELECT SUM(size) FROM object_space_object WHERE space_id = ?1 AND type = 'FILE'", nativeQuery = true)
-  long sumSizeBySpaceId(Long spaceId);
+  Long sumSizeBySpaceId(Long spaceId);
 
   List<SpaceObject> findByIdInAndType(Set<Long> ids, FileType type);
 
