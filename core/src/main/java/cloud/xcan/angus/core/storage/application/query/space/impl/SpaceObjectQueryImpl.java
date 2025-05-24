@@ -263,8 +263,9 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
       if (objects.size() == 1) {
         SpaceObject object = objects.get(0);
         if (object.isDirectory()) {
-          List<SpaceObject> dirSubObjects = spaceObjectRepo.findByParentLikeId(
-              object.getId().toString());
+          String subParentLikeId = object.hasParent() ?
+              object.getParentLikeId() + "-" + object.getId() : String.valueOf(object.getId());
+          List<SpaceObject> dirSubObjects = spaceObjectRepo.findByParentLikeId(subParentLikeId);
           if (isNotEmpty(dirSubObjects)) {
             allObjects.addAll(dirSubObjects);
           }
