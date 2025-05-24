@@ -31,6 +31,8 @@ public interface SpaceObjectRepo extends BaseRepository<SpaceObject, Long>,
 
   List<SpaceObject> findAllBySpaceIdAndIdIn(Long spaceId, Set<Long> objectIds);
 
+  List<SpaceObject> findAllBySpaceIdInAndIdNotIn(Set<Long> spaceIds, Set<Long> objectIds);
+
   List<SpaceObject> findAllBySpaceIdIn(Set<Long> spaceIds);
 
   @Query(value = "SELECT distinct space_id FROM object_space_object WHERE id in ?1", nativeQuery = true)

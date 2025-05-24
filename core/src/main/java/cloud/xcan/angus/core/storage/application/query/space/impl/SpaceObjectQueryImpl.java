@@ -259,10 +259,10 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
   @Override
   public void setObjectStats(List<SpaceObject> objects) {
     if (isNotEmpty(objects)) {
+      List<SpaceObject> allObjects = new ArrayList<>(objects);
       if (objects.size() == 1) {
         SpaceObject object = objects.get(0);
         if (object.isDirectory()) {
-          List<SpaceObject> allObjects = new ArrayList<>(objects);
           List<SpaceObject> dirSubObjects = spaceObjectRepo.findByParentLikeId(
               object.getId().toString());
           if (isNotEmpty(dirSubObjects)) {
@@ -273,8 +273,10 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
           // isFile -> None calculate count
         }*/
       } else {
-        List<SpaceObject> allObjects = spaceObjectRepo.findAllBySpaceIdIn(
-            objects.stream().map(SpaceObject::getSpaceId).collect(Collectors.toSet()));
+        List<SpaceObject> otherObjects = spaceObjectRepo.findAllBySpaceIdInAndIdNotIn(
+            objects.stream().map(SpaceObject::getSpaceId).collect(Collectors.toSet()),
+            objects.stream().map(SpaceObject::getId).collect(Collectors.toSet()));
+        allObjects.addAll(otherObjects);
         SpaceObjectCalculator.computeStats(allObjects);
       }
     }

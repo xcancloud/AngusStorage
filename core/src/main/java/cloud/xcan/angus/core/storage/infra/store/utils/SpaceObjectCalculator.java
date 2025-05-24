@@ -20,7 +20,7 @@ public class SpaceObjectCalculator {
     for (SpaceObject dir : allDir) {
       dirAllSubs.put(dir.getId(), objects.stream()
           .filter(x -> nonNull(x.getParentLikeId()) && x.getParentLikeId()
-              .contains(x.getId().toString()))
+              .contains(dir.getId().toString()))
           .toList());
     }
 
