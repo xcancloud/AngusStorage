@@ -40,7 +40,7 @@ public class BucketRest {
   @Resource
   private BucketFacade bucketFacade;
 
-  @Operation(description = "Add bucket.", operationId = "bucket:add")
+  @Operation(summary = "Add bucket.", operationId = "bucket:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -49,7 +49,7 @@ public class BucketRest {
     return ApiLocaleResult.success(bucketFacade.add(dto));
   }
 
-  @Operation(description = "Delete bucket.", operationId = "bucket:delete")
+  @Operation(summary = "Delete bucket.", operationId = "bucket:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Deleted successfully")})
   @DeleteMapping(value = "/{name}")
@@ -58,7 +58,7 @@ public class BucketRest {
     bucketFacade.delete(name);
   }
 
-  @Operation(description = "Query the detail of bucket.", operationId = "bucket:detail")
+  @Operation(summary = "Query the detail of bucket.", operationId = "bucket:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Bucket does not exist")})
@@ -68,7 +68,7 @@ public class BucketRest {
     return ApiLocaleResult.success(bucketFacade.detail(name));
   }
 
-  @Operation(description = "Query the list of bucket.", operationId = "bucket:list")
+  @Operation(summary = "Query the list of bucket.", operationId = "bucket:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Query successfully")})
   @GetMapping

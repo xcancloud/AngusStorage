@@ -46,7 +46,7 @@ public class SpaceAuthRest {
   @Resource
   private SpaceAuthFacade spaceAuthFacade;
 
-   @Operation(description = "Add the authorization of space.", operationId = "space:auth:add")
+   @Operation(summary = "Add the authorization of space.", operationId = "space:auth:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -57,7 +57,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.add(spaceId, dto));
   }
 
-   @Operation(description = "Replace the authorization of space.", operationId = "space:auth:replace")
+   @Operation(summary = "Replace the authorization of space.", operationId = "space:auth:replace")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Replaced successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")
@@ -70,7 +70,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(description = "Enabled or disabled the authorization of space.", operationId = "space:auth:enabled")
+   @Operation(summary = "Enabled or disabled the authorization of space.", operationId = "space:auth:enabled")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Enabled successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")})
@@ -83,7 +83,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(description = "Query authorization status of space.", operationId = "space:auth:status")
+   @Operation(summary = "Query authorization status of space.", operationId = "space:auth:status")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")})
@@ -94,7 +94,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.status(spaceId));
   }
 
-   @Operation(description = "Delete the authorization of space", operationId = "space:auth:delete")
+   @Operation(summary = "Delete the authorization of space", operationId = "space:auth:delete")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "Deleted successfully")})
   @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -104,7 +104,7 @@ public class SpaceAuthRest {
     spaceAuthFacade.delete(id);
   }
 
-   @Operation(description = "Query the user authorization permission of space.", operationId = "space:user:auth:detail")
+   @Operation(summary = "Query the user authorization permission of space.", operationId = "space:user:auth:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")})
@@ -117,7 +117,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.userAuth(spaceId, userId, admin));
   }
 
-   @Operation(description = "Query the current user authorization permission", operationId = "space:user:auth:current")
+   @Operation(summary = "Query the current user authorization permission", operationId = "space:user:auth:current")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")})
@@ -129,7 +129,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.currentUserAuth(spaceId, admin));
   }
 
-   @Operation(description = "Query the current user authorization permission", operationId = "space:user:auth:current:batch")
+   @Operation(summary = "Query the current user authorization permission", operationId = "space:user:auth:current:batch")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")})
@@ -141,7 +141,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.currentUserAuths(ids, admin));
   }
 
-   @Operation(description = "Check the user authorization permission of space, the administrator permission is included.", operationId = "space:auth:check")
+   @Operation(summary = "Check the user authorization permission of space, the administrator permission is included.", operationId = "space:auth:check")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Resource existed")})
   @ResponseStatus(HttpStatus.OK)
@@ -154,7 +154,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(description = "Query the list of space authorization.", operationId = "space:auth:list")
+   @Operation(summary = "Query the list of space authorization.", operationId = "space:auth:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/auth")

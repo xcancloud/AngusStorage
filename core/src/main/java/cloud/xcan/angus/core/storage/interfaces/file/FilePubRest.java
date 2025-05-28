@@ -27,7 +27,7 @@ public class FilePubRest {
   @Resource
   private FileFacade fileFacade;
 
-  @Operation(description = "Download file.", operationId = "file:download:pub")
+  @Operation(summary = "Download file.", operationId = "file:download:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Download successfully"),
       @ApiResponse(responseCode = "404", description = "Object does not exist")})

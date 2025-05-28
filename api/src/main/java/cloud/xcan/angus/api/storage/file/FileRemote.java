@@ -19,14 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 @FeignClient(name = "${xcan.service.storage:XCAN-ANGUSSTORAGE.BOOT}")
 public interface FileRemote {
 
-  @Operation(description = "Upload file by multipart/form-data", operationId = "file:upload")
+  @Operation(summary = "Upload file by multipart/form-data", operationId = "file:upload")
   @PostMapping("/api/v1/file/upload")
   @Headers("Content-Type: multipart/form-data")
   ApiLocaleResult<List<FileUploadVo>> upload(
       @RequestPart("files") MultipartFile[] files, @RequestPart("spaceId") String spaceId,
       @RequestPart("bizKey") String bizKey, @RequestPart("parentDirectoryId") Long parentDirId);
 
-  @Operation(description = "Download file", operationId = "file:download")
+  @Operation(summary = "Download file", operationId = "file:download")
   @GetMapping(value = "/api/v1/file/{filename:.+}")
   ResponseEntity<org.springframework.core.io.Resource> download(
       @Parameter(name = "filename", description = "File name", required = true)

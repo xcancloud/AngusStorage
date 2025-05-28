@@ -47,7 +47,7 @@ public class SpaceObjectRest {
   @Resource
   private SpaceObjectFacade spaceObjectFacade;
 
-  @Operation(description = "Add directory.", operationId = "space:object:add")
+  @Operation(summary = "Add directory.", operationId = "space:object:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -57,7 +57,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.directoryAdd(dto));
   }
 
-  @Operation(description = "Update directory or file name.", operationId = "space:object:name:update")
+  @Operation(summary = "Update directory or file name.", operationId = "space:object:name:update")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Updated successfully"),
       @ApiResponse(responseCode = "404", description = "Directory not found")})
@@ -69,7 +69,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(description = "Move directories or files.", operationId = "space:object:move")
+  @Operation(summary = "Move directories or files.", operationId = "space:object:move")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Moved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")
@@ -80,7 +80,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(description = "Delete directories or files.", operationId = "space:object:delete")
+  @Operation(summary = "Delete directories or files.", operationId = "space:object:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Deleted successfully")})
   @DeleteMapping
@@ -91,7 +91,7 @@ public class SpaceObjectRest {
     spaceObjectFacade.delete(ids);
   }
 
-  @Operation(description = "Query the navigation position of directory or file.", operationId = "space:object:navigation:detail")
+  @Operation(summary = "Query the navigation position of directory or file.", operationId = "space:object:navigation:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Directory does not exist")})
@@ -101,7 +101,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.navigation(id));
   }
 
-  @Operation(description = "Query the download address of file object.", operationId = "space:object:address:detail")
+  @Operation(summary = "Query the download address of file object.", operationId = "space:object:address:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Directory does not exist")})
@@ -111,7 +111,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.address(id));
   }
 
-  @Operation(description = "Query the detail of directory or file", operationId = "space:object:detail")
+  @Operation(summary = "Query the detail of directory or file", operationId = "space:object:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Directory does not exist")})
@@ -121,7 +121,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.detail(id));
   }
 
-  @Operation(description = "Query the list of directory and file.", operationId = "space:object:list")
+  @Operation(summary = "Query the list of directory and file.", operationId = "space:object:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Space does not exist")})
@@ -130,7 +130,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.list(dto));
   }
 
-  @Operation(description = "Fulltext search the list of directory and file.", operationId = "space:object:search")
+  @Operation(summary = "Fulltext search the list of directory and file.", operationId = "space:object:search")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Space does not exist")})

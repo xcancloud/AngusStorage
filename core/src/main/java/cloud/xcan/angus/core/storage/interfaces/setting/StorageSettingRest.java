@@ -27,7 +27,7 @@ public class StorageSettingRest {
   @Resource
   private StorageSettingFacade storageSettingFacade;
 
-  @Operation(description = "Update storage setting.", operationId = "storage:setting:replace")
+  @Operation(summary = "Update storage setting.", operationId = "storage:setting:replace")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Update successfully")})
   @PutMapping
@@ -36,7 +36,7 @@ public class StorageSettingRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(description = "Find the storage setting detail.", operationId = "storage:setting:detail")
+  @Operation(summary = "Find the storage setting detail.", operationId = "storage:setting:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping

@@ -44,7 +44,7 @@ public class SpaceShareRest {
   @Resource
   private SpaceShareFacade spaceShareFacade;
 
-   @Operation(description = "Add the sharing of space.", operationId = "space:share:add")
+   @Operation(summary = "Add the sharing of space.", operationId = "space:share:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully sharing")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -53,7 +53,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success(spaceShareFacade.add(dto));
   }
 
-   @Operation(description = "Add the sharing of space.", operationId = "space:share:quick:add")
+   @Operation(summary = "Add the sharing of space.", operationId = "space:share:quick:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully sharing")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -62,7 +62,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.successData(spaceShareFacade.quickAdd(dto));
   }
 
-   @Operation(description = "Update the sharing of space.", operationId = "space:share:update")
+   @Operation(summary = "Update the sharing of space.", operationId = "space:share:update")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Updated successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
@@ -72,7 +72,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(description = "Delete the sharing of space.", operationId = "space:share:delete")
+   @Operation(summary = "Delete the sharing of space.", operationId = "space:share:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "Deleted successfully"),
@@ -84,7 +84,7 @@ public class SpaceShareRest {
     spaceShareFacade.delete(ids);
   }
 
-   @Operation(description = "Query the detail of space sharing.", operationId = "space:share:detail")
+   @Operation(summary = "Query the detail of space sharing.", operationId = "space:share:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
@@ -94,7 +94,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success(spaceShareFacade.detail(id));
   }
 
-   @Operation(description = "Query the sharing list of space.", operationId = "space:share:list")
+   @Operation(summary = "Query the sharing list of space.", operationId = "space:share:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping
@@ -102,7 +102,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success(spaceShareFacade.list(dto));
   }
 
-   @Operation(description = "Fulltext search the space sharing.", operationId = "space:share:search")
+   @Operation(summary = "Fulltext search the space sharing.", operationId = "space:share:search")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/search")

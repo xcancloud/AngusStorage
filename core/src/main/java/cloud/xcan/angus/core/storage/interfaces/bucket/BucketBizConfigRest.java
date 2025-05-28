@@ -35,7 +35,7 @@ public class BucketBizConfigRest {
   @Resource
   private BucketBizConfigFacade bucketBizConfigFacade;
 
-  @Operation(description = "Configure business and bucket, no modification allowed after config.", operationId = "bucket:biz:config")
+  @Operation(summary = "Configure business and bucket, no modification allowed after config.", operationId = "bucket:biz:config")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Assign succeeded")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -45,7 +45,7 @@ public class BucketBizConfigRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(description = "Delete business and bucket configuration.", operationId = "bucket:biz:config:delete")
+  @Operation(summary = "Delete business and bucket configuration.", operationId = "bucket:biz:config:delete")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Configuration succeeded")})
   @ResponseStatus(HttpStatus.CREATED)

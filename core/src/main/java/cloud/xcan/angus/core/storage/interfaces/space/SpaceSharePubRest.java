@@ -31,7 +31,7 @@ public class SpaceSharePubRest {
   @Resource
   private SpaceShareFacade spaceShareFacade;
 
-   @Operation(description = "Query the sharing detail of the space.", operationId = "space:share:detail:pub")
+   @Operation(summary = "Query the sharing detail of the space.", operationId = "space:share:detail:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
@@ -40,7 +40,7 @@ public class SpaceSharePubRest {
     return ApiLocaleResult.success(spaceShareFacade.detailPub(dto));
   }
 
-   @Operation(description = "Query the object detail of the sharing.", operationId = "space:share:object:detail:pub")
+   @Operation(summary = "Query the object detail of the sharing.", operationId = "space:share:object:detail:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/object/{oid}")
@@ -50,7 +50,7 @@ public class SpaceSharePubRest {
     return ApiLocaleResult.success(spaceShareFacade.objectDetailPub(oid, dto));
   }
 
-   @Operation(description = "Fulltext search the object list of sharing.", operationId = "space:share:object:search:pub")
+   @Operation(summary = "Fulltext search the object list of sharing.", operationId = "space:share:object:search:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/object/search")

@@ -29,7 +29,7 @@ public class FileDoorRest {
   @Resource
   private FileFacade fileFacade;
 
-  @Operation(description = "Upload file by multipart/form-data.", operationId = "file:upload:inner")
+  @Operation(summary = "Upload file by multipart/form-data.", operationId = "file:upload:inner")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Upload successfully ")})
   @ResponseStatus(HttpStatus.CREATED)
