@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.file.facade.vo;
 
-import cloud.xcan.angus.remote.NameJoinField;
 import cloud.xcan.angus.api.enums.FileType;
+import cloud.xcan.angus.remote.NameJoinField;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

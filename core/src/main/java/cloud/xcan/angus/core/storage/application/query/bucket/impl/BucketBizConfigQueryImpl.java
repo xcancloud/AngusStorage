@@ -1,12 +1,12 @@
 package cloud.xcan.angus.core.storage.application.query.bucket.impl;
 
-import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketBizConfigQuery;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfigRepo;
-import java.util.Objects;
+import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import jakarta.annotation.Resource;
+import java.util.Objects;
 
 @Biz
 public class BucketBizConfigQueryImpl implements BucketBizConfigQuery {

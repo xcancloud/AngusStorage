@@ -7,6 +7,8 @@ import cloud.xcan.angus.core.storage.interfaces.file.facade.FileFacade;
 import cloud.xcan.angus.remote.ApiLocaleResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -38,8 +40,9 @@ public class FileRest {
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Upload successfully ")})
   @ResponseStatus(HttpStatus.CREATED)
-  @PostMapping(value = "/upload", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE})
-  public ApiLocaleResult<List<FileUploadVo>> upload(@Valid FileUploadDto dto) {
+  @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+  public ApiLocaleResult<List<FileUploadVo>> upload(
+      @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE), schema = @Schema(type = "object")) @Valid FileUploadDto dto) {
     return ApiLocaleResult.success(fileFacade.upload(dto));
   }
 

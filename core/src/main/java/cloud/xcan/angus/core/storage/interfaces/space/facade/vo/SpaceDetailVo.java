@@ -1,8 +1,8 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.vo;
 
-import cloud.xcan.angus.remote.NameJoinField;
 import cloud.xcan.angus.api.enums.PlatformStoreType;
 import cloud.xcan.angus.core.storage.interfaces.bucket.facade.vo.BucketBizConfigVo;
+import cloud.xcan.angus.remote.NameJoinField;
 import cloud.xcan.angus.spec.unit.DataSize;
 import java.io.Serializable;
 import java.time.LocalDateTime;

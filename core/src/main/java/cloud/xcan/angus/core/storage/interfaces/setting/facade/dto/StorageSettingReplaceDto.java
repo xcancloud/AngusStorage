@@ -1,7 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.setting.facade.dto;
 
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_CODE_LENGTH_X2;
-import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_DOMAIN_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_FILE_PATH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_HOST_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_PARAM_VALUE_LENGTH;
@@ -10,16 +9,14 @@ import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_URL_LENGTH_X2;
 import cloud.xcan.angus.api.enums.PlatformStoreType;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.io.Serializable;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

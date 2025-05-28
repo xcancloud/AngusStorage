@@ -3,15 +3,14 @@ package cloud.xcan.angus.core.storage.interfaces.file.facade.internal;
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.formatShareDownloadUrl;
 import static cloud.xcan.angus.core.storage.interfaces.file.facade.internal.assembler.FileAssembler.toUploadVo;
 import static cloud.xcan.angus.core.utils.CoreUtils.getUrlInputStream;
-import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isInnerApi;
 import static cloud.xcan.angus.core.utils.ServletUtils.buildSupportRangeDownload;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;
 
 import cloud.xcan.angus.api.storage.file.dto.FileCompressDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
-import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadDto;
+import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
 import cloud.xcan.angus.core.storage.application.cmd.file.ObjectFileCmd;
 import cloud.xcan.angus.core.storage.domain.file.ObjectFile;

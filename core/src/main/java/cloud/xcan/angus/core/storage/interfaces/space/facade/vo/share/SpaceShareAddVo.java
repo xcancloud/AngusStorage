@@ -2,12 +2,10 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.io.Serializable;
-import jakarta.validation.Valid;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

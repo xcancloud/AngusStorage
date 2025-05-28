@@ -3,12 +3,12 @@ package cloud.xcan.angus.core.storage.domain.bucket.config;
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.spec.experimental.EntitySupport;
-import java.io.Serializable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

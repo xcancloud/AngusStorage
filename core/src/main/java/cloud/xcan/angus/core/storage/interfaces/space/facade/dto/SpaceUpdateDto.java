@@ -6,15 +6,13 @@ import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_REMARK_LENGTH;
 import cloud.xcan.angus.spec.unit.DataSize;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.io.Serializable;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
+import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

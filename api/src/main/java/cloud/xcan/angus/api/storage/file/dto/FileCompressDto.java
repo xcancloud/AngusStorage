@@ -1,20 +1,17 @@
 package cloud.xcan.angus.api.storage.file.dto;
 
 
-
 import static cloud.xcan.angus.api.commonlink.StorageConstant.MAX_COMPRESS_FILE_NUM;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_NAME_LENGTH_X2;
 
 import cloud.xcan.angus.api.commonlink.CompressFormat;
-
-
 import cloud.xcan.angus.validator.EnumPart;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import java.io.Serializable;
-import java.util.Set;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

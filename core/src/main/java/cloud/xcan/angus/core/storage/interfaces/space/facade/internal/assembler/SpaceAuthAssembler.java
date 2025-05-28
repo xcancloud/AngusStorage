@@ -2,7 +2,6 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler
 
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 
-import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuth;
@@ -16,6 +15,7 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthDe
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthGroupDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthUserDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthVo;
+import cloud.xcan.angus.remote.search.SearchCriteria;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;

@@ -1,23 +1,19 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object;
 
 import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT;
-import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_NAME_LENGTH_X4;
 
-import cloud.xcan.angus.remote.PageQuery;
 import cloud.xcan.angus.api.enums.FileType;
+import cloud.xcan.angus.remote.PageQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
+import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.format.annotation.DateTimeFormat;
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

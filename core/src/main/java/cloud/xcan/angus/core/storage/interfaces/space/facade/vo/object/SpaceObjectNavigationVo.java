@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object;
 
-import cloud.xcan.angus.remote.NameJoinField;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.to.SpaceObjectNavigationTo;
+import cloud.xcan.angus.remote.NameJoinField;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;

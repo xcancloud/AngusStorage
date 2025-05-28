@@ -4,7 +4,6 @@ import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_CODE_LENGTH;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_PUBLIC_TOKEN_LENGTH;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.Valid;
 import java.io.Serializable;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,7 +11,6 @@ import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

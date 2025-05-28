@@ -9,7 +9,6 @@ import static cloud.xcan.angus.spec.experimental.BizConstant.MIN_SHARE_PASSWORD_
 import cloud.xcan.angus.spec.unit.TimeValue;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -20,7 +19,6 @@ import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
 
-@Valid
 @Getter
 @Setter
 @Accessors(chain = true)

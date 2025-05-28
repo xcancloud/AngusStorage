@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.bucket.facade.vo;
 
-import cloud.xcan.angus.remote.NameJoinField;
 import cloud.xcan.angus.core.storage.infra.store.model.AccessControl;
+import cloud.xcan.angus.remote.NameJoinField;
 import java.io.Serializable;
 import java.util.List;
 import lombok.Getter;

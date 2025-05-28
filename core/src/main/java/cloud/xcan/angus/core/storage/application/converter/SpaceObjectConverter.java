@@ -13,9 +13,7 @@ import cloud.xcan.angus.core.storage.domain.space.SpaceSummary;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectSummary;
 import cloud.xcan.angus.spec.unit.DataSize;
-import cloud.xcan.angus.spec.utils.ObjectUtils;
 import java.time.LocalDateTime;
-import java.util.Objects;
 import org.springframework.web.multipart.MultipartFile;
 
 public class SpaceObjectConverter {

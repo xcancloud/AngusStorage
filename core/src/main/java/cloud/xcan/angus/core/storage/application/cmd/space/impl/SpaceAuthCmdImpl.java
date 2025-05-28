@@ -1,9 +1,9 @@
 package cloud.xcan.angus.core.storage.application.cmd.space.impl;
 
 
-import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_FORBID_AUTH_CREATOR;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_FORBID_AUTH_CREATOR_CODE;
+import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
 import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizAssert;
@@ -19,10 +19,10 @@ import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuth;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuthRepo;
 import cloud.xcan.angus.spec.experimental.IdKey;
+import jakarta.annotation.Resource;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
-import jakarta.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
 @Biz

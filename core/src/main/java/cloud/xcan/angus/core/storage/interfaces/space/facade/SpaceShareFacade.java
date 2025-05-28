@@ -1,6 +1,5 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade;
 
-import cloud.xcan.angus.remote.PageResult;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareDetailDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareFindDto;
@@ -13,6 +12,7 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShare
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareVo;
+import cloud.xcan.angus.remote.PageResult;
 import java.util.HashSet;
 
 public interface SpaceShareFacade {

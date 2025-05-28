@@ -1,12 +1,12 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade;
 
-import cloud.xcan.angus.remote.PageResult;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth.SpaceAuthAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth.SpaceAuthFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth.SpaceAuthReplaceDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthCurrentVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthVo;
+import cloud.xcan.angus.remote.PageResult;
 import cloud.xcan.angus.spec.experimental.IdKey;
 import java.util.HashSet;
 import java.util.List;

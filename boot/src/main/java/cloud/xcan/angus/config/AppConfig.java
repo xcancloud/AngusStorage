@@ -1,9 +1,7 @@
 package cloud.xcan.angus.config;
 
-import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.core.utils.SpringAppDirUtils;
 import feign.Logger;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

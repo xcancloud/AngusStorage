@@ -24,8 +24,6 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObje
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.unit.DataSize;
 import cloud.xcan.angus.spec.unit.DataUnit;
-import cloud.xcan.angus.spec.utils.ObjectUtils;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
