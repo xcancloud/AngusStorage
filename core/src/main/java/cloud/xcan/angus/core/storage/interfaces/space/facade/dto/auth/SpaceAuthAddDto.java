@@ -8,7 +8,6 @@ import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
 import cloud.xcan.angus.validator.CollectionValueNotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import java.io.Serializable;
@@ -17,9 +16,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
-@Valid
-@Setter
 @Getter
+@Setter
 @Accessors(chain = true)
 public class SpaceAuthAddDto implements Serializable {
 
