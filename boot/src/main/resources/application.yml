@@ -84,7 +84,7 @@ springdoc:
     tags-sorter: alpha
   open-api:
     info:
-      title: AngusStorage RESTFul OpenAPI Documentation
+      title: RESTFul API Documentation
       description: >
         AngusStorage OpenAPI Documentation is a comprehensive, standards-compliant technical reference 
         that provides detailed specifications for all API endpoints, including authentication methods, 
