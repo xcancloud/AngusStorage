@@ -35,7 +35,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "SpaceAuth", description = "Based on data level access control for users/groups/departments at space level.")
+@Tag(name = "SpaceAuthorization", description = "Based on data level access control for users/groups/departments at space level.")
 @Validated
 @RestController
 @RequestMapping("/api/v1/space")
@@ -76,7 +76,7 @@ public class SpaceAuthRest {
   @PatchMapping("/{id}/auth/enabled")
   public ApiLocaleResult<?> enabled(
       @Parameter(name = "id", description = "Space id", required = true) @PathVariable("id") Long spaceId,
-      @Parameter(name = "enabled", description = "Enabled(true) or Disabled(false)", required = true) @RequestParam(value = "enabled", required = true) Boolean enabled) {
+      @Parameter(name = "enabled", description = "Enabled or Disabled", required = true) @RequestParam(value = "enabled", required = true) Boolean enabled) {
     spaceAuthFacade.enabled(spaceId, enabled);
     return ApiLocaleResult.success();
   }
@@ -139,7 +139,7 @@ public class SpaceAuthRest {
     return ApiLocaleResult.success(spaceAuthFacade.currentUserAuths(ids, admin));
   }
 
-   @Operation(summary = "Check the user authorization permission of space, the administrator permission is included.", operationId = "space:auth:check")
+   @Operation(summary = "Check the user authorization or administrator permission of space", operationId = "space:auth:check")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Resource existed")})
   @ResponseStatus(HttpStatus.OK)
