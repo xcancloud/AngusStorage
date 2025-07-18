@@ -22,12 +22,6 @@ xcan:
       enabled: true
   redis:
     enabled: true
-  validator:
-    enabled: true
-    extraMessages:
-      - classpath:/i18n/messages-storage-api
-      - classpath:/i18n/messages-storage-core
-      - classpath:/i18n/messages-gm-api
 
 info:
   app:
@@ -50,8 +44,8 @@ spring:
     name: '@artifactId@'
   profiles:
     active: '@profile.active@'
-  jmx:
-    enabled: true
+  messages:
+    basename: i18n/messages-infra-spec,i18n/messages-infra-remote,i18n/messages-storage-api,i18n/messages-storage-core,i18n/messages-gm-api
   jackson:
     defaultPropertyInclusion: always
     dateFormat: ${JACKSON_DATE_FORMAT:yyyy-MM-dd HH:mm:ss}
