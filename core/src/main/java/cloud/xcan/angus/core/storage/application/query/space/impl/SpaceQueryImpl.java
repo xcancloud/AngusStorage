@@ -42,6 +42,7 @@ import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfigRepo;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.SpaceListRepo;
 import cloud.xcan.angus.core.storage.domain.space.SpaceRepo;
+import cloud.xcan.angus.core.storage.domain.space.SpaceSearchRepo;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
@@ -72,6 +73,9 @@ public class SpaceQueryImpl implements SpaceQuery {
 
   @Resource
   private SpaceListRepo spaceListRepo;
+
+  @Resource
+  private SpaceSearchRepo scenarioSearchRepo;
 
   @Resource
   private BucketBizConfigRepo bucketBizConfigRepo;
@@ -130,15 +134,25 @@ public class SpaceQueryImpl implements SpaceQuery {
   }
 
   @Override
-  public Page<Space> find(GenericSpecification<Space> spec, PageRequest pageable) {
+  public Page<Space> list(GenericSpecification<Space> spec, PageRequest pageable,
+      boolean fullTextSearch, String[] match) {
     return new BizTemplate<Page<Space>>() {
+      String appCode;
+
+      @Override
+      protected void checkParams() {
+        appCode = findFirstValueAndRemove(spec.getCriteria(), "appCode");
+        assertNotNull(appCode, "appCode is required");
+      }
+
       @Override
       protected Page<Space> process() {
-        String appCode = findFirstValueAndRemove(spec.getCriteria(), "appCode");
-        assertNotNull(appCode, "appCode is required");
         assembleFilterParam(spec.getCriteria(), spaceAuthQuery, userManager,
             bucketBizConfigRepo, appCode);
-        Page<Space> page = spaceListRepo.find(spec.getCriteria(), pageable, Space.class, null);
+
+        Page<Space> page = fullTextSearch
+            ? scenarioSearchRepo.find(spec.getCriteria(), pageable, Space.class, match)
+            : spaceListRepo.find(spec.getCriteria(), pageable, Space.class, null);
         setObjectStats(page.getContent());
         return page;
       }

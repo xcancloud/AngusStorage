@@ -73,7 +73,7 @@ public class BucketRest {
       @ApiResponse(responseCode = "200", description = "Query successfully")})
   @GetMapping
   public ApiLocaleResult<PageResult<BucketVo>> list(@Valid BucketFindDto dto) {
-    return ApiLocaleResult.success(bucketFacade.find(dto));
+    return ApiLocaleResult.success(bucketFacade.list(dto));
   }
 
 }

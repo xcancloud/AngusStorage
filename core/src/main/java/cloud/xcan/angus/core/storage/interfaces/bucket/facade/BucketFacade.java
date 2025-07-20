@@ -15,6 +15,6 @@ public interface BucketFacade {
 
   BucketVo detail(String id);
 
-  PageResult<BucketVo> find(BucketFindDto dto);
+  PageResult<BucketVo> list(BucketFindDto dto);
 
 }

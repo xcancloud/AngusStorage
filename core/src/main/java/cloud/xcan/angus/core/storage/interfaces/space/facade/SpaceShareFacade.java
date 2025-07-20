@@ -3,9 +3,8 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareDetailDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectSearchDto;
+import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareQuickAddDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareAddVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareDetailVo;
@@ -29,12 +28,10 @@ public interface SpaceShareFacade {
 
   PageResult<SpaceShareVo> list(SpaceShareFindDto dto);
 
-  PageResult<SpaceShareVo> search(SpaceShareSearchDto dto);
-
-  SpaceShareDetailVo detailPub(SpaceShareDetailDto dto);
+  SpaceShareDetailVo shareDetailPub(SpaceShareDetailDto dto);
 
   SpaceShareObjectDetailVo objectDetailPub(Long id, SpaceShareDetailDto dto);
 
-  PageResult<SpaceShareObjectVo> objectSearchPub(SpaceShareObjectSearchDto dto);
+  PageResult<SpaceShareObjectVo> objectListPub(SpaceShareObjectFindDto dto);
 
 }

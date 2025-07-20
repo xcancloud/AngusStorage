@@ -16,7 +16,7 @@ import lombok.experimental.Accessors;
 public class BucketUpdateDto implements Serializable {
 
   @NotNull
-  @Schema(description = "Bucket id.",requiredMode = RequiredMode.REQUIRED)
+  @Schema(description = "Bucket id.", requiredMode = RequiredMode.REQUIRED)
   private Long id;
 
   @Schema(description = "Bucket access control.")

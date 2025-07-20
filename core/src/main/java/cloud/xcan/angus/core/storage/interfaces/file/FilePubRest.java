@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "FilePub", description = "A publicly accessible interface for external users to download files "
-    + "via public APIs or web portals without authentication requirements.")
+@Tag(name = "FilePub", description =
+    "A publicly accessible interface for external users to download files "
+        + "via public APIs or web portals without authentication requirements.")
 @Validated
 @RestController
 @RequestMapping("/pubapi/v1/file")

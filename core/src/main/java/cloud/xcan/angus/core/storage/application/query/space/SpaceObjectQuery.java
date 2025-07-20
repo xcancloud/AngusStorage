@@ -16,7 +16,8 @@ public interface SpaceObjectQuery {
 
   SpaceObject address(Long id);
 
-  Page<SpaceObject> find(GenericSpecification<SpaceObject> spec, PageRequest pageable);
+  Page<SpaceObject> list(GenericSpecification<SpaceObject> spec, PageRequest pageable,
+      boolean fullTextSearch, String[] match);
 
   SpaceObject checkAndFind(Long id);
 
@@ -41,4 +42,5 @@ public interface SpaceObjectQuery {
   void setSpaceStats(List<Space> spaces);
 
   void setObjectStats(List<SpaceObject> objects);
+
 }

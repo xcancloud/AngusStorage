@@ -14,9 +14,8 @@ import cloud.xcan.angus.core.storage.domain.space.share.SpaceShare;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShareType;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectSearchDto;
+import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareQuickAddDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareAddVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareDetailVo;
@@ -178,16 +177,7 @@ public class SpaceShareAssembler {
     return new GenericSpecification<>(filters);
   }
 
-  public static Set<SearchCriteria> getSearchCriteria(SpaceShareSearchDto dto) {
-    // Build the final filters
-    return new SearchCriteriaBuilder<>(dto)
-        .rangeSearchFields("id", "createdDate")
-        .orderByFields("id", "createdBy", "createdDate")
-        .matchSearchFields("remark")
-        .build();
-  }
-
-  public static Set<SearchCriteria> getShareObjectSearchCriteria(SpaceShareObjectSearchDto dto) {
+  public static Set<SearchCriteria> getShareObjectSearchCriteria(SpaceShareObjectFindDto dto) {
     // Build the final filters
     return new SearchCriteriaBuilder<>(dto)
         .rangeSearchFields("id", "createdDate")

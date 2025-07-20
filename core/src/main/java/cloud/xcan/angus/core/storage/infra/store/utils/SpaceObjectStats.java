@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.infra.store.utils;
 
-public interface SpaceObjectStats <T extends SpaceObjectStats>{
+public interface SpaceObjectStats<T extends SpaceObjectStats> {
 
   long getSize();
 

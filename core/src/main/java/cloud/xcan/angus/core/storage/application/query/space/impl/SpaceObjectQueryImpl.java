@@ -28,6 +28,7 @@ import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectListRepo;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
+import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectSearchRepo;
 import cloud.xcan.angus.core.storage.infra.store.utils.SpaceObjectCalculator;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import jakarta.annotation.Resource;
@@ -49,6 +50,9 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
 
   @Resource
   private SpaceObjectListRepo spaceObjectListRepo;
+
+  @Resource
+  private SpaceObjectSearchRepo spaceObjectSearchRepo;
 
   @Resource
   private SpaceQuery spaceQuery;
@@ -138,7 +142,8 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
   }
 
   @Override
-  public Page<SpaceObject> find(GenericSpecification<SpaceObject> spec, PageRequest pageable) {
+  public Page<SpaceObject> list(GenericSpecification<SpaceObject> spec, PageRequest pageable,
+      boolean fullTextSearch, String[] match) {
     return new BizTemplate<Page<SpaceObject>>() {
       @Override
       protected void checkParams() {
@@ -150,8 +155,9 @@ public class SpaceObjectQueryImpl implements SpaceObjectQuery {
 
       @Override
       protected Page<SpaceObject> process() {
-        Page<SpaceObject> page = spaceObjectListRepo.find(spec.getCriteria(),
-            pageable, SpaceObject.class, null);
+        Page<SpaceObject> page = fullTextSearch
+            ? spaceObjectSearchRepo.find(spec.getCriteria(), pageable, SpaceObject.class, match)
+            : spaceObjectListRepo.find(spec.getCriteria(), pageable, SpaceObject.class, null);
         setObjectStatsAndSummary(page.getContent());
         return page;
       }

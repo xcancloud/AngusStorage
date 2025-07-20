@@ -35,7 +35,7 @@ public interface SpaceAuthQuery {
    * @param userId  grant user id
    * @param spaceId grant space id
    * @throws cloud.xcan.angus.core.biz.exception.BizException If not grant
-   *                                                        {@link SpacePermission#VIEW}
+   *                                                          {@link SpacePermission#VIEW}
    */
   void checkViewAuth(Long userId, Long spaceId);
 
@@ -45,7 +45,7 @@ public interface SpaceAuthQuery {
    * @param userId  grant user id
    * @param spaceId grant space id
    * @throws cloud.xcan.angus.core.biz.exception.BizException If not grant
-   *                                                        {@link SpacePermission#MODIFY}
+   *                                                          {@link SpacePermission#MODIFY}
    */
   void checkModifyAuth(Long userId, Long spaceId);
 
@@ -55,7 +55,7 @@ public interface SpaceAuthQuery {
    * @param userId  grant user id
    * @param spaceId grant space id
    * @throws cloud.xcan.angus.core.biz.exception.BizException If not grant
-   *                                                        {@link SpacePermission#DELETE}
+   *                                                          {@link SpacePermission#DELETE}
    */
   void checkDeleteAuth(Long userId, Long spaceId);
 
@@ -65,7 +65,7 @@ public interface SpaceAuthQuery {
    * @param userId  grant user id
    * @param spaceId grant space id
    * @throws cloud.xcan.angus.core.biz.exception.BizException If not grant
-   *                                                        {@link SpacePermission#GRANT}
+   *                                                          {@link SpacePermission#GRANT}
    */
   void checkGrantAuth(Long userId, Long spaceId);
 
@@ -75,7 +75,7 @@ public interface SpaceAuthQuery {
    * @param userId  grant user id
    * @param spaceId grant space id
    * @throws cloud.xcan.angus.core.biz.exception.BizException If not grant
-   *                                                        {@link SpacePermission#SHARE}
+   *                                                          {@link SpacePermission#SHARE}
    */
   void checkShareAuth(Long userId, Long spaceId);
 

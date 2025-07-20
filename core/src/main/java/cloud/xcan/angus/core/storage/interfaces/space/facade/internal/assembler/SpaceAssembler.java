@@ -14,7 +14,6 @@ import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.SpaceSummary;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceSummaryVo;
@@ -104,13 +103,5 @@ public class SpaceAssembler {
     return new GenericSpecification<>(filters);
   }
 
-  public static Set<SearchCriteria> getSearchCriteria(SpaceSearchDto dto) {
-    // Build the final filters
-    return new SearchCriteriaBuilder<>(dto)
-        .rangeSearchFields("id", "createdDate")
-        .orderByFields("id", "createdDate", "createdBy")
-        .matchSearchFields("name")
-        .build();
-  }
 }
 

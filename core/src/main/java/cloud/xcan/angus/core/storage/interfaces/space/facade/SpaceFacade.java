@@ -5,7 +5,6 @@ import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
 import cloud.xcan.angus.api.storage.space.dto.SpaceAssetsCountDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceVo;
@@ -24,8 +23,6 @@ public interface SpaceFacade {
   SpaceDetailVo detail(Long id);
 
   PageResult<SpaceVo> list(SpaceFindDto dto);
-
-  PageResult<SpaceVo> search(SpaceSearchDto dto);
 
   StorageResourcesCount resourcesStatistics(SpaceAssetsCountDto dto);
 

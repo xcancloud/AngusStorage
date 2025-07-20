@@ -24,7 +24,8 @@ import org.springframework.http.MediaType;
 @Entity
 @Setter
 @Getter
-@Accessors(chain = true)@Table(name = "object_file")
+@Accessors(chain = true)
+@Table(name = "object_file")
 @EntityListeners({AuditingEntityListener.class})
 public class ObjectFile extends TenantAuditingEntity<ObjectFile, Long> implements Serializable {
 

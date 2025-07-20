@@ -3,7 +3,6 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceDirectoryAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectMoveDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectAddressVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectNavigationVo;
@@ -29,7 +28,5 @@ public interface SpaceObjectFacade {
   SpaceObjectDetailVo detail(Long id);
 
   PageResult<SpaceObjectVo> list(SpaceObjectFindDto dto);
-
-  PageResult<SpaceObjectVo> search(SpaceObjectSearchDto dto);
 
 }

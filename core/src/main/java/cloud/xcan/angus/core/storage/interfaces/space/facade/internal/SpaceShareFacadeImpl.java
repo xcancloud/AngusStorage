@@ -1,7 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal;
 
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler.addDtoToDomain;
-import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler.getSearchCriteria;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler.getShareObjectSearchCriteria;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler.getSpecification;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler.toShareAddVo;
@@ -14,16 +13,14 @@ import static cloud.xcan.angus.core.utils.CoreUtils.buildVoPageResult;
 import cloud.xcan.angus.core.biz.NameJoin;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceShareCmd;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceShareQuery;
-import cloud.xcan.angus.core.storage.application.query.space.SpaceShareSearch;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShare;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceShareFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareDetailDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectSearchDto;
+import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareQuickAddDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceShareAssembler;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareAddVo;
@@ -42,9 +39,6 @@ public class SpaceShareFacadeImpl implements SpaceShareFacade {
 
   @Resource
   private SpaceShareQuery spaceShareQuery;
-
-  @Resource
-  private SpaceShareSearch spaceShareSearch;
 
   @Resource
   private SpaceShareCmd spaceShareCmd;
@@ -78,23 +72,15 @@ public class SpaceShareFacadeImpl implements SpaceShareFacade {
   @NameJoin
   @Override
   public PageResult<SpaceShareVo> list(SpaceShareFindDto dto) {
-    Page<SpaceShare> page = spaceShareQuery.find(getSpecification(dto), dto.tranPage());
+    Page<SpaceShare> page = spaceShareQuery.list(getSpecification(dto), dto.tranPage());
     return buildVoPageResult(page, SpaceShareAssembler::toVo);
   }
 
   @NameJoin
   @Override
-  public PageResult<SpaceShareVo> search(SpaceShareSearchDto dto) {
-    Page<SpaceShare> page = spaceShareSearch.search(getSearchCriteria(dto),
-        dto.tranPage(), SpaceShare.class);
-    return buildVoPageResult(page, SpaceShareAssembler::toVo);
-  }
-
-  @NameJoin
-  @Override
-  public SpaceShareDetailVo detailPub(SpaceShareDetailDto dto) {
-    return toShareDetailVo(spaceShareQuery.shareDetailPub(dto.getSid(), dto.getSpt(),
-        dto.getPassword()));
+  public SpaceShareDetailVo shareDetailPub(SpaceShareDetailDto dto) {
+    return toShareDetailVo(spaceShareQuery.shareDetailPub(
+        dto.getSid(), dto.getSpt(), dto.getPassword()));
   }
 
   @NameJoin
@@ -106,9 +92,9 @@ public class SpaceShareFacadeImpl implements SpaceShareFacade {
 
   @NameJoin
   @Override
-  public PageResult<SpaceShareObjectVo> objectSearchPub(SpaceShareObjectSearchDto dto) {
-    Page<SpaceObject> page = spaceShareSearch.objectSearchPub(getShareObjectSearchCriteria(dto),
-        dto.tranPage(), SpaceObject.class);
+  public PageResult<SpaceShareObjectVo> objectListPub(SpaceShareObjectFindDto dto) {
+    Page<SpaceObject> page = spaceShareQuery.objectListPub(
+        getShareObjectSearchCriteria(dto), dto.tranPage());
     return buildVoPageResult(page, SpaceShareAssembler::toShareObjectVo);
   }
 

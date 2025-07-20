@@ -2,7 +2,7 @@ package cloud.xcan.angus.core.storage.interfaces.space;
 
 import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceShareFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareDetailDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectSearchDto;
+import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectVo;
@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Tag(name = "SpaceSharePub", description = "The entrance of public access to spaces, folders and files.")
+@Tag(name = "SpaceSharePub", description = "The entrance of public access to spaces, folders and files")
 @Validated
 @RestController
 @RequestMapping("/pubapi/v1/space/share")
@@ -31,16 +31,16 @@ public class SpaceSharePubRest {
   @Resource
   private SpaceShareFacade spaceShareFacade;
 
-   @Operation(summary = "Query the sharing detail of the space.", operationId = "space:share:detail:pub")
+  @Operation(summary = "Query sharing detail of the space", operationId = "space:share:detail:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
   @GetMapping
   public ApiLocaleResult<SpaceShareDetailVo> detail(@Valid SpaceShareDetailDto dto) {
-    return ApiLocaleResult.success(spaceShareFacade.detailPub(dto));
+    return ApiLocaleResult.success(spaceShareFacade.shareDetailPub(dto));
   }
 
-   @Operation(summary = "Query the object detail of the sharing.", operationId = "space:share:object:detail:pub")
+  @Operation(summary = "Query object detail of the sharing", operationId = "space:share:object:detail:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/object/{oid}")
@@ -50,13 +50,13 @@ public class SpaceSharePubRest {
     return ApiLocaleResult.success(spaceShareFacade.objectDetailPub(oid, dto));
   }
 
-   @Operation(summary = "Fulltext search the object list of sharing.", operationId = "space:share:object:search:pub")
+  @Operation(summary = "Query object list of sharing", operationId = "space:share:object:list:pub")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
-  @GetMapping("/object/search")
-  public ApiLocaleResult<PageResult<SpaceShareObjectVo>> objectSearchPub(
-      @Valid SpaceShareObjectSearchDto dto) {
-    return ApiLocaleResult.success(spaceShareFacade.objectSearchPub(dto));
+  @GetMapping("/object")
+  public ApiLocaleResult<PageResult<SpaceShareObjectVo>> objectListPub(
+      @Valid SpaceShareObjectFindDto dto) {
+    return ApiLocaleResult.success(spaceShareFacade.objectListPub(dto));
   }
 
 }

@@ -16,7 +16,8 @@ public interface SpaceQuery {
 
   Space detail(Long id);
 
-  Page<Space> find(GenericSpecification<Space> spec, PageRequest pageable);
+  Page<Space> list(GenericSpecification<Space> spec, PageRequest pageable,
+      boolean fullTextSearch, String[] match);
 
   StorageResourcesCount countStatistics(Long projectId, AuthObjectType creatorObjectType,
       Long creatorObjectId, LocalDateTime createdDateStart, LocalDateTime createdDateEnd);
@@ -48,4 +49,5 @@ public interface SpaceQuery {
   void checkUpdateNameExists(Long spaceId, String name);
 
   void setObjectStats(List<Space> spaces);
+
 }

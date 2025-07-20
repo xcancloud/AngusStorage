@@ -7,6 +7,7 @@ import cloud.xcan.angus.core.storage.interfaces.setting.facade.dto.StorageSettin
 import cloud.xcan.angus.core.storage.interfaces.setting.facade.vo.StorageSettingDetailVo;
 
 public class StorageSettingAssembler {
+
   public static SettingData toSettingData(StorageSettingReplaceDto dto) {
     return new SettingData()
         .setStoreType(dto.getStoreType())

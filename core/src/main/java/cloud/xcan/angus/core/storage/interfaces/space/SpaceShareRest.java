@@ -6,7 +6,6 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceShareFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareQuickAddDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.share.SpaceShareUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareAddVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareVo;
@@ -35,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Tag(name = "SpaceShare", description = "Secure cross-tenant/cross-user file sharing with link expiration and password protection.")
+@Tag(name = "SpaceShare", description = "Secure cross-tenant/cross-user file sharing with link expiration and password protection")
 @Validated
 @RestController
 @RequestMapping("/api/v1/space/share")
@@ -44,7 +43,7 @@ public class SpaceShareRest {
   @Resource
   private SpaceShareFacade spaceShareFacade;
 
-   @Operation(summary = "Add the sharing of space.", operationId = "space:share:add")
+  @Operation(summary = "Add sharing of the space", operationId = "space:share:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully sharing")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -53,7 +52,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success(spaceShareFacade.add(dto));
   }
 
-   @Operation(summary = "Add the sharing of space.", operationId = "space:share:quick:add")
+  @Operation(summary = "Quick to add sharing of the space", operationId = "space:share:quick:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully sharing")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -62,7 +61,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.successData(spaceShareFacade.quickAdd(dto));
   }
 
-   @Operation(summary = "Update the sharing of space.", operationId = "space:share:update")
+  @Operation(summary = "Update sharing of the space", operationId = "space:share:update")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Updated successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
@@ -72,7 +71,7 @@ public class SpaceShareRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(summary = "Delete the sharing of space.", operationId = "space:share:delete")
+  @Operation(summary = "Delete sharing of the space", operationId = "space:share:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {
       @ApiResponse(responseCode = "204", description = "Deleted successfully"),
@@ -84,7 +83,7 @@ public class SpaceShareRest {
     spaceShareFacade.delete(ids);
   }
 
-   @Operation(summary = "Query the detail of space sharing.", operationId = "space:share:detail")
+  @Operation(summary = "Query sharing detail of the space", operationId = "space:share:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Sharing does not exist")})
@@ -94,20 +93,12 @@ public class SpaceShareRest {
     return ApiLocaleResult.success(spaceShareFacade.detail(id));
   }
 
-   @Operation(summary = "Query the sharing list of space.", operationId = "space:share:list")
+  @Operation(summary = "Query sharing list of the space", operationId = "space:share:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping
   public ApiLocaleResult<PageResult<SpaceShareVo>> list(@Valid SpaceShareFindDto dto) {
     return ApiLocaleResult.success(spaceShareFacade.list(dto));
-  }
-
-   @Operation(summary = "Fulltext search the space sharing.", operationId = "space:share:search")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
-  @GetMapping("/search")
-  public ApiLocaleResult<PageResult<SpaceShareVo>> search(@Valid SpaceShareSearchDto dto) {
-    return ApiLocaleResult.success(spaceShareFacade.search(dto));
   }
 
 }

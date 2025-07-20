@@ -14,7 +14,6 @@ import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectSummary;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceDirectoryAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.to.SpaceObjectNavigationTo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectAddressVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectDetailVo;
@@ -113,16 +112,6 @@ public class SpaceObjectAssembler {
         .matchSearchFields("name")
         .build();
     return new GenericSpecification<>(filters);
-  }
-
-  public static Set<SearchCriteria> getSearchCriteria(SpaceObjectSearchDto dto) {
-    // Build the final filters
-    return new SearchCriteriaBuilder<>(dto)
-        .rangeSearchFields("id", "createdDate")
-        .orderByFields("id", "type", "createdBy", "createdDate", "lastModifiedBy",
-            "lastModifiedDate")
-        .matchSearchFields("name")
-        .build();
   }
 
 }

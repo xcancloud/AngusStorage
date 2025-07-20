@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal;
 
+import static cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.addDtoToDomain;
-import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.getSearchCriteria;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.getSpecification;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.toDetailVo;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.updateDtoToDomain;
@@ -13,12 +13,10 @@ import cloud.xcan.angus.api.storage.space.dto.SpaceAssetsCountDto;
 import cloud.xcan.angus.core.biz.NameJoin;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceCmd;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceQuery;
-import cloud.xcan.angus.core.storage.application.query.space.SpaceSearch;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceDetailVo;
@@ -38,9 +36,6 @@ public class SpaceFacadeImpl implements SpaceFacade {
 
   @Resource
   private SpaceQuery spaceQuery;
-
-  @Resource
-  private SpaceSearch spaceSearch;
 
   @Override
   public IdKey<Long, Object> add(SpaceAddDto dto) {
@@ -66,14 +61,8 @@ public class SpaceFacadeImpl implements SpaceFacade {
   @NameJoin
   @Override
   public PageResult<SpaceVo> list(SpaceFindDto dto) {
-    Page<Space> page = spaceQuery.find(getSpecification(dto), dto.tranPage());
-    return buildVoPageResult(page, SpaceAssembler::toVo);
-  }
-
-  @NameJoin
-  @Override
-  public PageResult<SpaceVo> search(SpaceSearchDto dto) {
-    Page<Space> page = spaceSearch.search(getSearchCriteria(dto), dto.tranPage(), Space.class);
+    Page<Space> page = spaceQuery.list(getSpecification(dto), dto.tranPage(),
+        dto.fullTextSearch, getMatchSearchFields(dto.getClass()));
     return buildVoPageResult(page, SpaceAssembler::toVo);
   }
 

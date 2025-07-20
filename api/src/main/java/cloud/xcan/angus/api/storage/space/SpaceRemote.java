@@ -15,14 +15,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @FeignClient(name = "${xcan.service.storage:XCAN-ANGUSSTORAGE.BOOT}")
 public interface SpaceRemote {
 
-   @Operation(summary = "Space data resources statistics", operationId = "space:resources:count")
+  @Operation(summary = "Space data resources statistics", operationId = "space:resources:count")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/api/v1/space/resources/count")
   ApiLocaleResult<StorageResourcesCount> resourcesStatistics(
       @Valid @SpringQueryMap SpaceAssetsCountDto dto);
 
-   @Operation(summary = "Space data resources creation statistics", operationId = "space:resources:creation:count")
+  @Operation(summary = "Space data resources creation statistics", operationId = "space:resources:creation:count")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/api/v1/space/resources/creation/count")

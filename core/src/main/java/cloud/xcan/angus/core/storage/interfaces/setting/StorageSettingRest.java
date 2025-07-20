@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@Tag(name = "StorageSetting", description = "Manage storage backend settings (S3-compatible object storage, local disk)"
-    + " with multi-node file routing support.")
+@Tag(name = "StorageSetting", description =
+    "Manage storage backend settings (S3-compatible object storage, local disk)"
+        + " with multi-node file routing support.")
 @Validated
 @RestController
 @RequestMapping("/api/v1/storage/setting")

@@ -11,7 +11,7 @@ public interface BucketQuery {
 
   Bucket detail(String name);
 
-  Page<Bucket> find(Specification<Bucket> spec, Pageable pageable);
+  Page<Bucket> list(Specification<Bucket> spec, Pageable pageable);
 
   Bucket checkAndFind(String name);
 

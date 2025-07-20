@@ -6,7 +6,6 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceObjectFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceDirectoryAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectMoveDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectAddressVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectNavigationVo;
@@ -38,7 +37,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@Tag(name = "SpaceObject", description = "File/directory CRUD operations and metadata management within spaces.")
+@Tag(name = "SpaceObject", description = "File/directory CRUD operations and metadata management within spaces")
 @Validated
 @RestController
 @RequestMapping("/api/v1/space/object")
@@ -47,7 +46,7 @@ public class SpaceObjectRest {
   @Resource
   private SpaceObjectFacade spaceObjectFacade;
 
-  @Operation(summary = "Add directory.", operationId = "space:object:add")
+  @Operation(summary = "Add directory", operationId = "space:object:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -57,7 +56,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.directoryAdd(dto));
   }
 
-  @Operation(summary = "Update directory or file name.", operationId = "space:object:name:update")
+  @Operation(summary = "Update directory or file name", operationId = "space:object:name:update")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Updated successfully"),
       @ApiResponse(responseCode = "404", description = "Directory not found")})
@@ -69,7 +68,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(summary = "Move directories or files.", operationId = "space:object:move")
+  @Operation(summary = "Move directories or files", operationId = "space:object:move")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Moved successfully"),
       @ApiResponse(responseCode = "404", description = "Resource not found")
@@ -80,7 +79,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success();
   }
 
-  @Operation(summary = "Delete directories or files.", operationId = "space:object:delete")
+  @Operation(summary = "Delete directories or files", operationId = "space:object:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Deleted successfully")})
   @DeleteMapping
@@ -91,7 +90,7 @@ public class SpaceObjectRest {
     spaceObjectFacade.delete(ids);
   }
 
-  @Operation(summary = "Query the navigation position of directory or file.", operationId = "space:object:navigation:detail")
+  @Operation(summary = "Query the navigation position of directory or file", operationId = "space:object:navigation:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Directory does not exist")})
@@ -101,7 +100,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.navigation(id));
   }
 
-  @Operation(summary = "Query the download address of file object.", operationId = "space:object:address:detail")
+  @Operation(summary = "Query the download address of file object", operationId = "space:object:address:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Directory does not exist")})
@@ -121,7 +120,7 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.detail(id));
   }
 
-  @Operation(summary = "Query the list of directory and file.", operationId = "space:object:list")
+  @Operation(summary = "Query the list of directory and file", operationId = "space:object:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Space does not exist")})
@@ -130,12 +129,4 @@ public class SpaceObjectRest {
     return ApiLocaleResult.success(spaceObjectFacade.list(dto));
   }
 
-  @Operation(summary = "Fulltext search the list of directory and file.", operationId = "space:object:search")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
-      @ApiResponse(responseCode = "404", description = "Space does not exist")})
-  @GetMapping("/search")
-  public ApiLocaleResult<PageResult<SpaceObjectVo>> search(@Valid SpaceObjectSearchDto dto) {
-    return ApiLocaleResult.success(spaceObjectFacade.search(dto));
-  }
 }

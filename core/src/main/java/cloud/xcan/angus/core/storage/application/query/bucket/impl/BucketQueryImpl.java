@@ -57,7 +57,7 @@ public class BucketQueryImpl implements BucketQuery {
   }
 
   @Override
-  public Page<Bucket> find(Specification<Bucket> spec, Pageable pageable) {
+  public Page<Bucket> list(Specification<Bucket> spec, Pageable pageable) {
     return new BizTemplate<Page<Bucket>>() {
       @Override
       protected Page<Bucket> process() {

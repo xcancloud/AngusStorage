@@ -9,7 +9,6 @@ import cloud.xcan.angus.api.storage.space.dto.SpaceAssetsCountDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceFindDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.SpaceUpdateDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.SpaceVo;
@@ -52,7 +51,7 @@ public class SpaceRest {
   @Resource
   private SpaceFacade spaceFacade;
 
-   @Operation(summary = "Add space.", operationId = "space:add")
+  @Operation(summary = "Add space.", operationId = "space:add")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Created successfully")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -61,7 +60,7 @@ public class SpaceRest {
     return ApiLocaleResult.success(spaceFacade.add(dto));
   }
 
-   @Operation(summary = "Update space.", operationId = "space:update")
+  @Operation(summary = "Update space.", operationId = "space:update")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Updated successfully"),
       @ApiResponse(responseCode = "404", description = "Space does not exist")})
@@ -71,17 +70,17 @@ public class SpaceRest {
     return ApiLocaleResult.success();
   }
 
-   @Operation(summary = "Delete space.", operationId = "space:delete")
+  @Operation(summary = "Delete space.", operationId = "space:delete")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   @ApiResponses(value = {@ApiResponse(responseCode = "204", description = "Deleted successfully")})
   @DeleteMapping
   public void delete(
       @Valid @Size(max = MAX_BATCH_SIZE) @Parameter(name = "ids", description = "Space ids", required = true)
-      @RequestParam("ids")  HashSet<Long> ids) {
+      @RequestParam("ids") HashSet<Long> ids) {
     spaceFacade.delete(ids);
   }
 
-   @Operation(summary = "Query the detail of space.", operationId = "space:detail")
+  @Operation(summary = "Query the detail of space.", operationId = "space:detail")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully"),
       @ApiResponse(responseCode = "404", description = "Space does not exist")})
@@ -91,7 +90,7 @@ public class SpaceRest {
     return ApiLocaleResult.success(spaceFacade.detail(id));
   }
 
-   @Operation(summary = "Query the list of space.", operationId = "space:list")
+  @Operation(summary = "Query the list of space.", operationId = "space:list")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping
@@ -99,15 +98,7 @@ public class SpaceRest {
     return ApiLocaleResult.success(spaceFacade.list(dto));
   }
 
-   @Operation(summary = "Fulltext search the space.", operationId = "space:search")
-  @ApiResponses(value = {
-      @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
-  @GetMapping("/search")
-  public ApiLocaleResult<PageResult<SpaceVo>> search(@Valid SpaceSearchDto dto) {
-    return ApiLocaleResult.success(spaceFacade.search(dto));
-  }
-
-   @Operation(summary = "Space data resources statistics.", operationId = "space:resources:count")
+  @Operation(summary = "Space data resources statistics.", operationId = "space:resources:count")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/resources/count")
@@ -116,7 +107,7 @@ public class SpaceRest {
     return ApiLocaleResult.success(spaceFacade.resourcesStatistics(dto));
   }
 
-   @Operation(summary = "Space data resources creation statistics.", operationId = "space:resources:creation:count")
+  @Operation(summary = "Space data resources creation statistics.", operationId = "space:resources:creation:count")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Retrieved successfully")})
   @GetMapping("/resources/creation/count")

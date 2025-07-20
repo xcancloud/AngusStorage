@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal;
 
+import static cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.addDtoToDirectoryObject;
-import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.getSearchCriteria;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.getSpecification;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.toAddressVo;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.toDetailVo;
@@ -11,13 +11,11 @@ import static cloud.xcan.angus.core.utils.CoreUtils.buildVoPageResult;
 import cloud.xcan.angus.core.biz.NameJoin;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceObjectCmd;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceObjectQuery;
-import cloud.xcan.angus.core.storage.application.query.space.SpaceObjectSearch;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.SpaceObjectFacade;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceDirectoryAddDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectFindDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectMoveDto;
-import cloud.xcan.angus.core.storage.interfaces.space.facade.dto.object.SpaceObjectSearchDto;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectAddressVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectDetailVo;
@@ -38,9 +36,6 @@ public class SpaceObjectFacadeImpl implements SpaceObjectFacade {
 
   @Resource
   private SpaceObjectQuery spaceObjectQuery;
-
-  @Resource
-  private SpaceObjectSearch spaceObjectSearch;
 
   @Override
   public IdKey<Long, Object> directoryAdd(SpaceDirectoryAddDto dto) {
@@ -82,15 +77,9 @@ public class SpaceObjectFacadeImpl implements SpaceObjectFacade {
   @NameJoin
   @Override
   public PageResult<SpaceObjectVo> list(SpaceObjectFindDto dto) {
-    Page<SpaceObject> page = spaceObjectQuery.find(getSpecification(dto), dto.tranPage());
+    Page<SpaceObject> page = spaceObjectQuery.list(getSpecification(dto), dto.tranPage(),
+        dto.fullTextSearch, getMatchSearchFields(dto.getClass()));
     return buildVoPageResult(page, SpaceObjectAssembler::toVo);
   }
 
-  @NameJoin
-  @Override
-  public PageResult<SpaceObjectVo> search(SpaceObjectSearchDto dto) {
-    Page<SpaceObject> page = spaceObjectSearch.search(getSearchCriteria(dto),
-        dto.tranPage(), SpaceObject.class);
-    return buildVoPageResult(page, SpaceObjectAssembler::toVo);
-  }
 }

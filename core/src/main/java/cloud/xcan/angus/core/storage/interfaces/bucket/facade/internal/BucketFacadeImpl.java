@@ -49,8 +49,8 @@ public class BucketFacadeImpl implements BucketFacade {
 
   @NameJoin
   @Override
-  public PageResult<BucketVo> find(BucketFindDto dto) {
-    Page<Bucket> page = bucketQuery.find(getSpecification(dto), dto.tranPage());
+  public PageResult<BucketVo> list(BucketFindDto dto) {
+    Page<Bucket> page = bucketQuery.list(getSpecification(dto), dto.tranPage());
     return buildVoPageResult(page, BucketAssembler::toBucketVo);
   }
 
