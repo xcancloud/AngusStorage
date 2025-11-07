@@ -82,6 +82,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
+import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -564,7 +565,8 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
         assertResourceNotFound(spaceObjectsDb, format("Not found file %s",
             compressObjectIds.iterator().next()));
         if (spaceObjectsDb.size() != compressObjectIds.size()) {
-          compressObjectIds.removeAll(spaceObjectsDb.stream().map(SpaceObject::getId).toList());
+          spaceObjectsDb.stream().map(SpaceObject::getId).toList()
+              .forEach(compressObjectIds::remove);
           throw ResourceNotFound.of(format("Not found file %s",
               compressObjectIds.iterator().next()));
         }
