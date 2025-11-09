@@ -7,6 +7,7 @@ import static cloud.xcan.angus.core.biz.ProtocolAssert.assertTrue;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertUnauthorized;
 import static cloud.xcan.angus.core.storage.application.converter.FileConverter.toUploadObjectFile;
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.toUpdateSpaceObject;
+import static cloud.xcan.angus.core.storage.infra.utils.FileNameSecurityUtil.sanitizeFileName;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isUserAction;
@@ -202,7 +203,8 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
           Long fid = uidGenerator.getUID();
           Long safeOutFid = Objects.isNull(outFid) ? fid : outFid;
           Long oid = uidGenerator.getUID();
-          String fileName = isNotEmpty(file.getOriginalFilename()) ? file.getOriginalFilename()
+          String fileName = isNotEmpty(file.getOriginalFilename())
+              ? sanitizeFileName(file.getOriginalFilename())
               : isNotEmpty(file.getName()) ? file.getName() : "undefined";
           String uniqueName = getBaseName(fileName) + "." + safeOutFid + "."
               + getExtension(fileName);
