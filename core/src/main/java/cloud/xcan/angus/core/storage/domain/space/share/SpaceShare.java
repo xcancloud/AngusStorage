@@ -44,6 +44,7 @@ public class SpaceShare extends TenantAuditingEntity<SpaceShare, Long> implement
    * <p>
    * When objectIds is null, it will be set to true.
    */
+  @Column(name = "`all`")
   private Boolean all;
 
   @Type(JsonType.class)
