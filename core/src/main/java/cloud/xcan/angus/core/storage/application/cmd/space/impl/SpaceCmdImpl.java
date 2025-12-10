@@ -203,7 +203,13 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
   @NotNull
   @Override
   public Space addCustomized(BucketBizConfig config, String spaceName) {
-    Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceName);
+    Space space = config.isMultiTenantCtrl()
+        ? spaceRepo.findByTenantIdAndBizKeyLimit1(getOptTenantId(), config.getBizKey())
+        : spaceRepo.findByBizKeyLimit1(config.getBizKey());
+
+    String spaceNameFinal = Objects.nonNull(space)
+        ? spaceName + System.currentTimeMillis() : spaceName;
+    Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceNameFinal);
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     initSpace.setTenantId(getOptTenantId());
     initSpace.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
