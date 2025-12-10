@@ -208,7 +208,7 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
         : spaceRepo.findByBizKeyLimit1(config.getBizKey());
 
     String spaceNameFinal = Objects.nonNull(space)
-        ? spaceName + System.currentTimeMillis() : spaceName;
+        ? spaceName + "-" + System.currentTimeMillis() : spaceName;
     Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceNameFinal, projectId);
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     initSpace.setTenantId(getOptTenantId());
