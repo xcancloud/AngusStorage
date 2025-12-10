@@ -18,7 +18,7 @@ public interface ObjectFileCmd {
       + "compress" + File.separator + "des";
 
   List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId,
-      boolean ignoreLocalStore, Long outFid, MultipartFile[] files);
+      boolean ignoreLocalStore, Long outFid, boolean extraFiles, MultipartFile[] files);
 
   ObjectFile download(@NotNull String filename, Long fid, String fpt, String fproc, Long sid,
       String spt, String password);

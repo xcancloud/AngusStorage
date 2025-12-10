@@ -6,6 +6,17 @@ import cloud.xcan.angus.idgen.UidGenerator;
 
 public class SpaceConverter {
 
+  public static Space toInitCustomizedByName(BucketBizConfig config,
+      UidGenerator uidGenerator, String name) {
+    return new Space().setId(uidGenerator.getUID())
+        .setName(name)
+        .setBizKey(config.getBizKey())
+        .setBucketName(config.getBucketName())
+        .setQuotaSize(null)
+        .setAuth(true)
+        .setCustomized(true);
+  }
+
   public static Space toInitNonCustomizedByBizKey(BucketBizConfig config,
       UidGenerator uidGenerator) {
     return new Space().setId(uidGenerator.getUID())

@@ -2,18 +2,42 @@ package cloud.xcan.angus.core.storage.infra.utils;
 
 import java.text.Normalizer;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 public class FileNameSecurityUtil {
-
-  // 允许的文件名字符（可根据需求调整）
-  private static final Pattern ALLOWED_CHARS = Pattern.compile("[a-zA-Z0-9._\\-]");
 
   // 危险文件扩展名黑名单
   private static final String[] DANGEROUS_EXTENSIONS = {
       "exe", "bat", "cmd", "sh", "php", "jsp", "asp", "aspx",
       "jar", "war", "html", "htm", "js", "vbs"
   };
+
+  /**
+   * 检查字符是否允许在文件名中使用
+   * 
+   * @param c 要检查的字符
+   * @return 如果字符允许则返回 true
+   */
+  private static boolean isAllowedChar(char c) {
+    // 允许的ASCII字符：字母、数字、点、下划线、连字符
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') 
+        || (c >= '0' && c <= '9') || c == '.' || c == '_' || c == '-') {
+      return true;
+    }
+    
+    // 允许中文字符范围
+    // \u4e00-\u9fff: CJK统一汉字（常用中文）
+    // \u3400-\u4dbf: CJK扩展A
+    // \u3000-\u303f: CJK符号和标点
+    // \uff00-\uffef: 全角ASCII、全角标点
+    if ((c >= '\u4e00' && c <= '\u9fff')  // CJK统一汉字
+        || (c >= '\u3400' && c <= '\u4dbf')  // CJK扩展A
+        || (c >= '\u3000' && c <= '\u303f')  // CJK符号和标点
+        || (c >= '\uff00' && c <= '\uffef')) {  // 全角字符
+      return true;
+    }
+    
+    return false;
+  }
 
   /**
    * 清理文件名，移除危险字符
@@ -32,7 +56,7 @@ public class FileNameSecurityUtil {
     // 移除或替换危险字符
     StringBuilder safeName = new StringBuilder();
     for (char c : fileName.toCharArray()) {
-      if (ALLOWED_CHARS.matcher(String.valueOf(c)).matches()) {
+      if (isAllowedChar(c)) {
         safeName.append(c);
       } else {
         safeName.append('_'); // 用下划线替换危险字符
