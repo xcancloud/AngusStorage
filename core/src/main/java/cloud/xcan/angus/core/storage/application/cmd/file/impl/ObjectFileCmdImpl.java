@@ -225,7 +225,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             boolean isNewSpace = false;
             if (isNull(spaceDb)) {
               bizConfigDb = bucketBizConfigQuery.findByBizKey(bizKey);
-              spaceDb = spaceCmd.addCustomized(bizConfigDb, bizKey, projectId);
+              spaceDb = spaceCmd.addCustomized(bizConfigDb, fileName, projectId);
               isNewSpace = true;
             }
 
