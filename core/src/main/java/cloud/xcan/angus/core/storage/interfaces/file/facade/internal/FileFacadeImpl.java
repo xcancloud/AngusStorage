@@ -50,7 +50,7 @@ public class FileFacadeImpl implements FileFacade {
       PrincipalContext.get().setOptTenantId(((FileUploadInnerDto) dto).getTenantId());
     }
     return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
-            false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
+            dto.getProjectId(),false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
         .stream().map(FileAssembler::toUploadVo)
         .collect(Collectors.toList());
   }

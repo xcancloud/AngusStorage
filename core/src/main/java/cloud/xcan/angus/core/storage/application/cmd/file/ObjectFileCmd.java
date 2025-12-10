@@ -17,7 +17,7 @@ public interface ObjectFileCmd {
   String COMPRESS_FILE_DES_TEM_PATH = new SpringAppDirUtils().getTmpDir()
       + "compress" + File.separator + "des";
 
-  List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId,
+  List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId, Long projectId,
       boolean ignoreLocalStore, Long outFid, boolean extraFiles, MultipartFile[] files);
 
   ObjectFile download(@NotNull String filename, Long fid, String fpt, String fproc, Long sid,

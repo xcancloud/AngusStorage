@@ -7,9 +7,10 @@ import cloud.xcan.angus.idgen.UidGenerator;
 public class SpaceConverter {
 
   public static Space toInitCustomizedByName(BucketBizConfig config,
-      UidGenerator uidGenerator, String name) {
+      UidGenerator uidGenerator, String name, Long projectId) {
     return new Space().setId(uidGenerator.getUID())
         .setName(name)
+        .setProjectId(projectId)
         .setBizKey(config.getBizKey())
         .setBucketName(config.getBucketName())
         .setQuotaSize(null)

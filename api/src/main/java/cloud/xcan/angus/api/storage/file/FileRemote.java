@@ -30,8 +30,11 @@ public interface FileRemote {
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE
   )
   ApiLocaleResult<List<FileUploadVo>> upload(
-      @RequestPart("files") MultipartFile[] files, @RequestPart("spaceId") String spaceId,
-      @RequestPart("bizKey") String bizKey, @RequestPart("parentDirectoryId") Long parentDirId,
+      @RequestPart("files") MultipartFile[] files,
+      @RequestPart("spaceId") String spaceId,
+      @RequestPart("bizKey") String bizKey,
+      @RequestPart("parentDirectoryId") Long parentDirId,
+      @RequestPart(value ="projectId", required = false) Long projectId,
       @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
   @Operation(summary = "Download file", operationId = "file:download")

@@ -148,7 +148,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
 
   @Transactional(rollbackFor = Exception.class)
   @Override
-  public List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId,
+  public List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId, Long projectId,
       boolean ignoreLocalStore, Long outFid, boolean extraFiles, MultipartFile... files) {
     return new BizTemplate<List<ObjectFile>>(false) {
       BucketBizConfig bizConfigDb;
@@ -225,7 +225,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             boolean isNewSpace = false;
             if (isNull(spaceDb)) {
               bizConfigDb = bucketBizConfigQuery.findByBizKey(bizKey);
-              spaceDb = spaceCmd.addCustomized(bizConfigDb, bizKey);
+              spaceDb = spaceCmd.addCustomized(bizConfigDb, bizKey, projectId);
               isNewSpace = true;
             }
 
@@ -434,7 +434,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             PrincipalContext.get().setTenantId(objectFileDb.getTenantId());
           }
           processedObject = upload(objectFileDb.getBizKey(), objectFileDb.getSpaceId(),
-              objectFileDb.getParentDirectoryId(), true, newFid, false, file).get(0);
+              objectFileDb.getParentDirectoryId(), null,true, newFid, false, file).get(0);
           processedObject.setCacheAge(bucketBizConfigDb.getCacheAge());
           processedObject.setMediaType(mediaType);
           return processedObject;

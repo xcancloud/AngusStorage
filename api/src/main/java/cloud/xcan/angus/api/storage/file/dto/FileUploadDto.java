@@ -31,6 +31,9 @@ public class FileUploadDto implements Serializable {
   @Schema(description = "Parent directory id. The first level directory is not required")
   private Long parentDirectoryId;
 
+  @Schema(description = "Project ID to which the uploaded data belongs")
+  private Long projectId;
+
   @Schema(description = "Whether to extract the file structure inside the compressed package")
   private Boolean extraFiles;
 

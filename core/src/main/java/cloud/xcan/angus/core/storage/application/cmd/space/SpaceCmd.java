@@ -19,7 +19,7 @@ public interface SpaceCmd {
   Space findAndInitByBizKey(BucketBizConfig config, String bizKey);
 
   @NotNull
-  Space addCustomized(BucketBizConfig config, String spaceName);
+  Space addCustomized(BucketBizConfig config, String spaceName, Long projectId);
 
   @NotNull
   Space addNonCustomized(BucketBizConfig config);
