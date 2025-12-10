@@ -4,6 +4,7 @@ import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.spec.experimental.IdKey;
 import java.util.Set;
+import org.jetbrains.annotations.NotNull;
 
 public interface SpaceCmd {
 
@@ -17,4 +18,9 @@ public interface SpaceCmd {
 
   Space findAndInitByBizKey(BucketBizConfig config, String bizKey);
 
+  @NotNull
+  Space addCustomized(BucketBizConfig config, String spaceName);
+
+  @NotNull
+  Space addNonCustomized(BucketBizConfig config);
 }

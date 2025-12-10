@@ -63,6 +63,7 @@ import cloud.xcan.angus.core.storage.infra.store.model.ProcessCommand;
 import cloud.xcan.angus.core.storage.infra.store.utils.ImageUtils;
 import cloud.xcan.angus.core.storage.infra.store.utils.MockMultipartFile;
 import cloud.xcan.angus.core.utils.SpringAppDirUtils;
+import cloud.xcan.angus.remote.message.ProtocolException;
 import cloud.xcan.angus.remote.message.SysException;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.spec.experimental.StandardCharsets;
@@ -83,7 +84,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -139,7 +139,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
   @Transactional(rollbackFor = Exception.class)
   @Override
   public List<ObjectFile> upload(String bizKey, Long spaceId, Long parentDirId,
-      boolean ignoreLocalStore, Long outFid, MultipartFile... files) {
+      boolean ignoreLocalStore, Long outFid, boolean extraFiles, MultipartFile... files) {
     return new BizTemplate<List<ObjectFile>>(false) {
       BucketBizConfig bizConfigDb;
       Space spaceDb;
@@ -165,43 +165,68 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
           }
         } else {
           // Check the allocation business configuration
-          bizConfigDb = bucketBizConfigQuery.findByBizKey(bizKey);
-          // Check and init non-tenant business(customized=false) space
-          spaceDb = spaceCmd.findAndInitByBizKey(bizConfigDb, bizKey);
-        }
-        assertTrue(!bizConfigDb.isMultiTenantCtrl()
-                || getOptTenantId().equals(spaceDb.getTenantId()),
-            format("Upload space[%s] tenant[%s] error", spaceDb.getId(), getOptTenantId()));
-
-        // Check the parent directory existed
-        if (nonNull(parentDirId)) {
-          parentDirectoryDb = spaceObjectQuery.checkAndDirectory(parentDirId);
-          assertTrue(isNull(spaceId) || spaceId.equals(parentDirectoryDb.getSpaceId()),
-              format("Space[%s] and parent directory[%s] is inconsistent", spaceDb.getId(),
-                  parentDirectoryDb.getSpaceId()));
+          if (!extraFiles) {
+            bizConfigDb = bucketBizConfigQuery.findByBizKey(bizKey);
+            // Check and init non-tenant business(customized=false) space
+            spaceDb = spaceCmd.findAndInitByBizKey(bizConfigDb, bizKey);
+          }
         }
 
-        // Check the space write object permission where tenant business
-        // Non-tenant business allows tenant's all users to upload
-        if (bizConfigDb.getEnabledAuth()) {
-          spaceAuthQuery.checkObjectWriteAuth(getUserId(), spaceDb.getId());
-        }
+        if(nonNull(spaceDb)){
+          assertTrue(!bizConfigDb.isMultiTenantCtrl()
+                  || getOptTenantId().equals(spaceDb.getTenantId()),
+              format("Upload space[%s] tenant[%s] error", spaceDb.getId(), getOptTenantId()));
 
-        // Check the space size quota
-        spaceQuery.checkSpaceSizeQuota(spaceDb);
-        // Check the tenant size quota.
-        // Note: The space quota configuration may be unlimited, but it is limited based on the actual total size of uploaded files.
-        spaceQuery.checkTenantSizeQuota(spaceDb);
+          // Check the parent directory existed
+          if (nonNull(parentDirId)) {
+            parentDirectoryDb = spaceObjectQuery.checkAndDirectory(parentDirId);
+            assertTrue(isNull(spaceId) || spaceId.equals(parentDirectoryDb.getSpaceId()),
+                format("Space[%s] and parent directory[%s] is inconsistent", spaceDb.getId(),
+                    parentDirectoryDb.getSpaceId()));
+          }
+
+          // Check the space write object permission where tenant business
+          // Non-tenant business allows tenant's all users to upload
+          if (bizConfigDb.getEnabledAuth()) {
+            spaceAuthQuery.checkObjectWriteAuth(getUserId(), spaceDb.getId());
+          }
+
+          // Check the space size quota
+          spaceQuery.checkSpaceSizeQuota(spaceDb);
+          // Check the tenant size quota.
+          // Note: The space quota configuration may be unlimited, but it is limited based on the actual total size of uploaded files.
+          spaceQuery.checkTenantSizeQuota(spaceDb);
+        }
       }
 
       @Override
       protected List<ObjectFile> process() {
+        if (extraFiles) {
+          for (MultipartFile file : files) {
+            String fileName = file.getOriginalFilename();
+            String lowerFileName = fileName.toLowerCase();
+            if (!lowerFileName.endsWith(".zip") && !lowerFileName.endsWith(".tar")
+                && !lowerFileName.endsWith(".tar.gz") && !lowerFileName.endsWith(".tgz")) {
+              throw ProtocolException.of(
+                  "Unsupported file format. Only ZIP (.zip) or TAR (.tar, .tar.gz, .tgz) formats are supported.");
+            }
+            if (isNull(spaceDb)) {
+              spaceDb = spaceCmd.addCustomized(bizConfigDb, bizKey);
+              // 解压压缩包结构（包含目录、文件类型，层级关系）
+              // 遍历包结构，如果是目录创建目录，如果是文件上传文件并保存文件对象信息到本地
+              // 如果是目录，创建完目录后，继续遍历目录下的文件和子目录
+              // 对于每一级都需要记录统计信息、包括父级关联信息
+            }
+          }
+          return null;
+        }
+
         List<SpaceObject> spaceObjects = new ArrayList<>(files.length);
         List<ObjectFile> objectFiles = new ArrayList<>(files.length);
         // Save file to disk or S3 service
         for (MultipartFile file : files) {
           Long fid = uidGenerator.getUID();
-          Long safeOutFid = Objects.isNull(outFid) ? fid : outFid;
+          Long safeOutFid = isNull(outFid) ? fid : outFid;
           Long oid = uidGenerator.getUID();
           String fileName = isNotEmpty(file.getOriginalFilename())
               ? sanitizeFileName(file.getOriginalFilename())
@@ -383,7 +408,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             PrincipalContext.get().setTenantId(objectFileDb.getTenantId());
           }
           processedObject = upload(objectFileDb.getBizKey(), objectFileDb.getSpaceId(),
-              objectFileDb.getParentDirectoryId(), true, newFid, file).get(0);
+              objectFileDb.getParentDirectoryId(), true, newFid, false, file).get(0);
           processedObject.setCacheAge(bucketBizConfigDb.getCacheAge());
           processedObject.setMediaType(mediaType);
           return processedObject;

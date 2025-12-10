@@ -194,14 +194,30 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
         || !config.isMultiTenantCtrl() || getOptTenantId().equals(OWNER_TENANT_ID), String
         .format("Tenant custom created business [%s] spaces are not supported", bizKey));
     // NOOP:: spaceAuthCmd.addCreatorAuth();  -> Only the system administrator has space permission
-    return add0(config);
+    return addNonCustomized(config);
   }
 
   /**
    * Add customized space.
    */
   @NotNull
-  private Space add0(BucketBizConfig config) {
+  @Override
+  public Space addCustomized(BucketBizConfig config, String spaceName) {
+    Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceName);
+    // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
+    initSpace.setTenantId(getOptTenantId());
+    initSpace.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
+        .setLastModifiedBy(getUserId()).setLastModifiedDate(LocalDateTime.now());
+    spaceRepo.save(initSpace);
+    return initSpace;
+  }
+
+  /**
+   * Add non customized space.
+   */
+  @NotNull
+  @Override
+  public Space addNonCustomized(BucketBizConfig config) {
     Space initSpace = SpaceConverter.toInitNonCustomizedByBizKey(config, uidGenerator);
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     initSpace.setTenantId(getOptTenantId());

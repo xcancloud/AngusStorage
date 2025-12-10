@@ -26,7 +26,8 @@ public interface FileRemote {
   )
   ApiLocaleResult<List<FileUploadVo>> upload(
       @RequestPart("files") MultipartFile[] files, @RequestPart("spaceId") String spaceId,
-      @RequestPart("bizKey") String bizKey, @RequestPart("parentDirectoryId") Long parentDirId);
+      @RequestPart("bizKey") String bizKey, @RequestPart("parentDirectoryId") Long parentDirId,
+      @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
   @Operation(summary = "Download file", operationId = "file:download")
   @GetMapping(value = "/api/v1/file/{filename:.+}")

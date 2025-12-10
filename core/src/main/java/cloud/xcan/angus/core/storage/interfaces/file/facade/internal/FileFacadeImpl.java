@@ -6,6 +6,7 @@ import static cloud.xcan.angus.core.utils.CoreUtils.getUrlInputStream;
 import static cloud.xcan.angus.core.utils.ServletUtils.buildSupportRangeDownload;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;
+import static cloud.xcan.angus.spec.utils.ObjectUtils.nullSafe;
 
 import cloud.xcan.angus.api.storage.file.dto.FileCompressDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
@@ -49,7 +50,8 @@ public class FileFacadeImpl implements FileFacade {
       PrincipalContext.get().setOptTenantId(((FileUploadInnerDto) dto).getTenantId());
     }
     return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
-            false, null, dto.getFiles()).stream().map(FileAssembler::toUploadVo)
+            false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
+        .stream().map(FileAssembler::toUploadVo)
         .collect(Collectors.toList());
   }
 

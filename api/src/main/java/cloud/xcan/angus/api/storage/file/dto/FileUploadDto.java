@@ -13,6 +13,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 @Getter
@@ -29,6 +30,9 @@ public class FileUploadDto implements Serializable {
 
   @Schema(description = "Parent directory id. The first level directory is not required")
   private Long parentDirectoryId;
+
+  @Schema(description = "Whether to extract the file structure inside the compressed package")
+  private Boolean extraFiles;
 
   @NotNull
   @Size(max = MAX_REQUEST_FILES_NUM)
