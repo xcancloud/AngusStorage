@@ -10,7 +10,6 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_NON_CUS
 import static cloud.xcan.angus.core.storage.infra.store.impl.S3ObjectClient.toCannedAccessControlList;
 import static com.amazonaws.services.s3.internal.BucketNameUtils.isValidV2BucketName;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
 import cloud.xcan.angus.core.jpa.repository.BaseRepository;
@@ -30,7 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.transaction.annotation.Transactional;
 
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class BucketCmdImpl extends CommCmd<Bucket, Long> implements BucketCmd {
 

@@ -7,7 +7,6 @@ import static cloud.xcan.angus.api.commonlink.StorageConstant.FILE_QUERY_ID_NAME
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isPrivateEdition;
 import static cloud.xcan.angus.spec.SpecConstant.DEFAULT_ENCODING;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.storage.application.query.file.ObjectFileQuery;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
 import cloud.xcan.angus.core.storage.domain.file.ObjectFile;
@@ -19,7 +18,7 @@ import java.net.URLEncoder;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class ObjectFileQueryImpl implements ObjectFileQuery {
 

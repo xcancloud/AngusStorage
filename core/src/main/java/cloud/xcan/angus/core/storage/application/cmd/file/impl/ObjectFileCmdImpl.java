@@ -34,7 +34,6 @@ import cloud.xcan.angus.api.commonlink.CompressFormat;
 import cloud.xcan.angus.api.enums.FileType;
 import cloud.xcan.angus.api.storage.file.FileRemote;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.ProtocolAssert;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
@@ -103,7 +102,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements ObjectFileCmd {
 
@@ -434,7 +433,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             PrincipalContext.get().setTenantId(objectFileDb.getTenantId());
           }
           processedObject = upload(objectFileDb.getBizKey(), objectFileDb.getSpaceId(),
-              objectFileDb.getParentDirectoryId(), null,true, newFid, false, file).get(0);
+              objectFileDb.getParentDirectoryId(), null, true, newFid, false, file).get(0);
           processedObject.setCacheAge(bucketBizConfigDb.getCacheAge());
           processedObject.setMediaType(mediaType);
           return processedObject;
@@ -957,7 +956,7 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
 
     directory.setTenantId(getOptTenantId());
     directory.setCreatedBy(getUserId()).setCreatedDate(java.time.LocalDateTime.now())
-        .setLastModifiedBy(getUserId()).setLastModifiedDate(java.time.LocalDateTime.now());
+        .setModifiedBy(getUserId()).setModifiedDate(java.time.LocalDateTime.now());
 
     // 检查目录名是否已存在
     try {

@@ -7,7 +7,7 @@
   <parent>
     <groupId>cloud.xcan.angus</groupId>
     <artifactId>AngusInfra</artifactId>
-    <version>1.0.0</version>
+    <version>2.0.0</version>
   </parent>
 
   <artifactId>xcan-angusstorage.parent</artifactId>
@@ -83,7 +83,7 @@
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <xcan-infra.bom.version>1.0.0</xcan-infra.bom.version>
+    <xcan-infra.bom.version>2.0.0</xcan-infra.bom.version>
     <xcan-angusgm.api.version>1.0.0</xcan-angusgm.api.version>
 
     <commons-compress.version>1.21</commons-compress.version>

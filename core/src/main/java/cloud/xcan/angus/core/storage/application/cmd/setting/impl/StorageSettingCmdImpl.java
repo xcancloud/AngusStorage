@@ -10,7 +10,6 @@ import static cloud.xcan.angus.remote.message.http.Forbidden.M.NO_SYS_ADMIN_PERM
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.enums.PlatformStoreType;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
 import cloud.xcan.angus.core.jpa.repository.BaseRepository;
@@ -31,7 +30,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.transaction.annotation.Transactional;
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class StorageSettingCmdImpl extends CommCmd<StorageSetting, Long>
     implements StorageSettingCmd {

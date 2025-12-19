@@ -33,11 +33,11 @@ public class FileShareVo implements Serializable {
   private Long createdBy;
 
   @NameJoinField(id = "createdBy", repository = "commonUserBaseRepo")
-  private String createdByName;
+  private String creator;
 
   private LocalDateTime createdDate;
 
-  private LocalDateTime lastModifiedDate;
+  private LocalDateTime modifiedDate;
 
   private List<FileShareVo> children = new ArrayList<>();
 

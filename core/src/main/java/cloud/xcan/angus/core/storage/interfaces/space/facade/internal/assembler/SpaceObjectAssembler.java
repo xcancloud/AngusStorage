@@ -49,8 +49,8 @@ public class SpaceObjectAssembler {
         .setParentDirectoryId(pidSafe(object.getParentDirectoryId(), null))
         .setCreatedBy(object.getCreatedBy())
         .setCreatedDate(object.getCreatedDate())
-        .setLastModifiedBy(object.getLastModifiedBy())
-        .setLastModifiedDate(object.getLastModifiedDate())
+        .setModifiedBy(object.getModifiedBy())
+        .setModifiedDate(object.getModifiedDate())
         .setSummary(toSummaryVo(object.getSummary()))
         .setFile(toUploadVo(object.getFile()));
   }
@@ -64,8 +64,8 @@ public class SpaceObjectAssembler {
         .setParentDirectoryName(object.getParentName())
         .setCreatedBy(object.getCreatedBy())
         .setCreatedDate(object.getCreatedDate())
-        .setLastModifiedBy(object.getLastModifiedBy())
-        .setLastModifiedDate(object.getLastModifiedDate())
+        .setModifiedBy(object.getModifiedBy())
+        .setModifiedDate(object.getModifiedDate())
         .setSummary(toSummaryVo(object.getSummary()));
   }
 
@@ -107,8 +107,8 @@ public class SpaceObjectAssembler {
     // Build the final filters
     Set<SearchCriteria> filters = new SearchCriteriaBuilder<>(dto)
         .rangeSearchFields("id", "createdDate")
-        .orderByFields("id", "type", "createdBy", "createdDate", "lastModifiedBy",
-            "lastModifiedDate")
+        .orderByFields("id", "type", "createdBy", "createdDate", "modifiedBy",
+            "modifiedDate")
         .matchSearchFields("name")
         .build();
     return new GenericSpecification<>(filters);

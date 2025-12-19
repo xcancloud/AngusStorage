@@ -50,7 +50,7 @@ public class FileFacadeImpl implements FileFacade {
       PrincipalContext.get().setOptTenantId(((FileUploadInnerDto) dto).getTenantId());
     }
     return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
-            dto.getProjectId(),false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
+            dto.getProjectId(), false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
         .stream().map(FileAssembler::toUploadVo)
         .collect(Collectors.toList());
   }
@@ -66,7 +66,7 @@ public class FileFacadeImpl implements FileFacade {
     // Is improving performance based on memory caching byte data?
     byte[] data = getFileBytes(objectFileDb, dto);
     buildSupportRangeDownload(objectFileDb.getCacheAge(), objectFileDb.getMediaType(),
-        objectFileDb.getName(), data.length, DateUtils.asDate(objectFileDb.getLastModifiedDate()),
+        objectFileDb.getName(), data.length, DateUtils.asDate(objectFileDb.getModifiedDate()),
         new ByteArrayInputStream(data), request, response);
   }
 

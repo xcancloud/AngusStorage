@@ -4,7 +4,6 @@ import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.checkOpSysAdmin;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.checkSysAdmin;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.spring.boot.ApplicationInfo;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketQuery;
@@ -25,7 +24,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class BucketQueryImpl implements BucketQuery {
 

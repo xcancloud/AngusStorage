@@ -59,8 +59,8 @@ public class SpaceAssembler {
         .setBucketName(space.getBucketName())
         .setCreatedBy(space.getCreatedBy())
         .setCreatedDate(space.getCreatedDate())
-        .setLastModifiedBy(space.getLastModifiedBy())
-        .setLastModifiedDate(space.getLastModifiedDate())
+        .setModifiedBy(space.getModifiedBy())
+        .setModifiedDate(space.getModifiedDate())
         .setSummary(toSummaryVo(space.getSummary()))
         .setConfig(toConfigVo(space.getConfig()));
   }

@@ -45,7 +45,7 @@ public class FileConverter {
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     objectFile.setTenantId(getOptTenantId());
     objectFile.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
-        .setLastModifiedBy(getUserId()).setLastModifiedDate(LocalDateTime.now());
+        .setModifiedBy(getUserId()).setModifiedDate(LocalDateTime.now());
     return objectFile;
   }
 

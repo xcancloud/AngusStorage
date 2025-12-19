@@ -1,6 +1,5 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.dto;
 
-import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_CODE_LENGTH;
 
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
@@ -10,12 +9,10 @@ import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.format.annotation.DateTimeFormat;
 
 @Getter
 @Setter
@@ -44,11 +41,6 @@ public class SpaceFindDto extends PageQuery implements Serializable {
 
   @Schema(description = "It is required when the user query has the one permission spaces.")
   private SpacePermission hasPermission;
-
-  private Long createdBy;
-
-  @DateTimeFormat(pattern = DATE_FMT)
-  private LocalDateTime createdDate;
 
   @Override
   public String getDefaultOrderBy() {

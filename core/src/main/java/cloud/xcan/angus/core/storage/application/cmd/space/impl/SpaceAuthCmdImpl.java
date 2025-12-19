@@ -5,7 +5,6 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_FORBID_A
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_FORBID_AUTH_CREATOR_CODE;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizAssert;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
@@ -25,7 +24,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import org.springframework.transaction.annotation.Transactional;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceAuthCmdImpl extends CommCmd<SpaceAuth, Long> implements SpaceAuthCmd {
 
   @Resource

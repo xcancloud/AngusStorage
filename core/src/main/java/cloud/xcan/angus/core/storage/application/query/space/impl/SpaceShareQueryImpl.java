@@ -15,7 +15,6 @@ import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_SHARE_OBJECT_NU
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
 import cloud.xcan.angus.api.manager.UserManager;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.QuotaException;
 import cloud.xcan.angus.core.jpa.criteria.CriteriaUtils;
@@ -42,7 +41,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceShareQueryImpl implements SpaceShareQuery {
 
   @Resource

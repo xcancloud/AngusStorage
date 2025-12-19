@@ -28,7 +28,6 @@ import cloud.xcan.angus.api.enums.FileResourceType;
 import cloud.xcan.angus.api.enums.FileType;
 import cloud.xcan.angus.api.manager.SettingTenantQuotaManager;
 import cloud.xcan.angus.api.manager.UserManager;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.BizException;
 import cloud.xcan.angus.core.biz.exception.QuotaException;
@@ -65,7 +64,7 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceQueryImpl implements SpaceQuery {
 
   @Resource

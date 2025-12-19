@@ -34,7 +34,7 @@ public class FileVo implements Serializable {
 
   private String path;
 
-  protected LocalDateTime lastModifiedDate;
+  protected LocalDateTime modifiedDate;
 
   private List<FileVo> children;
 

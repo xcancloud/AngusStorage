@@ -48,7 +48,7 @@ public class SpaceObjectConverter {
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     spaceObject.setTenantId(getOptTenantId());
     spaceObject.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
-        .setLastModifiedBy(getUserId()).setLastModifiedDate(LocalDateTime.now());
+        .setModifiedBy(getUserId()).setModifiedDate(LocalDateTime.now());
     return spaceObject;
   }
 

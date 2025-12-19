@@ -6,7 +6,6 @@ import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
 import static cloud.xcan.angus.spec.experimental.BizConstant.OWNER_TENANT_ID;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
 import cloud.xcan.angus.core.jpa.repository.BaseRepository;
@@ -35,7 +34,7 @@ import java.util.Set;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.transaction.annotation.Transactional;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
 
   @Resource
@@ -209,11 +208,12 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
 
     String spaceNameFinal = Objects.nonNull(space)
         ? spaceName + "-" + System.currentTimeMillis() : spaceName;
-    Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceNameFinal, projectId);
+    Space initSpace = SpaceConverter.toInitCustomizedByName(config, uidGenerator, spaceNameFinal,
+        projectId);
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     initSpace.setTenantId(getOptTenantId());
     initSpace.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
-        .setLastModifiedBy(getUserId()).setLastModifiedDate(LocalDateTime.now());
+        .setModifiedBy(getUserId()).setModifiedDate(LocalDateTime.now());
     spaceRepo.save(initSpace);
     return initSpace;
   }
@@ -228,7 +228,7 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
     // Fix:: Value is null when multi tenant control is turned off or /innerapi upload
     initSpace.setTenantId(getOptTenantId());
     initSpace.setCreatedBy(getUserId()).setCreatedDate(LocalDateTime.now())
-        .setLastModifiedBy(getUserId()).setLastModifiedDate(LocalDateTime.now());
+        .setModifiedBy(getUserId()).setModifiedDate(LocalDateTime.now());
     spaceRepo.save(initSpace);
     return initSpace;
   }

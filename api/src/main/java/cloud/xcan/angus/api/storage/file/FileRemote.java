@@ -34,7 +34,7 @@ public interface FileRemote {
       @RequestPart("spaceId") String spaceId,
       @RequestPart("bizKey") String bizKey,
       @RequestPart("parentDirectoryId") Long parentDirId,
-      @RequestPart(value ="projectId", required = false) Long projectId,
+      @RequestPart(value = "projectId", required = false) Long projectId,
       @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
   @Operation(summary = "Download file", operationId = "file:download")

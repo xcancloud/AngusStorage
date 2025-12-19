@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.application.query.setting.impl;
 
-import cloud.xcan.angus.core.biz.Biz;
+
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.storage.application.query.setting.StorageSettingQuery;
 import cloud.xcan.angus.core.storage.domain.setting.SettingData;
@@ -15,7 +15,7 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 
-@Biz
+@org.springframework.stereotype.Service
 @Slf4j
 public class StorageSettingQueryImpl implements StorageSettingQuery {
 

@@ -14,7 +14,6 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static java.util.Objects.isNull;
 
 import cloud.xcan.angus.api.enums.FileType;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketBizConfigQuery;
@@ -42,7 +41,7 @@ import java.util.stream.Stream;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceObjectQueryImpl implements SpaceObjectQuery {
 
   @Resource

@@ -13,17 +13,17 @@ public class FileNameSecurityUtil {
 
   /**
    * 检查字符是否允许在文件名中使用
-   * 
+   *
    * @param c 要检查的字符
    * @return 如果字符允许则返回 true
    */
   private static boolean isAllowedChar(char c) {
     // 允许的ASCII字符：字母、数字、点、下划线、连字符
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') 
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')
         || (c >= '0' && c <= '9') || c == '.' || c == '_' || c == '-') {
       return true;
     }
-    
+
     // 允许中文字符范围
     // \u4e00-\u9fff: CJK统一汉字（常用中文）
     // \u3400-\u4dbf: CJK扩展A
@@ -35,7 +35,7 @@ public class FileNameSecurityUtil {
         || (c >= '\uff00' && c <= '\uffef')) {  // 全角字符
       return true;
     }
-    
+
     return false;
   }
 

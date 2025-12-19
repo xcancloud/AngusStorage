@@ -7,7 +7,6 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_BIZ_DEL
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_NON_CUS_BIZ_DELETED_ERROR;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_NON_CUS_BIZ_DELETED_ERROR_CODE;
 
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
 import cloud.xcan.angus.core.jpa.repository.BaseRepository;
@@ -21,7 +20,7 @@ import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
 import jakarta.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 
-@Biz
+@org.springframework.stereotype.Service
 public class BucketBizConfigCmdImpl extends CommCmd<BucketBizConfig, Long>
     implements BucketBizConfigCmd {
 

@@ -15,7 +15,6 @@ import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.commonlink.user.UserRepo;
 import cloud.xcan.angus.api.enums.AuthObjectType;
-import cloud.xcan.angus.core.biz.Biz;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.BizException;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceAuthQuery;
@@ -45,7 +44,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 
-@Biz
+@org.springframework.stereotype.Service
 public class SpaceAuthQueryImpl implements SpaceAuthQuery {
 
   @Resource

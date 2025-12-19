@@ -76,7 +76,7 @@ public class SpaceShare extends TenantAuditingEntity<SpaceShare, Long> implement
   private String remark;
 
   @Transient
-  private String createdByName;
+  private String creator;
   @Transient
   private String avatar;
 

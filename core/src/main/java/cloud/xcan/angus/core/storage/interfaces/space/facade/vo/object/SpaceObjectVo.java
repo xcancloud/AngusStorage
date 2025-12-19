@@ -30,9 +30,9 @@ public class SpaceObjectVo implements Serializable {
 
   private LocalDateTime createdDate;
 
-  private Long lastModifiedBy;
+  private Long modifiedBy;
 
-  private LocalDateTime lastModifiedDate;
+  private LocalDateTime modifiedDate;
 
   private SpaceObjectSummaryVo summary;
 

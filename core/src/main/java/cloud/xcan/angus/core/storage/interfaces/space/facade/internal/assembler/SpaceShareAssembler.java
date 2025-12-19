@@ -109,7 +109,7 @@ public class SpaceShareAssembler {
         .setExpiredDate(share.getExpiredDate())
         .setPublic0(share.getPublic0())
         .setCreatedBy(share.getCreatedBy())
-        .setCreatedByName(share.getCreatedByName())
+        .setCreator(share.getCreator())
         .setAvatar(share.getAvatar())
         .setCreatedDate(share.getCreatedDate());
   }
@@ -181,8 +181,8 @@ public class SpaceShareAssembler {
     // Build the final filters
     return new SearchCriteriaBuilder<>(dto)
         .rangeSearchFields("id", "createdDate")
-        .orderByFields("id", "type", "createdBy", "createdDate", "lastModifiedBy",
-            "lastModifiedDate")
+        .orderByFields("id", "type", "createdBy", "createdDate", "modifiedBy",
+            "modifiedDate")
         .matchSearchFields("name")
         .build();
   }
