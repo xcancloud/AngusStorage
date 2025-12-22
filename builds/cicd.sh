@@ -9,6 +9,7 @@
 # Global Variables
 REMOTE_APP_DIR="/data/apps/AngusStorage"
 REMOTE_APP_LOGS_DIR_NAME="logs"
+REMOTE_APP_DATA_DIR_NAME="data"
 REMOTE_APP_CONF_DIR="/data/apps/conf/storage"
 
 CLEAR_MAVEN_REPO="/data/repository"
@@ -75,7 +76,7 @@ deploy_service() {
   ssh "$host" "cd ${REMOTE_APP_DIR} && sh shutdown-storage.sh" || {
     echo "WARN: Failed to stop service, proceeding anyway"
   }
-  ssh "$host" "cd ${REMOTE_APP_DIR} && find . -mindepth 1 -maxdepth 1 -not \( -name ${REMOTE_APP_LOGS_DIR_NAME} \) -exec rm -rf {} +" || {
+  ssh "$host" "cd ${REMOTE_APP_DIR} && find . -mindepth 1 -maxdepth 1 -not \( -name ${REMOTE_APP_LOGS_DIR_NAME} -o -name ${REMOTE_APP_DATA_DIR_NAME} \) -exec rm -rf {} +" || {
     echo "ERROR: Failed to clean service directory"; exit 1
   }
   scp -rp "boot/target"/* "${host}:${REMOTE_APP_DIR}/" || {
