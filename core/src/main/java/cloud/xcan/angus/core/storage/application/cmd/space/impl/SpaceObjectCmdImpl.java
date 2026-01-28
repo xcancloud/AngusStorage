@@ -87,7 +87,8 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
                 : String.valueOf(parentDirectoryDb.getId())
         ) : "");
         directory.setProjectId(spaceDb.getProjectId());
-        return insert(directory);
+        insert(directory);
+        return new IdKey<Long, Object>(directory.getId(), directory.getSpaceId());
       }
     }.execute();
   }

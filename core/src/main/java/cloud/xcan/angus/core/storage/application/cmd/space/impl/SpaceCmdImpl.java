@@ -79,8 +79,6 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
         assertTrue(bizConfig.getAllowTenantCreated(), String
             .format("Tenant custom created business [%s] spaces are not supported",
                 space.getBizKey()));
-        // Check the space num quota
-        spaceQuery.checkSpaceNumQuota(1);
         // Check the space size quota: the total allocation cannot exceed the tenant quota limit
         spaceQuery.checkTenantSizeQuota(space);
       }
@@ -89,10 +87,10 @@ public class SpaceCmdImpl extends CommCmd<Space, Long> implements SpaceCmd {
       protected IdKey<Long, Object> process() {
         space.setBucketName(bizConfig.getBucketName());
         space.setCustomized(true);
-        IdKey<Long, Object> idKey = insert(space);
+        insert(space);
 
         spaceAuthCmd.addCreatorAuth(Collections.singleton(getUserId()), space.getId());
-        return idKey;
+        return new IdKey<Long, Object>(space.getId(), space.getName());
       }
     }.execute();
   }

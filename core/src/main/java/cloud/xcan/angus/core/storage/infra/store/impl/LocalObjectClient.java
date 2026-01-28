@@ -169,7 +169,7 @@ public class LocalObjectClient extends ObjectClient {
       bucket.setName(dir.getName());
       bucket.setCreationDate(DateUtils.asDate(objectFile.getCreatedDate()));
       bucket.setOwner(new Owner(String.valueOf(objectFile.getCreatedBy()),
-          userInfoMap.get(objectFile.getCreatedBy()).getFullName()));
+          userInfoMap.get(objectFile.getCreatedBy()).getName()));
       return bucket;
     }).collect(Collectors.toList());
   }
@@ -208,7 +208,7 @@ public class LocalObjectClient extends ObjectClient {
     bucket.setName(bucketName);
     bucket.setCreationDate(DateUtils.asDate(objectFiles.get(0).getCreatedDate()));
     bucket.setOwner(new Owner(String.valueOf(objectFiles.get(0).getCreatedBy()),
-        userInfoMap.get(objectFiles.get(0).getCreatedBy()).getFullName()));
+        userInfoMap.get(objectFiles.get(0).getCreatedBy()).getName()));
     return bucket;
   }
 
@@ -261,7 +261,7 @@ public class LocalObjectClient extends ObjectClient {
       summary.setSize(file.getUsableSpace());
       summary.setLastModified(new Date(file.lastModified()));
       summary.setOwner(new Owner(String.valueOf(objectFile.getCreatedBy()),
-          userInfoMap.get(objectFile.getCreatedBy()).getFullName()));
+          userInfoMap.get(objectFile.getCreatedBy()).getName()));
       return summary;
     }).collect(Collectors.toList());
   }

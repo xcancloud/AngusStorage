@@ -61,7 +61,8 @@ public class SpaceAuthCmdImpl extends CommCmd<SpaceAuth, Long> implements SpaceA
 
       @Override
       protected IdKey<Long, Object> process() {
-        return insert(spaceAuth, "authObjectId");
+        insert(spaceAuth, "authObjectId");
+        return new IdKey<Long, Object>(spaceAuth.getId(), spaceAuth.getSpaceId());
       }
     }.execute();
   }

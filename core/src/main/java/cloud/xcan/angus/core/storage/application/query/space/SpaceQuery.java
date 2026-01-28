@@ -36,8 +36,6 @@ public interface SpaceQuery {
 
   void checkSpaceSizeQuota(Space targetSpaceDb);
 
-  void checkSpaceNumQuota(long incr);
-
   void checkSpaceEmpty(Set<Long> spaceIds);
 
   Space findNotEmptyOneOf(Collection<Long> spaceIds);

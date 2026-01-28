@@ -10,9 +10,9 @@
     <version>2.0.0</version>
   </parent>
 
-  <artifactId>xcan-angusstorage.parent</artifactId>
+  <artifactId>AngusStorage</artifactId>
   <name>AngusStorage :: Parent</name>
-  <version>1.0.0</version>
+  <version>2.0.0</version>
   <packaging>pom</packaging>
   <description>Storage service, providing unified file upload, download and data management
     functions. The storage mode supports local disk storage and third-party S3 protocol object
@@ -84,7 +84,7 @@
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
     <xcan-infra.bom.version>2.0.0</xcan-infra.bom.version>
-    <xcan-angusgm.api.version>1.0.0</xcan-angusgm.api.version>
+    <xcan-angusgm.api.version>2.0.0</xcan-angusgm.api.version>
 
     <commons-compress.version>1.21</commons-compress.version>
     <aws-java-sdk-s3.version>1.11.939</aws-java-sdk-s3.version>

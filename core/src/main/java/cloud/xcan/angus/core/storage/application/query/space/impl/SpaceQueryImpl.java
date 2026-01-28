@@ -1,5 +1,6 @@
 package cloud.xcan.angus.core.storage.application.query.space.impl;
 
+import static cloud.xcan.angus.api.manager.QuotaConstant.QuotaStorageSpace;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotNull;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceExisted;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
@@ -19,14 +20,14 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static java.util.Objects.nonNull;
 
-import cloud.xcan.angus.api.commonlink.setting.quota.QuotaResource;
-import cloud.xcan.angus.api.commonlink.setting.tenant.quota.SettingTenantQuota;
+import cloud.xcan.angus.api.commonlink.quota.Quota;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCount;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
 import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.api.enums.FileResourceType;
 import cloud.xcan.angus.api.enums.FileType;
-import cloud.xcan.angus.api.manager.SettingTenantQuotaManager;
+import cloud.xcan.angus.api.manager.QuotaConstant;
+import cloud.xcan.angus.api.manager.QuotaManager;
 import cloud.xcan.angus.api.manager.UserManager;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.BizException;
@@ -95,7 +96,7 @@ public class SpaceQueryImpl implements SpaceQuery {
   private UserManager userManager;
 
   @Resource
-  private SettingTenantQuotaManager settingTenantQuotaManager;
+  private QuotaManager quotaManager;
 
   @Resource
   private ObjectProperties objectProperties;
@@ -120,10 +121,9 @@ public class SpaceQueryImpl implements SpaceQuery {
 
         setObjectStats(List.of(spaceDb));
 
-        SettingTenantQuota tenantQuota = settingTenantQuotaManager.findTenantQuota(
-            getOptTenantId(), QuotaResource.FileStore);
+        Quota tenantQuota = quotaManager.findTenantQuota(getOptTenantId(), QuotaStorageSpace);
         Assert.assertNotNull(tenantQuota, "Tenant quota setting not found");
-        long tenantQuotaSize = tenantQuota.getQuota();
+        long tenantQuotaSize = DataSize.ofGigabytes(tenantQuota.getLimit()).toBytes();
         spaceDb.setSummary(toSpaceSummary(spaceDb, tenantQuotaSize));
 
         spaceDb.setConfig(bucketBizConfigQuery.findByBizKey(spaceDb.getBizKey()));
@@ -252,9 +252,11 @@ public class SpaceQueryImpl implements SpaceQuery {
   public void checkTenantSizeQuota(Space space) {
     // Check the tenant quota
     if (space.hasQuotaLimit()) {
-      Long tenantSize = spaceObjectRepo.sumSizeByTenantId(getOptTenantId());
+      Long tenantId = getOptTenantId();
+      Long tenantSize = spaceObjectRepo.sumSizeByTenantId(tenantId);
       if (nonNull(tenantSize)) {
-        settingTenantQuotaManager.checkTenantQuota(QuotaResource.FileStore, null, tenantSize);
+        quotaManager.checkTenantQuotaByTotalUsage(tenantId, QuotaStorageSpace,
+            (long)DataSize.ofBytes(tenantSize).toGigabytes());
       }
     }
   }
@@ -269,12 +271,6 @@ public class SpaceQueryImpl implements SpaceQuery {
             new Object[]{spaceQuota.toHumanString()});
       }
     }
-  }
-
-  @Override
-  public void checkSpaceNumQuota(long incr) {
-    long spaceSize = spaceRepo.countByTenantId(getOptTenantId());
-    settingTenantQuotaManager.checkTenantQuota(QuotaResource.DataSpace, null, spaceSize + incr);
   }
 
   @Override

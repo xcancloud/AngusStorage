@@ -62,13 +62,13 @@ public class BucketCmdImpl extends CommCmd<Bucket, Long> implements BucketCmd {
       @Override
       protected IdKey<Long, Object> process() {
         // Save the original information of the bucket to the database
-        IdKey<Long, Object> idKey = insert(bucket);
+        insert(bucket);
 
         // Create bucket
         CreateBucketRequest bucketRequest = new CreateBucketRequest(bucket.getName())
             .withCannedAcl(toCannedAccessControlList(bucket.getAcl()));
         ObjectClientFactory.current().createBucket(bucketRequest);
-        return idKey;
+        return new IdKey<Long, Object>(bucket.getId(), bucket.getName());
       }
     }.execute();
   }
