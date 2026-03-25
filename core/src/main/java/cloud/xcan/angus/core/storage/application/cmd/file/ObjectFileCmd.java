@@ -5,6 +5,7 @@ import cloud.xcan.angus.core.storage.domain.file.ObjectFile;
 import cloud.xcan.angus.core.utils.SpringAppDirUtils;
 import jakarta.validation.constraints.NotNull;
 import java.io.File;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,5 +26,7 @@ public interface ObjectFileCmd {
 
   ObjectFile compress(String name, Long parentDirectoryId, CompressFormat format,
       Set<String> urls, Set<Long> ids);
+
+  void deleteByFileIds(@NotNull HashSet<Long> fileIds);
 
 }

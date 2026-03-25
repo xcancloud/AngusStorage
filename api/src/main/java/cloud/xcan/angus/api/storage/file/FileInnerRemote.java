@@ -1,6 +1,7 @@
 package cloud.xcan.angus.api.storage.file;
 
 import cloud.xcan.angus.api.storage.file.FileRemote.FeignUploadConfig;
+import cloud.xcan.angus.api.storage.file.dto.FileDeleteByFidsDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
 import cloud.xcan.angus.remote.ApiLocaleResult;
@@ -11,9 +12,11 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.cloud.openfeign.SpringQueryMap;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -43,5 +46,10 @@ public interface FileInnerRemote {
       @Parameter(name = "filename", description = "File name", required = true)
       @PathVariable("filename") String filename,
       @SpringQueryMap FileDownloadDto dto);
+
+  @Operation(summary = "Delete files by object file ids (fid, inner API)",
+      operationId = "deleteFilesByFidsByInnerApi")
+  @DeleteMapping
+  void deleteByFids(@RequestBody FileDeleteByFidsDto dto);
 
 }

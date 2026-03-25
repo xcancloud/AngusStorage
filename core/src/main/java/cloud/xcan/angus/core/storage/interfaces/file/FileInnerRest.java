@@ -1,5 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.file;
 
+import cloud.xcan.angus.api.storage.file.dto.FileDeleteByFidsDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
@@ -20,9 +21,11 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -58,6 +61,16 @@ public class FileInnerRest {
       @Parameter(name = "filename", description = "File name", required = true) @PathVariable("filename") String filename,
       @Valid FileDownloadDto dto, HttpServletRequest request, HttpServletResponse response) {
     fileFacade.download(filename, dto, request, response);
+  }
+
+  @Operation(summary = "Delete files by object file ids (fid, inner API).",
+      operationId = "deleteFilesByFidsByInnerApi")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "204", description = "Deleted successfully")})
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  @DeleteMapping
+  public void deleteByFids(@Valid @RequestBody FileDeleteByFidsDto dto) {
+    fileFacade.deleteByFileIds(dto);
   }
 
 }

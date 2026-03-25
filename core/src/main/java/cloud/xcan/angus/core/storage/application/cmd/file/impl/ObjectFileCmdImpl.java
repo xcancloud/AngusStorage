@@ -16,6 +16,7 @@ import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_TOKEN_ERROR_T;
 import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT_11;
 import static cloud.xcan.angus.spec.experimental.BizConstant.DEFAULT_ROOT_PID;
+import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_BATCH_SIZE;
 import static cloud.xcan.angus.spec.experimental.BizConstant.MAX_PUBLIC_TOKEN_LENGTH;
 import static cloud.xcan.angus.spec.http.ContentType.TYPE_OCTET_STREAM;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getTenantId;
@@ -638,6 +639,38 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
             compressObjectIds.add(Long.parseLong(fileIds.iterator().next()));
           }
         }
+      }
+    }.execute();
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  @Override
+  public void deleteByFileIds(HashSet<Long> fileIds) {
+    new BizTemplate<Void>(false) {
+      HashSet<Long> objectIds;
+
+      @Override
+      protected void checkParams() {
+        assertTrue(isNotEmpty(fileIds), "fids is required");
+        assertTrue(fileIds.size() <= MAX_BATCH_SIZE,
+            format("fids size exceeds %s", MAX_BATCH_SIZE));
+        objectIds = new HashSet<>();
+        for (Long fid : fileIds) {
+          ObjectFile fileDb = objectFileQuery.checkAndFind(fid);
+          assertTrue(nonNull(fileDb.getOid()),
+              format("File %s has no space object bound", fid));
+          objectIds.add(fileDb.getOid());
+        }
+      }
+
+      @Override
+      protected Void process() {
+        if (isInnerApi()) {
+          spaceObjectCmd.deleteTrusted(objectIds);
+        } else {
+          spaceObjectCmd.delete(objectIds);
+        }
+        return null;
       }
     }.execute();
   }

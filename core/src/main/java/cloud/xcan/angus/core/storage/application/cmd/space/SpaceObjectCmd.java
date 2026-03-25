@@ -16,6 +16,12 @@ public interface SpaceObjectCmd {
 
   void delete(HashSet<Long> ids);
 
+  /**
+   * Same as {@link #delete(HashSet)} but skips space delete-permission checks; for trusted
+   * {@code /innerapi} callers only.
+   */
+  void deleteTrusted(HashSet<Long> ids);
+
   void fileAdd0(Long spaceId, SpaceObject parentDirectoryDb, List<SpaceObject> files);
 
 }

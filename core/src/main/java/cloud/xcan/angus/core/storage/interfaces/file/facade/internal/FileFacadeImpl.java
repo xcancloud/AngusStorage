@@ -9,6 +9,7 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.nullSafe;
 
 import cloud.xcan.angus.api.storage.file.dto.FileCompressDto;
+import cloud.xcan.angus.api.storage.file.dto.FileDeleteByFidsDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
@@ -76,6 +77,11 @@ public class FileFacadeImpl implements FileFacade {
     buildSupportRangeDownload(objectFileDb.getCacheAge(), objectFileDb.getMediaType(),
         objectFileDb.getName(), data.length, DateUtils.asDate(objectFileDb.getModifiedDate()),
         new ByteArrayInputStream(data), request, response);
+  }
+
+  @Override
+  public void deleteByFileIds(FileDeleteByFidsDto dto) {
+    objectFileCmd.deleteByFileIds(dto.getFids());
   }
 
   @Override

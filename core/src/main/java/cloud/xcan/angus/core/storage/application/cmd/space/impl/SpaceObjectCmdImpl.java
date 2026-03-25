@@ -236,6 +236,16 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
   @Transactional(rollbackFor = Exception.class)
   @Override
   public void delete(HashSet<Long> ids) {
+    delete0(ids, true);
+  }
+
+  @Transactional(rollbackFor = Exception.class)
+  @Override
+  public void deleteTrusted(HashSet<Long> ids) {
+    delete0(ids, false);
+  }
+
+  private void delete0(HashSet<Long> ids, boolean checkDeletePermission) {
     new BizTemplate<Void>() {
       List<SpaceObject> objectsDb;
 
@@ -246,16 +256,15 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
         if (isEmpty(objectsDb)) {
           return;
         }
-        // Check the delete object permission
-        spaceAuthQuery.batchCheckPermission(objectsDb.stream().map(SpaceObject::getSpaceId)
-            .collect(Collectors.toSet()), SpacePermission.OBJECT_DELETE);
-        // Check the nested duplicates
+        if (checkDeletePermission) {
+          spaceAuthQuery.batchCheckPermission(objectsDb.stream().map(SpaceObject::getSpaceId)
+              .collect(Collectors.toSet()), SpacePermission.OBJECT_DELETE);
+        }
         spaceObjectQuery.checkNestedDuplicates(objectsDb);
       }
 
       @Override
       protected Void process() {
-        // Ignore when no objects in db
         if (isEmpty(objectsDb)) {
           return null;
         }
@@ -270,7 +279,6 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
             for (SpaceObject deletedObject : deletedObjects) {
               allDeletedObjectIds.add(deletedObject.getId());
               if (deletedObject.hasSubObject()) {
-                // Query sub object ids
                 String subParentLikeId = deletedObject.hasParent() ?
                     deletedObject.getParentLikeId() + "-" + deletedObject.getId() :
                     String.valueOf(deletedObject.getId());
@@ -283,10 +291,8 @@ public class SpaceObjectCmdImpl extends CommCmd<SpaceObject, Long> implements Sp
           }
         }
 
-        // Update file to be deleted(store_deleted = 1)
         objectFileRepo.updateToBeDeleted(allDeletedObjectIds);
 
-        // Delete space object
         if (isNotEmpty(allDeletedObjectIds)) {
           spaceObjectRepo.deleteByIdIn(allDeletedObjectIds);
         }

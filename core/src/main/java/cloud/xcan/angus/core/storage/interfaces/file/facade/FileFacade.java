@@ -2,6 +2,7 @@ package cloud.xcan.angus.core.storage.interfaces.file.facade;
 
 import cloud.xcan.angus.api.storage.file.dto.FileCompressDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
+import cloud.xcan.angus.api.storage.file.dto.FileDeleteByFidsDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
@@ -18,6 +19,8 @@ public interface FileFacade {
 
   void download(String filename, FileDownloadDto dto,
       HttpServletRequest request, HttpServletResponse response);
+
+  void deleteByFileIds(FileDeleteByFidsDto dto);
 
   FileUploadVo compress(FileCompressDto dto);
 
