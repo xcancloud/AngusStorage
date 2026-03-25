@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.file;
 
-import cloud.xcan.angus.api.storage.file.dto.FileDownloadInnerDto;
+import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
 import cloud.xcan.angus.core.storage.interfaces.file.facade.FileFacade;
@@ -56,8 +56,8 @@ public class FileInnerRest {
   @GetMapping(value = "/{filename:.+}")
   public void download(
       @Parameter(name = "filename", description = "File name", required = true) @PathVariable("filename") String filename,
-      @Valid FileDownloadInnerDto dto, HttpServletRequest request, HttpServletResponse response) {
-    fileFacade.downloadInner(filename, dto, request, response);
+      @Valid FileDownloadDto dto, HttpServletRequest request, HttpServletResponse response) {
+    fileFacade.download(filename, dto, request, response);
   }
 
 }

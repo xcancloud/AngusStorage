@@ -9,6 +9,7 @@ import static cloud.xcan.angus.core.storage.application.converter.FileConverter.
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.toUpdateSpaceObject;
 import static cloud.xcan.angus.core.storage.infra.utils.FileNameSecurityUtil.sanitizeFileName;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
+import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isInnerApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isUserAction;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
@@ -361,12 +362,11 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
               .contains(objectFileDb.getOid()), objectFileDb.getOid());
         } else {
           if (!bucketBizConfigDb.getPublicAccess()) {
-            // Check the tenant data permission (opt tenant is set for /innerapi service calls)
+            // Inner API: trusted service-to-service calls, no tenantId in query; skip tenant/ACL
             assertResourceNotFound(!bucketBizConfigDb.getMultiTenantCtrl()
                 || objectFileDb.getTenantId().equals(getTenantId())
-                || Objects.equals(objectFileDb.getTenantId(), getOptTenantId()), filename);
-            // Check the space object permission
-            if (bucketBizConfigDb.getEnabledAuth()) {
+                || isInnerApi(), filename);
+            if (bucketBizConfigDb.getEnabledAuth() && !isInnerApi()) {
               spaceAuthQuery.checkObjectReadAuth(getUserId(), objectFileDb.getSpaceId());
             }
           }
