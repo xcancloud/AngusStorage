@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.application.query.space.impl;
 
-import static cloud.xcan.angus.api.manager.QuotaConstant.QuotaStorageSpace;
+import static cloud.xcan.angus.api.commonlink.QuotaConstant.QuotaStorageSpace;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotNull;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceExisted;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
@@ -26,7 +26,6 @@ import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
 import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.api.enums.FileResourceType;
 import cloud.xcan.angus.api.enums.FileType;
-import cloud.xcan.angus.api.manager.QuotaConstant;
 import cloud.xcan.angus.api.manager.QuotaManager;
 import cloud.xcan.angus.api.manager.UserManager;
 import cloud.xcan.angus.core.biz.BizTemplate;

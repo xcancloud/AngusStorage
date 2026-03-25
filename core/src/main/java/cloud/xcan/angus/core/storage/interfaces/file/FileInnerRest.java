@@ -44,7 +44,8 @@ public class FileInnerRest {
   @ResponseStatus(HttpStatus.CREATED)
   @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ApiLocaleResult<List<FileUploadVo>> upload(
-      @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE), schema = @Schema(type = "object")) @Valid FileUploadInnerDto dto) {
+      @Parameter(content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE),
+          schema = @Schema(type = "object")) @Valid FileUploadInnerDto dto) {
     return ApiLocaleResult.success(fileFacade.upload(dto));
   }
 
