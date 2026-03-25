@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
     configuration = FeignUploadConfig.class)
 public interface FileRemote {
 
-  @Operation(summary = "Upload file by multipart/form-data", operationId = "file:upload")
+  @Operation(summary = "Upload files by multipart/form-data", operationId = "uploadFiles")
   @PostMapping(
       value = "/api/v1/file/upload",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE
@@ -37,7 +37,7 @@ public interface FileRemote {
       @RequestPart(value = "projectId", required = false) Long projectId,
       @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
-  @Operation(summary = "Download file", operationId = "file:download")
+  @Operation(summary = "Download file", operationId = "downloadFile")
   @GetMapping(value = "/api/v1/file/{filename:.+}")
   ResponseEntity<org.springframework.core.io.Resource> download(
       @Parameter(name = "filename", description = "File name", required = true)
@@ -49,7 +49,7 @@ public interface FileRemote {
 
     @Bean
     public Request.Options feignOptions() {
-      // 连接超时30秒，读取超时60秒
+      // 连接超时60秒，读取超时600秒
       return new Request.Options(60 * 000, 10 * 60 * 000);
     }
   }

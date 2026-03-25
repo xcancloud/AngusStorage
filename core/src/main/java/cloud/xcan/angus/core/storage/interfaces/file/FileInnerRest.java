@@ -28,12 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Validated
 @RestController
 @RequestMapping("/innerapi/v1/file")
-public class FileDoorRest {
+public class FileInnerRest {
 
   @Resource
   private FileFacade fileFacade;
 
-  @Operation(summary = "Upload file by multipart/form-data.", operationId = "file:upload:inner")
+  @Operation(summary = "Upload files by multipart/form-data.", operationId = "uploadFilesByInnerApi")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Upload successfully ")})
   @ResponseStatus(HttpStatus.CREATED)

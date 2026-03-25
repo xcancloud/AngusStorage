@@ -36,7 +36,7 @@ public class FileRest {
   @Resource
   private FileFacade fileFacade;
 
-  @Operation(summary = "Upload file by multipart/form-data.", operationId = "file:upload")
+  @Operation(summary = "Upload files by multipart/form-data.", operationId = "uploadFiles")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "201", description = "Upload successfully ")})
   @ResponseStatus(HttpStatus.CREATED)
@@ -46,7 +46,7 @@ public class FileRest {
     return ApiLocaleResult.success(fileFacade.upload(dto));
   }
 
-  @Operation(summary = "Download file.", operationId = "file:download")
+  @Operation(summary = "Download file.", operationId = "downloadFile")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200", description = "Download successfully"),
       @ApiResponse(responseCode = "404", description = "Object does not exist")})
