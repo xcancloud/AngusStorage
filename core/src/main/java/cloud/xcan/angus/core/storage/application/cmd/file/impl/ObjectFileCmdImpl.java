@@ -361,9 +361,10 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
               .contains(objectFileDb.getOid()), objectFileDb.getOid());
         } else {
           if (!bucketBizConfigDb.getPublicAccess()) {
-            // Check the tenant data permission
-            assertResourceNotFound(!bucketBizConfigDb.getMultiTenantCtrl() ||
-                objectFileDb.getTenantId().equals(getTenantId()), filename);
+            // Check the tenant data permission (opt tenant is set for /innerapi service calls)
+            assertResourceNotFound(!bucketBizConfigDb.getMultiTenantCtrl()
+                || objectFileDb.getTenantId().equals(getTenantId())
+                || Objects.equals(objectFileDb.getTenantId(), getOptTenantId()), filename);
             // Check the space object permission
             if (bucketBizConfigDb.getEnabledAuth()) {
               spaceAuthQuery.checkObjectReadAuth(getUserId(), objectFileDb.getSpaceId());

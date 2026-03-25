@@ -10,6 +10,7 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.nullSafe;
 
 import cloud.xcan.angus.api.storage.file.dto.FileCompressDto;
 import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
+import cloud.xcan.angus.api.storage.file.dto.FileDownloadInnerDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadDto;
 import cloud.xcan.angus.api.storage.file.dto.FileUploadInnerDto;
 import cloud.xcan.angus.api.storage.file.vo.FileUploadVo;
@@ -46,8 +47,16 @@ public class FileFacadeImpl implements FileFacade {
 
   @Override
   public List<FileUploadVo> upload(FileUploadDto dto) {
+    return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
+            dto.getProjectId(), false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
+        .stream().map(FileAssembler::toUploadVo)
+        .collect(Collectors.toList());
+  }
+
+  @Override
+  public List<FileUploadVo> upload(FileUploadInnerDto dto) {
     if (PrincipalContextUtils.isInnerApi()) {
-      PrincipalContext.get().setOptTenantId(((FileUploadInnerDto) dto).getTenantId());
+      PrincipalContext.get().setOptTenantId(dto.getTenantId());
     }
     return objectFileCmd.upload(dto.getBizKey(), dto.getSpaceId(), dto.getParentDirectoryId(),
             dto.getProjectId(), false, null, nullSafe(dto.getExtraFiles(), false), dto.getFiles())
@@ -68,6 +77,16 @@ public class FileFacadeImpl implements FileFacade {
     buildSupportRangeDownload(objectFileDb.getCacheAge(), objectFileDb.getMediaType(),
         objectFileDb.getName(), data.length, DateUtils.asDate(objectFileDb.getModifiedDate()),
         new ByteArrayInputStream(data), request, response);
+  }
+
+  @SneakyThrows
+  @Override
+  public void downloadInner(String filename, FileDownloadInnerDto dto,
+      HttpServletRequest request, HttpServletResponse response) {
+    if (PrincipalContextUtils.isInnerApi()) {
+      PrincipalContext.get().setOptTenantId(dto.getTenantId());
+    }
+    download(filename, dto, request, response);
   }
 
   @Override
