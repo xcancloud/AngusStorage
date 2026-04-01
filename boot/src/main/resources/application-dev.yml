@@ -28,7 +28,10 @@ angus:
       username: ${STORAGE_MYSQL_USER}
       password: ${STORAGE_MYSQL_PASSWORD}
       schema:
-        - mysql/idgen-schema.sql
+        - schema/mysql/idgen-schema.sql
+        - schema/mysql/cache-schema.sql
+        - schema/mysql/job-schema.sql
+        - schema/mysql/queue-schema.sql
     postgresql:
       driverClassName: org.postgresql.Driver
       type: com.zaxxer.hikari.HikariDataSource
@@ -105,8 +108,6 @@ spring:
         order_inserts: true
         order_updates: true
         enable_lazy_load_no_trans: true
-        session_factory:
-          statement_inspector: cloud.xcan.angus.core.jpa.interceptor.TenantInterceptor
     database: '@databaseType@'
     database-platform: '@databaseDialect@'
     open-in-view: false
