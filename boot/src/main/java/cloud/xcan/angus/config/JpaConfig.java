@@ -1,8 +1,8 @@
 package cloud.xcan.angus.config;
 
-import cloud.xcan.angus.core.jpa.repository.BaseRepositoryImpl;
 import cloud.xcan.angus.core.spring.condition.MySqlEnvCondition;
 import cloud.xcan.angus.core.spring.condition.PostgresEnvCondition;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepositoryImpl;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;

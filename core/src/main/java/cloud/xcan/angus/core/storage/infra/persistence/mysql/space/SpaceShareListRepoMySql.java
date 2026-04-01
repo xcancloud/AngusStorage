@@ -1,12 +1,13 @@
 package cloud.xcan.angus.core.storage.infra.persistence.mysql.space;
 
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.getFilterInFirstValue;
+
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.getFilterInFirstValue;
 import static cloud.xcan.angus.spec.principal.PrincipalContext.getTenantId;
 
-import cloud.xcan.angus.core.jpa.repository.AbstractSearchRepository;
-import cloud.xcan.angus.core.jpa.repository.SearchMode;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShare;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShareListRepo;
+import cloud.xcan.angus.persistence.jpa.repository.AbstractSearchRepository;
+import cloud.xcan.angus.persistence.jpa.repository.SearchMode;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
 import java.util.Set;

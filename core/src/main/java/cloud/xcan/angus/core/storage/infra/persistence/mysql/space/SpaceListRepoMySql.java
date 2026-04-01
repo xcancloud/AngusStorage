@@ -1,14 +1,14 @@
 package cloud.xcan.angus.core.storage.infra.persistence.mysql.space;
 
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.assembleGrantPermissionCondition;
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.getFilterInFirstValue;
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.getInConditionValue;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.assembleGrantPermissionCondition;
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.getFilterInFirstValue;
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.getInConditionValue;
 
-import cloud.xcan.angus.core.jpa.repository.AbstractSearchRepository;
-import cloud.xcan.angus.core.jpa.repository.SearchMode;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.SpaceListRepo;
+import cloud.xcan.angus.persistence.jpa.repository.AbstractSearchRepository;
+import cloud.xcan.angus.persistence.jpa.repository.SearchMode;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
 import java.util.Set;

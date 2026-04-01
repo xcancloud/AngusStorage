@@ -1,7 +1,6 @@
 package cloud.xcan.angus.core.storage.domain.space.auth;
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import java.util.Collection;
 import java.util.List;
 import org.springframework.data.jpa.repository.Modifying;
@@ -19,7 +18,7 @@ public interface SpaceAuthRepo extends BaseRepository<SpaceAuth, Long> {
       Collection<Long> orgIds);
 
   Long countBySpaceIdAndAuthObjectIdAndAuthObjectType(Long spaceId, Long authObjectId,
-      AuthObjectType authObjectType);
+      String authObjectType);
 
   @Modifying
   @Query(value = "DELETE FROM object_space_auth WHERE space_id in ?1", nativeQuery = true)

@@ -7,8 +7,6 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isNull;
 import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
-import cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShare;
 import cloud.xcan.angus.core.storage.domain.space.share.SpaceShareType;
@@ -22,6 +20,8 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShare
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareObjectVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.share.SpaceShareVo;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
+import cloud.xcan.angus.persistence.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.unit.TimeValue;
 import java.time.LocalDateTime;

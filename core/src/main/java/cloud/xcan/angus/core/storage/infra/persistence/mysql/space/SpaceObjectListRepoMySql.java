@@ -1,9 +1,9 @@
 package cloud.xcan.angus.core.storage.infra.persistence.mysql.space;
 
-import cloud.xcan.angus.core.jpa.repository.AbstractSearchRepository;
-import cloud.xcan.angus.core.jpa.repository.SearchMode;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectListRepo;
+import cloud.xcan.angus.persistence.jpa.repository.AbstractSearchRepository;
+import cloud.xcan.angus.persistence.jpa.repository.SearchMode;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import java.util.Set;
 import org.springframework.stereotype.Repository;

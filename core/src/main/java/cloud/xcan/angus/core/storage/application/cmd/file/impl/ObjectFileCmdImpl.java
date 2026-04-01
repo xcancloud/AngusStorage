@@ -9,8 +9,8 @@ import static cloud.xcan.angus.core.storage.application.converter.FileConverter.
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.toUpdateSpaceObject;
 import static cloud.xcan.angus.core.storage.infra.utils.FileNameSecurityUtil.sanitizeFileName;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
-import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isInnerApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isApi;
+import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isInnerApi;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isUserAction;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_PASSWORD_ERROR_T;
 import static cloud.xcan.angus.remote.CommonMessage.SHARE_TOKEN_ERROR_T;
@@ -39,7 +39,6 @@ import cloud.xcan.angus.api.storage.file.dto.FileDownloadDto;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.ProtocolAssert;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
 import cloud.xcan.angus.core.spring.boot.ApplicationInfo;
 import cloud.xcan.angus.core.storage.application.cmd.file.ObjectFileCmd;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceCmd;
@@ -64,6 +63,7 @@ import cloud.xcan.angus.core.storage.infra.store.model.ProcessCommand;
 import cloud.xcan.angus.core.storage.infra.store.utils.ImageUtils;
 import cloud.xcan.angus.core.storage.infra.store.utils.MockMultipartFile;
 import cloud.xcan.angus.core.utils.SpringAppDirUtils;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import cloud.xcan.angus.remote.message.ProtocolException;
 import cloud.xcan.angus.remote.message.SysException;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
@@ -93,9 +93,6 @@ import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
-import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
-import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
@@ -784,55 +781,55 @@ public class ObjectFileCmdImpl extends CommCmd<ObjectFile, Long> implements Obje
    * 解压 TAR.GZ 文件
    */
   private void extractTarGz(File tarGzFile, File extractDir) throws IOException {
-    try (FileInputStream fis = new FileInputStream(tarGzFile);
-        GzipCompressorInputStream gzis = new GzipCompressorInputStream(fis);
-        TarArchiveInputStream tis = new TarArchiveInputStream(gzis)) {
-      TarArchiveEntry entry;
-      while ((entry = (TarArchiveEntry) tis.getNextEntry()) != null) {
-        File file = new File(extractDir, entry.getName());
-        if (entry.isDirectory()) {
-          file.mkdirs();
-        } else {
-          file.getParentFile().mkdirs();
-          // 使用 try-with-resources 确保输出流正确关闭
-          try (java.io.FileOutputStream fos = new java.io.FileOutputStream(file)) {
-            byte[] buffer = new byte[8192];
-            int len;
-            while ((len = tis.read(buffer)) > 0) {
-              fos.write(buffer, 0, len);
-            }
-            fos.flush();
-          }
-        }
-      }
-    }
+//    try (FileInputStream fis = new FileInputStream(tarGzFile);
+//        GzipCompressorInputStream gzis = new GzipCompressorInputStream(fis);
+//        TarArchiveInputStream tis = new TarArchiveInputStream(gzis)) {
+//      TarArchiveEntry entry;
+//      while ((entry = (TarArchiveEntry) tis.getNextEntry()) != null) {
+//        File file = new File(extractDir, entry.getName());
+//        if (entry.isDirectory()) {
+//          file.mkdirs();
+//        } else {
+//          file.getParentFile().mkdirs();
+//          // 使用 try-with-resources 确保输出流正确关闭
+//          try (java.io.FileOutputStream fos = new java.io.FileOutputStream(file)) {
+//            byte[] buffer = new byte[8192];
+//            int len;
+//            while ((len = tis.read(buffer)) > 0) {
+//              fos.write(buffer, 0, len);
+//            }
+//            fos.flush();
+//          }
+//        }
+//      }
+//    }
   }
 
   /**
    * 解压 TAR 文件
    */
   private void extractTar(File tarFile, File extractDir) throws IOException {
-    try (FileInputStream fis = new FileInputStream(tarFile);
-        TarArchiveInputStream tis = new TarArchiveInputStream(fis)) {
-      TarArchiveEntry entry;
-      while ((entry = (TarArchiveEntry) tis.getNextEntry()) != null) {
-        File file = new File(extractDir, entry.getName());
-        if (entry.isDirectory()) {
-          file.mkdirs();
-        } else {
-          file.getParentFile().mkdirs();
-          // 使用 try-with-resources 确保输出流正确关闭
-          try (java.io.FileOutputStream fos = new java.io.FileOutputStream(file)) {
-            byte[] buffer = new byte[8192];
-            int len;
-            while ((len = tis.read(buffer)) > 0) {
-              fos.write(buffer, 0, len);
-            }
-            fos.flush();
-          }
-        }
-      }
-    }
+//    try (FileInputStream fis = new FileInputStream(tarFile);
+//        TarArchiveInputStream tis = new TarArchiveInputStream(fis)) {
+//      TarArchiveEntry entry;
+//      while ((entry = (TarArchiveEntry) tis.getNextEntry()) != null) {
+//        File file = new File(extractDir, entry.getName());
+//        if (entry.isDirectory()) {
+//          file.mkdirs();
+//        } else {
+//          file.getParentFile().mkdirs();
+//          // 使用 try-with-resources 确保输出流正确关闭
+//          try (java.io.FileOutputStream fos = new java.io.FileOutputStream(file)) {
+//            byte[] buffer = new byte[8192];
+//            int len;
+//            while ((len = tis.read(buffer)) > 0) {
+//              fos.write(buffer, 0, len);
+//            }
+//            fos.flush();
+//          }
+//        }
+//      }
+//    }
   }
 
   /**

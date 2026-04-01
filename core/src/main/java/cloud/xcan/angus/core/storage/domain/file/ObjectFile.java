@@ -3,8 +3,8 @@ package cloud.xcan.angus.core.storage.domain.file;
 import static cloud.xcan.angus.spec.experimental.BizConstant.DEFAULT_ROOT_PID;
 
 import cloud.xcan.angus.api.enums.PlatformStoreType;
-import cloud.xcan.angus.core.jpa.multitenancy.TenantAuditingEntity;
 import cloud.xcan.angus.core.storage.infra.store.model.UploadType;
+import cloud.xcan.angus.persistence.jpa.entity.TenantAuditingEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

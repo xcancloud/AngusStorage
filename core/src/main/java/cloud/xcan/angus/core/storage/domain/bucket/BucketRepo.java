@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.domain.bucket;
 
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import java.util.Optional;
 
 

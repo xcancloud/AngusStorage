@@ -1,7 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth;
 
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.spec.ValueObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.util.List;
@@ -14,7 +13,7 @@ public abstract class SpaceAuthDetailVo implements SpaceAuthVo {
   private Long id;
 
   @Schema(description = "Authorization object type.")
-  private AuthObjectType authObjectType;
+  private String authObjectType;
 
   @Schema(description = "Authorization object id.")
   private Long authObjectId;
@@ -38,12 +37,12 @@ public abstract class SpaceAuthDetailVo implements SpaceAuthVo {
   }
 
   @Override
-  public AuthObjectType getAuthObjectType() {
+  public String getAuthObjectType() {
     return authObjectType;
   }
 
   @Override
-  public void setAuthObjectType(AuthObjectType authObjectType) {
+  public void setAuthObjectType(String authObjectType) {
     this.authObjectType = authObjectType;
   }
 

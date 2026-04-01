@@ -2,7 +2,6 @@ package cloud.xcan.angus.api.storage.space.dto;
 
 import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT;
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -20,7 +19,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class SpaceAssetsCountDto {
 
   @Schema(description = "Query organization type, default USER")
-  private AuthObjectType creatorObjectType;
+  private String creatorObjectType;
 
   @Schema(description = "Query organization id")
   private Long creatorObjectId;

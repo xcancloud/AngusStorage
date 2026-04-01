@@ -2,9 +2,8 @@ package cloud.xcan.angus.core.storage.application.query.space;
 
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCount;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
-import cloud.xcan.angus.api.enums.AuthObjectType;
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.core.storage.domain.space.Space;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -19,11 +18,11 @@ public interface SpaceQuery {
   Page<Space> list(GenericSpecification<Space> spec, PageRequest pageable,
       boolean fullTextSearch, String[] match);
 
-  StorageResourcesCount countStatistics(Long projectId, AuthObjectType creatorObjectType,
+  StorageResourcesCount countStatistics(Long projectId, String creatorObjectType,
       Long creatorObjectId, LocalDateTime createdDateStart, LocalDateTime createdDateEnd);
 
   StorageResourcesCreationCount resourcesCreationStatistics(Long projectId,
-      AuthObjectType creatorObjectType, Long creatorObjectId, LocalDateTime createdDateStart,
+      String creatorObjectType, Long creatorObjectId, LocalDateTime createdDateStart,
       LocalDateTime createdDateEnd);
 
   Space checkAndFind(Long id);

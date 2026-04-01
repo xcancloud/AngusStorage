@@ -1,6 +1,5 @@
 package cloud.xcan.angus.core.storage.application.query.space;
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuth;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuthCurrent;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
@@ -89,7 +88,7 @@ public interface SpaceAuthQuery {
 
   void batchCheckPermission(Collection<Long> spaceIds, SpacePermission permission);
 
-  void checkRepeatAuth(Long spaceId, Long authObjectId, AuthObjectType authObjectType);
+  void checkRepeatAuth(Long spaceId, Long authObjectId, String authObjectType);
 
   List<Long> findByAuthObjectIdsAndPermission(Long userId, SpacePermission permission);
 

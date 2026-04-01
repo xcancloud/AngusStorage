@@ -12,7 +12,6 @@ import static com.amazonaws.services.s3.internal.BucketNameUtils.isValidV2Bucket
 
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
 import cloud.xcan.angus.core.storage.application.cmd.bucket.BucketCmd;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceCmd;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketQuery;
@@ -20,6 +19,7 @@ import cloud.xcan.angus.core.storage.domain.bucket.Bucket;
 import cloud.xcan.angus.core.storage.domain.bucket.BucketRepo;
 import cloud.xcan.angus.core.storage.domain.space.SpaceRepo;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import cloud.xcan.angus.spec.experimental.IdKey;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
 import com.amazonaws.services.s3.model.CreateBucketRequest;

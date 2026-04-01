@@ -1,6 +1,6 @@
 package cloud.xcan.angus.core.storage.domain.setting;
 
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 

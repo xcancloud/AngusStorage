@@ -1,10 +1,10 @@
 package cloud.xcan.angus.core.storage.infra.search;
 
-import cloud.xcan.angus.core.jpa.repository.AbstractSearchRepository;
-import cloud.xcan.angus.core.jpa.repository.SearchMode;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.SpaceListRepo;
 import cloud.xcan.angus.core.storage.domain.space.SpaceSearchRepo;
+import cloud.xcan.angus.persistence.jpa.repository.AbstractSearchRepository;
+import cloud.xcan.angus.persistence.jpa.repository.SearchMode;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import jakarta.annotation.Resource;
 import java.util.Set;

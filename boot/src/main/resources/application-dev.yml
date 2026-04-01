@@ -1,4 +1,4 @@
-xcan:
+angus:
   trace:
     enabled: true
   datasource:
@@ -6,6 +6,11 @@ xcan:
       dbType: '@databaseType@'
       entityPackages:
         - cloud.xcan.angus.idgen.entity
+        - cloud.xcan.angus.cache.entity
+        - cloud.xcan.angus.job.entity
+        - cloud.xcan.angus.queue.entity
+        - cloud.xcan.angus.api.commonlink
+        - cloud.xcan.angus.core.gm.domain
         - cloud.xcan.angus.core.storage.domain
     hikari:
       readOnly: false
@@ -31,7 +36,10 @@ xcan:
       username: ${STORAGE_POSTGRES_USER}
       password: ${STORAGE_POSTGRES_PASSWORD}
       schema:
-        - postgres/idgen-schema.sql
+        - schema/postgres/idgen-schema.sql
+        - schema/postgres/cache-schema.sql
+        - schema/postgres/job-schema.sql
+        - schema/postgres/queue-schema.sql
     commonlink:
       mysql:
         driverClassName: com.mysql.cj.jdbc.Driver
@@ -54,17 +62,6 @@ xcan:
     endpoint: ${STORAGE_S3_ENDPOINT}
     accessKey: ${STORAGE_S3_ACCESS_KEY}
     secretKey: ${STORAGE_S3_SECRET_KEY}
-  redis:
-    enabled: true
-    deployment: SINGLE
-    host: ${STORAGE_REDIS_HOST}
-    port: ${STORAGE_REDIS_PORT}
-    password: ${STORAGE_REDIS_PASSWORD}
-    lettuce:
-      pool:
-        max-active: 8
-        max-idle: 8
-        min-idle: 5
 
 eureka:
   client:

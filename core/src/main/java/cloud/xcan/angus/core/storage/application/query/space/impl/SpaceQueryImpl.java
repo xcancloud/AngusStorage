@@ -4,8 +4,6 @@ import static cloud.xcan.angus.api.commonlink.QuotaConstant.QuotaStorageSpace;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertNotNull;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceExisted;
 import static cloud.xcan.angus.core.biz.ProtocolAssert.assertResourceNotFound;
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.findFirstAndRemove;
-import static cloud.xcan.angus.core.jpa.criteria.CriteriaUtils.findFirstValueAndRemove;
 import static cloud.xcan.angus.core.storage.application.converter.SpaceObjectConverter.toSpaceSummary;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_DELETED_NOT_EMPTY;
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_DELETED_NOT_EMPTY_CODE;
@@ -14,16 +12,18 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_SIZE_OVE
 import static cloud.xcan.angus.core.storage.domain.StorageMessage.SPACE_SIZE_OVER_LIMIT_T;
 import static cloud.xcan.angus.core.utils.CoreUtils.getCommonResourcesStatsFilter;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.getOptTenantId;
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.findFirstAndRemove;
+import static cloud.xcan.angus.persistence.jpa.criteria.CriteriaUtils.findFirstValueAndRemove;
 import static cloud.xcan.angus.remote.search.SearchCriteria.equal;
 import static cloud.xcan.angus.remote.search.SearchCriteria.merge;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isEmpty;
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static java.util.Objects.nonNull;
 
+import cloud.xcan.angus.api.commonlink.OrgType;
 import cloud.xcan.angus.api.commonlink.quota.Quota;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCount;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.api.enums.FileResourceType;
 import cloud.xcan.angus.api.enums.FileType;
 import cloud.xcan.angus.api.manager.QuotaManager;
@@ -31,7 +31,6 @@ import cloud.xcan.angus.api.manager.UserManager;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.BizException;
 import cloud.xcan.angus.core.biz.exception.QuotaException;
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketBizConfigQuery;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceAuthQuery;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceObjectQuery;
@@ -45,6 +44,7 @@ import cloud.xcan.angus.core.storage.domain.space.SpaceSearchRepo;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.experimental.Assert;
@@ -158,7 +158,7 @@ public class SpaceQueryImpl implements SpaceQuery {
   }
 
   @Override
-  public StorageResourcesCount countStatistics(Long projectId, AuthObjectType creatorObjectType,
+  public StorageResourcesCount countStatistics(Long projectId, String creatorObjectType,
       Long creatorObjectId, LocalDateTime createdDateStart, LocalDateTime createdDateEnd) {
     return new BizTemplate<StorageResourcesCount>() {
 
@@ -169,7 +169,8 @@ public class SpaceQueryImpl implements SpaceQuery {
 
         // Find all when condition is null, else find by condition
         if (nonNull(creatorObjectType)) {
-          createdBys = userManager.getUserIdByOrgType0(creatorObjectType, creatorObjectId);
+          createdBys = userManager.getUserIdByOrgType0(OrgType.valueOf(creatorObjectType),
+              creatorObjectId);
         }
 
         Set<SearchCriteria> allFilters = getCommonResourcesStatsFilter(projectId, createdDateStart,
@@ -185,7 +186,7 @@ public class SpaceQueryImpl implements SpaceQuery {
 
   @Override
   public StorageResourcesCreationCount resourcesCreationStatistics(Long projectId,
-      AuthObjectType creatorObjectType, Long creatorObjectId, LocalDateTime createdDateStart,
+      String creatorObjectType, Long creatorObjectId, LocalDateTime createdDateStart,
       LocalDateTime createdDateEnd) {
     return new BizTemplate<StorageResourcesCreationCount>() {
 
@@ -202,7 +203,8 @@ public class SpaceQueryImpl implements SpaceQuery {
       protected StorageResourcesCreationCount process() {
         // Find all when condition is null, else find by condition
         if (nonNull(creatorObjectType)) {
-          createdBys = userManager.getUserIdByOrgType0(creatorObjectType, creatorObjectId);
+          createdBys = userManager.getUserIdByOrgType0(OrgType.valueOf(creatorObjectType),
+              creatorObjectId);
         }
 
         Set<SearchCriteria> commonFilters = getCommonResourcesStatsFilter(projectId,
@@ -255,7 +257,7 @@ public class SpaceQueryImpl implements SpaceQuery {
       Long tenantSize = spaceObjectRepo.sumSizeByTenantId(tenantId);
       if (nonNull(tenantSize)) {
         quotaManager.checkTenantQuotaByTotalUsage(tenantId, QuotaStorageSpace,
-            (long)DataSize.ofBytes(tenantSize).toGigabytes());
+            (long) DataSize.ofBytes(tenantSize).toGigabytes());
       }
     }
   }

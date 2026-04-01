@@ -3,7 +3,7 @@ server:
   servlet:
     context-path: /
 
-xcan:
+angus:
   core:
     enabled: true
   global:
@@ -21,7 +21,7 @@ xcan:
     commonlink:
       enabled: true
   redis:
-    enabled: true
+    enabled: false
 
 info:
   app:

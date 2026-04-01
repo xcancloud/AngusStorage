@@ -3,8 +3,8 @@ package cloud.xcan.angus.core.storage.domain.space;
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.enums.PlatformStoreType;
-import cloud.xcan.angus.core.jpa.multitenancy.TenantAuditingEntity;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
+import cloud.xcan.angus.persistence.jpa.entity.TenantAuditingEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

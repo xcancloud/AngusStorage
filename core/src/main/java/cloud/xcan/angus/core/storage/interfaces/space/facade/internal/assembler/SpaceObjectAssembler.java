@@ -7,8 +7,6 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.pidSafe;
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.enums.FileType;
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
-import cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectSummary;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
@@ -20,6 +18,8 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObje
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectNavigationVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectSummaryVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.object.SpaceObjectVo;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
+import cloud.xcan.angus.persistence.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import cloud.xcan.angus.spec.unit.DataSize;
 import cloud.xcan.angus.spec.unit.DataUnit;

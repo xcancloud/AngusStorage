@@ -1,7 +1,7 @@
 package cloud.xcan.angus.core.storage.domain.space.share;
 
-import cloud.xcan.angus.core.jpa.repository.CustomBaseRepository;
-import cloud.xcan.angus.core.jpa.repository.SearchMode;
+import cloud.xcan.angus.persistence.jpa.repository.CustomBaseRepository;
+import cloud.xcan.angus.persistence.jpa.repository.SearchMode;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import java.util.Set;
 import org.springframework.data.repository.NoRepositoryBean;

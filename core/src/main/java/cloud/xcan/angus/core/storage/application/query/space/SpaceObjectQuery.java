@@ -1,8 +1,8 @@
 package cloud.xcan.angus.core.storage.application.query.space;
 
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
 import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
 import java.util.List;
 import java.util.Set;
 import org.springframework.data.domain.Page;

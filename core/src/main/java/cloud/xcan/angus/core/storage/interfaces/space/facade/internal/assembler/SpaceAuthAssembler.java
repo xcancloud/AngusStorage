@@ -2,8 +2,6 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler
 
 import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 
-import cloud.xcan.angus.core.jpa.criteria.GenericSpecification;
-import cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuth;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpaceAuthCurrent;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
@@ -15,6 +13,8 @@ import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthDe
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthGroupDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthUserDetailVo;
 import cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth.SpaceAuthVo;
+import cloud.xcan.angus.persistence.jpa.criteria.GenericSpecification;
+import cloud.xcan.angus.persistence.jpa.criteria.SearchCriteriaBuilder;
 import cloud.xcan.angus.remote.search.SearchCriteria;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -49,9 +49,11 @@ public class SpaceAuthAssembler {
 
   public static SpaceAuthVo toDetailVo(SpaceAuth spaceAuth) {
     SpaceAuthVo authVo = switch (spaceAuth.getAuthObjectType()) {
-      case USER -> new SpaceAuthUserDetailVo();
-      case GROUP -> new SpaceAuthGroupDetailVo();
-      case DEPT -> new SpaceAuthDeptDetailVo();
+      case "USER" -> new SpaceAuthUserDetailVo();
+      case "GROUP" -> new SpaceAuthGroupDetailVo();
+      case "DEPT" -> new SpaceAuthDeptDetailVo();
+      default ->
+          throw new IllegalStateException("Unexpected value: " + spaceAuth.getAuthObjectType());
     };
     authVo.setId(spaceAuth.getId());
     authVo.setPermissions(spaceAuth.getAuths());

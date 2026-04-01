@@ -1,8 +1,8 @@
 package cloud.xcan.angus.core.storage.domain.space.object;
 
 import cloud.xcan.angus.api.enums.FileType;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
-import cloud.xcan.angus.core.jpa.repository.NameJoinRepository;
+import cloud.xcan.angus.core.biz.NameJoinRepository;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;

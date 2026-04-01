@@ -14,7 +14,6 @@ import static cloud.xcan.angus.spec.utils.ObjectUtils.isNotEmpty;
 import static java.util.Objects.nonNull;
 
 import cloud.xcan.angus.api.commonlink.user.UserRepo;
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.exception.BizException;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceAuthQuery;
@@ -372,11 +371,11 @@ public class SpaceAuthQueryImpl implements SpaceAuthQuery {
   }
 
   @Override
-  public void checkRepeatAuth(Long spaceId, Long authObjectId, AuthObjectType authObjectType) {
+  public void checkRepeatAuth(Long spaceId, Long authObjectId, String authObjectType) {
     if (spaceAuthRepo.countBySpaceIdAndAuthObjectIdAndAuthObjectType(spaceId, authObjectId,
         authObjectType) > 0) {
       throw ResourceExisted
-          .of(String.valueOf(authObjectId), "Authorization:" + authObjectType.name());
+          .of(String.valueOf(authObjectId), "Authorization:" + authObjectType);
     }
   }
 

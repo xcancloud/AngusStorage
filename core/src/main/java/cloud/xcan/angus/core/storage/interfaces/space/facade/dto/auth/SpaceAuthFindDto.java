@@ -2,7 +2,6 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth;
 
 import static cloud.xcan.angus.spec.SpecConstant.DateFormat.DATE_FMT;
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.remote.PageQuery;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
@@ -22,7 +21,7 @@ public class SpaceAuthFindDto extends PageQuery {
 
   @NotNull
   @Schema(description = "Space authorization object type.", requiredMode = RequiredMode.REQUIRED)
-  private AuthObjectType authObjectType;
+  private String authObjectType;
 
   @Schema(description = "Space authorization object id.")
   private Long authObjectId;

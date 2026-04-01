@@ -1,8 +1,8 @@
 package cloud.xcan.angus.core.storage.domain.bucket;
 
-import cloud.xcan.angus.core.jpa.auditor.AuditingEntity;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
 import cloud.xcan.angus.core.storage.infra.store.model.AccessControl;
+import cloud.xcan.angus.persistence.jpa.entity.AuditingEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;

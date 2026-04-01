@@ -8,7 +8,6 @@ import static cloud.xcan.angus.spec.principal.PrincipalContext.getUserId;
 
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceAuthCmd;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceCmd;
 import cloud.xcan.angus.core.storage.application.converter.SpaceConverter;
@@ -24,6 +23,7 @@ import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectClient;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import cloud.xcan.angus.spec.experimental.IdKey;
 import jakarta.annotation.Resource;
 import java.time.LocalDateTime;

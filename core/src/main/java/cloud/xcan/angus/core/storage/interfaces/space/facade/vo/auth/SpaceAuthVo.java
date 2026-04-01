@@ -1,7 +1,6 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.vo.auth;
 
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.spec.ValueObject;
 import java.io.Serializable;
 import java.util.List;
@@ -10,7 +9,7 @@ public interface SpaceAuthVo extends Serializable {
 
   Long getId();
 
-  AuthObjectType getAuthObjectType();
+  String getAuthObjectType();
 
   Long getAuthObjectId();
 
@@ -20,7 +19,7 @@ public interface SpaceAuthVo extends Serializable {
 
   void setId(Long id);
 
-  void setAuthObjectType(AuthObjectType authObjectType);
+  void setAuthObjectType(String authObjectType);
 
   void setAuthObjectId(Long authObjectId);
 

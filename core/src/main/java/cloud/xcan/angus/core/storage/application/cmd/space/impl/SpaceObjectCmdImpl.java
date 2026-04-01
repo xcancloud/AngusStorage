@@ -10,7 +10,6 @@ import static org.apache.commons.lang3.ObjectUtils.isNotEmpty;
 
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceObjectCmd;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceAuthQuery;
 import cloud.xcan.angus.core.storage.application.query.space.SpaceObjectQuery;
@@ -20,6 +19,7 @@ import cloud.xcan.angus.core.storage.domain.space.Space;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObject;
 import cloud.xcan.angus.core.storage.domain.space.object.SpaceObjectRepo;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import cloud.xcan.angus.remote.message.http.ResourceNotFound;
 import cloud.xcan.angus.spec.experimental.IdKey;
 import jakarta.annotation.Resource;

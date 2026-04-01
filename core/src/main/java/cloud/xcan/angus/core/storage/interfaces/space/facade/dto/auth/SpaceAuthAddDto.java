@@ -3,7 +3,6 @@ package cloud.xcan.angus.core.storage.interfaces.space.facade.dto.auth;
 
 import static cloud.xcan.angus.api.commonlink.StorageConstant.SPACE_PERMISSION_NUM;
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
 import cloud.xcan.angus.core.storage.domain.space.auth.SpacePermission;
 import cloud.xcan.angus.validator.CollectionValueNotNull;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,7 +22,7 @@ public class SpaceAuthAddDto implements Serializable {
 
   @NotNull
   @Schema(description = "Space authorization object type.", example = "USER", requiredMode = RequiredMode.REQUIRED)
-  private AuthObjectType authObjectType;
+  private String authObjectType;
 
   @NotNull
   @Schema(description = "Space authorization object id.", example = "1", requiredMode = RequiredMode.REQUIRED)

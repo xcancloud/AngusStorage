@@ -1,14 +1,11 @@
 package cloud.xcan.angus.core.storage.domain.space.auth;
 
 
-import cloud.xcan.angus.api.enums.AuthObjectType;
-import cloud.xcan.angus.core.jpa.multitenancy.TenantEntity;
+import cloud.xcan.angus.persistence.jpa.entity.TenantEntity;
 import io.hypersistence.utils.hibernate.type.json.JsonType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.util.Date;
@@ -37,8 +34,7 @@ public class SpaceAuth extends TenantEntity<SpaceAuth, Long> {
   private Long spaceId;
 
   @Column(name = "auth_object_type")
-  @Enumerated(EnumType.STRING)
-  private AuthObjectType authObjectType;
+  private String authObjectType;
 
   @Column(name = "auth_object_id")
   private Long authObjectId;

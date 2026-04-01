@@ -1,11 +1,11 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal;
 
-import static cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.addDtoToDomain;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.getSpecification;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.toDetailVo;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceAssembler.updateDtoToDomain;
 import static cloud.xcan.angus.core.utils.CoreUtils.buildVoPageResult;
+import static cloud.xcan.angus.persistence.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
 
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCount;
 import cloud.xcan.angus.api.commonlink.space.StorageResourcesCreationCount;

@@ -9,7 +9,6 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.BUCKET_NON_CUS
 
 import cloud.xcan.angus.core.biz.BizTemplate;
 import cloud.xcan.angus.core.biz.cmd.CommCmd;
-import cloud.xcan.angus.core.jpa.repository.BaseRepository;
 import cloud.xcan.angus.core.storage.application.cmd.bucket.BucketBizConfigCmd;
 import cloud.xcan.angus.core.storage.application.query.bucket.BucketQuery;
 import cloud.xcan.angus.core.storage.domain.bucket.Bucket;
@@ -17,6 +16,7 @@ import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfig;
 import cloud.xcan.angus.core.storage.domain.bucket.config.BucketBizConfigRepo;
 import cloud.xcan.angus.core.storage.domain.file.ObjectFileRepo;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
+import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import jakarta.annotation.Resource;
 import org.springframework.transaction.annotation.Transactional;
 

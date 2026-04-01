@@ -1,12 +1,13 @@
 package cloud.xcan.angus.core.storage.interfaces.space.facade.internal;
 
-import static cloud.xcan.angus.core.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
+
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.addDtoToDirectoryObject;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.getSpecification;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.toAddressVo;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.toDetailVo;
 import static cloud.xcan.angus.core.storage.interfaces.space.facade.internal.assembler.SpaceObjectAssembler.toNavigationVo;
 import static cloud.xcan.angus.core.utils.CoreUtils.buildVoPageResult;
+import static cloud.xcan.angus.persistence.jpa.criteria.SearchCriteriaBuilder.getMatchSearchFields;
 
 import cloud.xcan.angus.core.biz.NameJoin;
 import cloud.xcan.angus.core.storage.application.cmd.space.SpaceObjectCmd;

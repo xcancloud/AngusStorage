@@ -7,12 +7,12 @@
   <parent>
     <groupId>cloud.xcan.angus</groupId>
     <artifactId>AngusInfra</artifactId>
-    <version>2.0.0</version>
+    <version>3.0.0</version>
   </parent>
 
   <artifactId>AngusStorage</artifactId>
   <name>AngusStorage :: Parent</name>
-  <version>2.0.0</version>
+  <version>3.0.0</version>
   <packaging>pom</packaging>
   <description>Storage service, providing unified file upload, download and data management
     functions. The storage mode supports local disk storage and third-party S3 protocol object
@@ -79,11 +79,11 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-    <java.version>17</java.version>
+    <java.version>21</java.version>
     <maven.compiler.source>${java.version}</maven.compiler.source>
     <maven.compiler.target>${java.version}</maven.compiler.target>
 
-    <xcan-infra.bom.version>2.0.0</xcan-infra.bom.version>
+    <xcan-angusinfra.bom.version>3.0.0</xcan-angusinfra.bom.version>
     <xcan-angusgm.api.version>2.0.0</xcan-angusgm.api.version>
 
     <commons-compress.version>1.21</commons-compress.version>
@@ -95,8 +95,8 @@
     <dependencies>
       <dependency>
         <groupId>cloud.xcan.angus</groupId>
-        <artifactId>xcan-infra.bom</artifactId>
-        <version>${xcan-infra.bom.version}</version>
+        <artifactId>xcan-angusinfra.bom</artifactId>
+        <version>${xcan-angusinfra.bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
