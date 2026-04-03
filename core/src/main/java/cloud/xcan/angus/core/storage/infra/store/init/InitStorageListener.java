@@ -9,7 +9,6 @@ import cloud.xcan.angus.core.storage.domain.setting.StorageSettingRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -23,8 +22,8 @@ public class InitStorageListener implements ApplicationListener<ApplicationReady
   @Override
   public void onApplicationEvent(ApplicationReadyEvent contextStartedEvent) {
     try {
-      initBucket();
-      loadSettingInDb();
+      ObjectProperties properties = loadSettingInDb();
+      initBucket(properties);
     } catch (Exception e) {
       log.error("System startup exception, system exit");
       SpringApplication.exit(contextStartedEvent.getApplicationContext(), () -> -1);
@@ -32,14 +31,14 @@ public class InitStorageListener implements ApplicationListener<ApplicationReady
     }
   }
 
-  private void initBucket() throws Exception {
+  private void initBucket(ObjectProperties properties) throws Exception {
     try {
       BucketRepo bucketRepo = SpringContextHolder.getBean(BucketRepo.class);
       List<Bucket> buckets = bucketRepo.findAll();
       if (ObjectUtils.isEmpty(buckets)) {
         throw new IllegalStateException("No bucket configuration found");
       }
-      ObjectClientFactory.current().init(buckets);
+      ObjectClientFactory.of(properties.getStoreType()).init(buckets);
       log.info("Initialization storage directory or bucket success");
     } catch (Exception e) {
       log.error("Initialization storage directory or bucket exception", e);
@@ -47,17 +46,20 @@ public class InitStorageListener implements ApplicationListener<ApplicationReady
     }
   }
 
-  private void loadSettingInDb() throws Exception {
+  /**
+   * 获取存储配置信息，其中数据库配置比配置优先级更高
+   */
+  private ObjectProperties loadSettingInDb() throws Exception {
     try {
       StorageSettingRepo storageSettingRepo = SpringContextHolder.getBean(StorageSettingRepo.class);
       StorageSetting settingDb = storageSettingRepo.findByPkey(StorageSettingKey.SETTING);
-      if (ObjectUtils.isEmpty(settingDb) || ObjectUtils.isEmpty(settingDb.getPvalue())) {
-        return;
-      }
       ObjectProperties objectProperties = SpringContextHolder.getBean(ObjectProperties.class);
-      ObjectMapper objectMapper = SpringContextHolder.getBean(ObjectMapper.class);
-      BeanUtils.copyProperties(settingDb.toSetting(objectMapper), objectProperties);
+      if (ObjectUtils.isEmpty(settingDb) || ObjectUtils.isEmpty(settingDb.getPvalue())) {
+        return objectProperties;
+      }
+      BeanUtils.copyProperties(settingDb.toSetting(), objectProperties);
       log.info("Load storage setting success, Use {} storage", objectProperties.getStoreType());
+      return objectProperties;
     } catch (Exception e) {
       log.error("Load storage setting exception", e);
       throw e;

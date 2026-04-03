@@ -1,6 +1,7 @@
 package cloud.xcan.angus.core.storage.domain.setting;
 
 import cloud.xcan.angus.spec.experimental.EntitySupport;
+import cloud.xcan.angus.spec.utils.JsonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.Entity;
@@ -30,8 +31,8 @@ public class StorageSetting extends EntitySupport<StorageSetting, Long> implemen
 
   private String pvalue;
 
-  public SettingData toSetting(ObjectMapper objectMapper) throws JsonProcessingException {
-    return Objects.nonNull(pvalue) ? objectMapper.readValue(pvalue, SettingData.class) : null;
+  public SettingData toSetting() throws JsonProcessingException {
+    return Objects.nonNull(pvalue) ? JsonUtils.convert(pvalue, SettingData.class) : null;
   }
 
   @Override

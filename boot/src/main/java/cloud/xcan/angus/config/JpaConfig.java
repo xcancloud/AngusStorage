@@ -16,8 +16,15 @@ public class JpaConfig {
   @EnableTransactionManagement
   @EnableJpaRepositories(
       repositoryBaseClass = BaseRepositoryImpl.class,
-      basePackages = {"cloud.xcan.angus.idgen.dao",
-          "cloud.xcan.angus.core.storage.infra.persistence.mysql.**"})
+      basePackages = {
+          "cloud.xcan.angus.cache.jpa",
+          "cloud.xcan.angus.idgen.jpa",
+          "cloud.xcan.angus.job.jpa",
+          "cloud.xcan.angus.plugin.jpa",
+          "cloud.xcan.angus.queue.jpa",
+          "cloud.xcan.angus.sharding.jpa",
+          "cloud.xcan.angus.core.storage.infra.persistence.mysql.**"
+      })
   @Conditional(MySqlEnvCondition.class)
   protected static class JpaEnableMysqlConfiguration {
 
@@ -27,8 +34,15 @@ public class JpaConfig {
   @EnableTransactionManagement
   @EnableJpaRepositories(
       repositoryBaseClass = BaseRepositoryImpl.class,
-      basePackages = {"cloud.xcan.angus.idgen.dao",
-          "cloud.xcan.angus.core.storage.infra.persistence.postgres.**"})
+      basePackages = {
+          "cloud.xcan.angus.cache.jpa",
+          "cloud.xcan.angus.idgen.jpa",
+          "cloud.xcan.angus.job.jpa",
+          "cloud.xcan.angus.plugin.jpa",
+          "cloud.xcan.angus.queue.jpa",
+          "cloud.xcan.angus.sharding.jpa",
+          "cloud.xcan.angus.core.storage.infra.persistence.postgres.**"
+      })
   @Conditional(PostgresEnvCondition.class)
   protected static class JpaEnablePostgresConfiguration {
 

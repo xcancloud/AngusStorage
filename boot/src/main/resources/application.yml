@@ -9,17 +9,55 @@ angus:
   global:
     cors:
       enabled: true
-  opt-log:
-    enabled: true
-    clearBeforeDay: 360
   api-log:
     enabled: false
   id-gen:
     enabled: true
+#  plugin:
+#    enabled: true
+#    storage-type: DISK
+#    auto-load: true
+#    enable-management-api: true
+#    management-api-prefix: /api/plugins
+#    enable-security-check: true
   datasource:
     enabled: true
     commonlink:
       enabled: true
+    extra:
+      dbType: '@databaseType@'
+      hikari:
+        readOnly: false
+        connectionTestQuery: SELECT 1 FROM DUAL
+        poolName: xcanHikariCP
+        idleTimeout: 600000
+        maxLifetime: 1800000
+        maximumPoolSize: 30
+        minimumIdle: 10
+      entityPackages:
+        - cloud.xcan.angus.idgen.entity
+        - cloud.xcan.angus.cache.entity
+        - cloud.xcan.angus.job.entity
+        - cloud.xcan.angus.queue.entity
+        - cloud.xcan.angus.sharding.entity
+        - cloud.xcan.angus.plugin.entity
+        - cloud.xcan.angus.api.commonlink
+        - cloud.xcan.angus.core.storage.domain
+        - cloud.xcan.angus.core.gm.domain
+    mysql:
+      schema:
+        - schema/mysql/idgen-schema.sql
+        - schema/mysql/cache-schema.sql
+        - schema/mysql/job-schema.sql
+#        - schema/mysql/queue-schema.sql
+#        - schema/mysql/sharding-schema.sql
+    postgresql:
+      schema:
+        - schema/postgres/idgen-schema.sql
+        - schema/postgres/cache-schema.sql
+        - schema/postgres/job-schema.sql
+#        - schema/postgres/queue-schema.sql
+#        - schema/postgres/sharding-schema.sql
   redis:
     enabled: false
 
@@ -68,6 +106,9 @@ spring:
       # location: ${upload.tmp.dir:/workdata/tmp/upload} # Fix:: java.nio.file.NoSuchFileException: /tmp/undertow.1819.4153244082753775934/undertow6191513646749224630upload
       max-request-size: ${FILE_MAX_SIZE:20GB}
       max-file-size: ${FILE_MAX_SIZE:20GB}
+  threads:
+    virtual:
+      enabled: true
 
 springdoc:
   api-docs:

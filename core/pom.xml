@@ -20,14 +20,30 @@
       <artifactId>xcan-angusinfra.core</artifactId>
     </dependency>
 
+    <!-- AngusInfra Components -->
     <dependency>
       <groupId>cloud.xcan.angus</groupId>
-      <artifactId>xcan-angusinfra.jpa-core</artifactId>
+      <artifactId>xcan-angusinfra.idgen-starter</artifactId>
     </dependency>
-
     <dependency>
       <groupId>cloud.xcan.angus</groupId>
-      <artifactId>xcan-angusinfra.lettucex</artifactId>
+      <artifactId>xcan-angusinfra.job-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusinfra.cache-starter</artifactId>
+    </dependency>
+    <!--<dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusinfra.queue-starter</artifactId>
+    </dependency>-->
+    <!--<dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusinfra.plugin-starter</artifactId>
+    </dependency>-->
+    <dependency>
+      <groupId>cloud.xcan.angus</groupId>
+      <artifactId>xcan-angusinfra.sharding-starter</artifactId>
     </dependency>
 
     <dependency>

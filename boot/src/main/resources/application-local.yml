@@ -2,46 +2,18 @@ angus:
   trace:
     enabled: true
   datasource:
-    extra:
-      dbType: '@databaseType@'
-      entityPackages:
-        - cloud.xcan.angus.idgen.entity
-        - cloud.xcan.angus.cache.entity
-        - cloud.xcan.angus.job.entity
-        - cloud.xcan.angus.queue.entity
-        - cloud.xcan.angus.api.commonlink
-        - cloud.xcan.angus.core.gm.domain
-        - cloud.xcan.angus.core.storage.domain
-    hikari:
-      readOnly: false
-      connectionTestQuery: SELECT 1 FROM DUAL
-      poolName: xcanHikariCP
-      idleTimeout: 600000
-      maxLifetime: 1800000
-      maximumPoolSize: 30
-      minimumIdle: 10
     mysql:
       driverClassName: com.mysql.cj.jdbc.Driver
       type: com.zaxxer.hikari.HikariDataSource
       url: jdbc:mysql://${STORAGE_MYSQL_HOST}:${STORAGE_MYSQL_PORT}/${STORAGE_MYSQL_DB}?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=${info.app.timezone}&rewriteBatchedStatements=true
       username: ${STORAGE_MYSQL_USER}
       password: ${STORAGE_MYSQL_PASSWORD}
-      schema:
-        - schema/mysql/idgen-schema.sql
-        - schema/mysql/cache-schema.sql
-        - schema/mysql/job-schema.sql
-        - schema/mysql/queue-schema.sql
     postgresql:
       driverClassName: org.postgresql.Driver
       type: com.zaxxer.hikari.HikariDataSource
       url: jdbc:postgresql://${STORAGE_POSTGRES_HOST}:${STORAGE_POSTGRES_PORT}/${STORAGE_POSTGRES_DB}?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&useSSL=false&zeroDateTimeBehavior=convertToNull&serverTimezone=${info.app.timezone}&rewriteBatchedStatements=true
       username: ${STORAGE_POSTGRES_USER}
       password: ${STORAGE_POSTGRES_PASSWORD}
-      schema:
-        - schema/postgres/idgen-schema.sql
-        - schema/postgres/cache-schema.sql
-        - schema/postgres/job-schema.sql
-        - schema/postgres/queue-schema.sql
     commonlink:
       mysql:
         driverClassName: com.mysql.cj.jdbc.Driver

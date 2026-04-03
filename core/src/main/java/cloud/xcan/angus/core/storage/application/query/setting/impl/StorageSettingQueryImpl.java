@@ -9,13 +9,13 @@ import cloud.xcan.angus.core.storage.domain.setting.StorageSettingKey;
 import cloud.xcan.angus.core.storage.domain.setting.StorageSettingRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.remote.message.SysException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.annotation.Resource;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Service;
 
-@org.springframework.stereotype.Service
+@Service
 @Slf4j
 public class StorageSettingQueryImpl implements StorageSettingQuery {
 
@@ -24,9 +24,6 @@ public class StorageSettingQueryImpl implements StorageSettingQuery {
 
   @Resource
   private ObjectProperties objectProperties;
-
-  @Resource
-  private ObjectMapper objectMapper;
 
   @Override
   public SettingData setting() {
@@ -37,7 +34,7 @@ public class StorageSettingQueryImpl implements StorageSettingQuery {
         StorageSetting setting = storageSettingRepo.findByPkey(StorageSettingKey.SETTING);
         try {
           if (Objects.nonNull(setting) && Objects.nonNull(setting.getPvalue())) {
-            return setting.toSetting(objectMapper);
+            return setting.toSetting();
           }
         } catch (Exception e) {
           log.error("Parse storage setting error", e);
