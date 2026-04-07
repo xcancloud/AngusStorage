@@ -11,7 +11,7 @@ angus:
       enabled: true
   api-log:
     enabled: false
-  id-gen:
+  idgen:
     enabled: true
 #  plugin:
 #    enabled: true
