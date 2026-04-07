@@ -1,5 +1,5 @@
 server:
-  port: ${STORAGE_PORT:1819}
+  port: ${STORAGE_PORT:1800}
   servlet:
     context-path: /
 
