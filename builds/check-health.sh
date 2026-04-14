@@ -2,7 +2,7 @@
 
 # ---------------------------------------------------------------------------
 # AngusGM Service Health Check Script (Not applicable to privatized edition).
-# Usage: sh check-health.sh <host>
+# Usage: bash builds/check-health.sh <host>
 # Author: XiaoLong Liu
 # ---------------------------------------------------------------------------
 
@@ -14,7 +14,7 @@ fi
 
 # Configuration parameters
 HOST="$1"
-HEALTH_URL="http://$HOST:1819/actuator/health"
+HEALTH_URL="http://$HOST:1800/actuator/health"
 TIMEOUT=180          # Total timeout in seconds
 INTERVAL=3          # Check interval in seconds
 
@@ -25,7 +25,7 @@ timeout_end=$((start_time + TIMEOUT))
 echo "Checking service health (Timeout: ${TIMEOUT}s)..."
 
 # Health check loop
-while [[ $(date +%s) -lt $timeout_end ]]; do
+while [ "$(date +%s)" -lt "$timeout_end" ]; do
     # Get HTTP status code and response body in one call
     response=$(curl -s -w "\n%{http_code}" "$HEALTH_URL")
     http_code=$(echo "$response" | tail -n1)

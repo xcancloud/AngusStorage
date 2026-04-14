@@ -91,7 +91,7 @@ deploy_service() {
   ssh "$host" "cd ${REMOTE_APP_DIR} && sh startup-storage.sh debug" || {
     echo "ERROR: Failed to start service"; exit 1
   }
-  sh builds/check-health.sh ${host} || {
+  bash builds/check-health.sh ${host} || {
     echo "ERROR: Service health check failed"; exit 1
   }
 }
