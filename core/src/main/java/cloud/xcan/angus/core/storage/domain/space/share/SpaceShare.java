@@ -78,7 +78,7 @@ public class SpaceShare extends TenantAuditingEntity<SpaceShare, Long> implement
   @Transient
   private String creator;
   @Transient
-  private String avatar;
+  private String creatorAvatar;
 
   public Set<Long> getWideObjectIds() {
     Set<Long> wideObjectIds = new HashSet<>();

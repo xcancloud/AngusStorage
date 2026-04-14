@@ -125,7 +125,7 @@ public class SpaceShareQueryImpl implements SpaceShareQuery {
       @Override
       protected SpaceShare process() {
         // Set user name and avatar
-        userManager.setUserNameAndAvatar(Collections.singleton(spaceShareDb), "createdBy");
+        userManager.setCreatorNameAndAvatar(List.of(spaceShareDb));
         return spaceShareDb;
       }
     }.execute();

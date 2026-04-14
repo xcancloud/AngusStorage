@@ -110,7 +110,7 @@ public class SpaceShareAssembler {
         .setPublic0(share.getPublic0())
         .setCreatedBy(share.getCreatedBy())
         .setCreator(share.getCreator())
-        .setAvatar(share.getAvatar())
+        .setAvatar(share.getCreatorAvatar())
         .setCreatedDate(share.getCreatedDate());
   }
 
