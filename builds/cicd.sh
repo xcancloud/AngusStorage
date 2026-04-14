@@ -124,11 +124,15 @@ maven_build || {
 
 # Step 4: CD Phase
 if [ -n "$hosts" ]; then
-  echo "INFO: Starting deployment to hosts: ${hosts}"
-  IFS=',' read -ra HOST_LIST <<< "$hosts"
-  for host in "${HOST_LIST[@]}"; do
+    echo "INFO: Starting deployment to hosts: ${hosts}"
+    OLD_IFS="$IFS"
+    IFS=','
+
+    for host in $hosts; do
       deploy_service
-  done
+    done
+
+    IFS="$OLD_IFS"
 else
   echo "INFO: No hosts specified, skipping deployment"
 fi
