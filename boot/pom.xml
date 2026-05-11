@@ -33,7 +33,7 @@
 
     <dependency>
       <groupId>cloud.xcan.angus</groupId>
-      <artifactId>xcan-angusinfra.auth-resource-starter</artifactId>
+      <artifactId>xcan-angusinfra.security-resource-starter</artifactId>
     </dependency>
   </dependencies>
 
