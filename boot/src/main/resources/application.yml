@@ -21,7 +21,8 @@ angus:
 #    management-api-prefix: /api/plugins
 #    enable-security-check: true
   queue:
-    scheduling: false
+    scheduling:
+      enabled: false
   datasource:
     enabled: true
     commonlink:
