@@ -24,13 +24,12 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(name = "${xcan.service.storage:XCAN-ANGUSSTORAGE.BOOT}",
-    path = "/api/v1/file",
     configuration = FeignUploadConfig.class)
 public interface FileRemote {
 
   @Operation(summary = "Upload files by multipart/form-data", operationId = "uploadFiles")
   @PostMapping(
-      value = "/upload",
+      value = "/api/v1/file/upload",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE
   )
   ApiLocaleResult<List<FileUploadVo>> upload(
@@ -42,14 +41,14 @@ public interface FileRemote {
       @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
   @Operation(summary = "Download file", operationId = "downloadFile")
-  @GetMapping(value = "/{filename:.+}")
+  @GetMapping(value = "/api/v1/file/{filename:.+}")
   ResponseEntity<org.springframework.core.io.Resource> download(
       @Parameter(name = "filename", description = "File name", required = true)
       @PathVariable("filename") String filename,
       @SpringQueryMap FileDownloadDto dto);
 
   @Operation(summary = "Delete files by object file ids (fid)", operationId = "deleteFilesByFids")
-  @DeleteMapping
+  @DeleteMapping(value = "/api/v1/file")
   void deleteByFids(@RequestBody FileDeleteByFidsDto dto);
 
   @Configuration
@@ -58,7 +57,7 @@ public interface FileRemote {
     @Bean
     public Request.Options feignOptions() {
       // 连接超时60秒，读取超时600秒
-      return new Request.Options(60 * 000, 10 * 60 * 000);
+      return new Request.Options(60_000, 10_60_00);
     }
   }
 }

@@ -21,14 +21,13 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(name = "${xcan.service.storage:XCAN-ANGUSSTORAGE.BOOT}",
-    path = "/innerapi/v1/file",
     configuration = FeignUploadConfig.class)
 public interface FileInnerRemote {
 
   @Operation(summary = "Upload files by multipart/form-data (inner API)",
       operationId = "uploadFilesByInnerApi")
   @PostMapping(
-      value = "/upload",
+      value = "/innerapi/v1/file/upload",
       consumes = MediaType.MULTIPART_FORM_DATA_VALUE
   )
   ApiLocaleResult<List<FileUploadVo>> upload(
@@ -41,7 +40,7 @@ public interface FileInnerRemote {
       @RequestPart(value = "extraFiles", required = false) Boolean extraFiles);
 
   @Operation(summary = "Download file (inner API)", operationId = "downloadFileByInnerApi")
-  @GetMapping(value = "/{filename:.+}")
+  @GetMapping(value = "/innerapi/v1/file/{filename:.+}")
   ResponseEntity<org.springframework.core.io.Resource> download(
       @Parameter(name = "filename", description = "File name", required = true)
       @PathVariable("filename") String filename,
@@ -49,7 +48,7 @@ public interface FileInnerRemote {
 
   @Operation(summary = "Delete files by object file ids (fid, inner API)",
       operationId = "deleteFilesByFidsByInnerApi")
-  @DeleteMapping
+  @DeleteMapping("/innerapi/v1/file")
   void deleteByFids(@RequestBody FileDeleteByFidsDto dto);
 
 }
