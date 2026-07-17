@@ -28,7 +28,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Entity
-@Table(name = "object_space_object")
+@Table(name = "storage_space_object")
 @Accessors(chain = true)
 public class SpaceObject extends TenantAuditingEntity<SpaceObject, Long> implements
     SpaceObjectStats<SpaceObject> {

@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
 
 
 @Entity
-@Table(name = "storage_setting")
+@Table(name = "storage_storage_setting")
 @Setter
 @Getter
 @Accessors(chain = true)

@@ -23,7 +23,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @Getter
 @Accessors(chain = true)
-@Table(name = "bucket")
+@Table(name = "storage_bucket")
 @EntityListeners({AuditingEntityListener.class})
 public class Bucket extends AuditingEntity<Bucket, Long> implements Serializable {
 

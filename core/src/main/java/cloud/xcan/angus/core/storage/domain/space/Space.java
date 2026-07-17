@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 @Setter
 @Getter
 @Entity
-@Table(name = "object_space")
+@Table(name = "storage_object_space")
 @Accessors(chain = true)
 public class Space extends TenantAuditingEntity<Space, Long> implements Serializable {
 

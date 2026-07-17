@@ -23,7 +23,7 @@ public class SpaceShareListRepoMySql extends AbstractSearchRepository<SpaceShare
   @Override
   public StringBuilder getSqlTemplate(Set<SearchCriteria> criteria, Class<SpaceShare> mainClz,
       Object[] params, String... matches) {
-    return getSqlTemplate0(getSearchMode(), criteria, mainClz, "object_space_share",
+    return getSqlTemplate0(getSearchMode(), criteria, mainClz, "storage_space_share",
         matches);
   }
 
@@ -59,7 +59,7 @@ public class SpaceShareListRepoMySql extends AbstractSearchRepository<SpaceShare
     // @formatter:off
     sql.append(
         " AND a.space_id IN (SELECT a1.id FROM object_space a1 WHERE a1.tenant_id=" + tenantId + " AND a1.auth = 0 "
-            + " UNION SELECT a2.id FROM object_space a2 INNER JOIN object_space_auth a3 ON a2.id = a3.space_id "
+            + " UNION SELECT a2.id FROM object_space a2 INNER JOIN storage_space_auth a3 ON a2.id = a3.space_id "
             +     " AND a2.tenant_id=" + tenantId + " AND a3.tenant_id=" + tenantId + " AND a2.auth = 1 AND a3.auth_object_id IN (")
         .append(authObjectIds).append(")").append(" AND a3.auth_data LIKE CONCAT('%','SHARE','%'))");
     // @formatter:on

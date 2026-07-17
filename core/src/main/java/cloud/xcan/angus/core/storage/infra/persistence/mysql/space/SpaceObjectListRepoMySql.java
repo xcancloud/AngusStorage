@@ -18,7 +18,7 @@ public class SpaceObjectListRepoMySql extends AbstractSearchRepository<SpaceObje
   @Override
   public StringBuilder getSqlTemplate(Set<SearchCriteria> criteria, Class<SpaceObject> mainClz,
       Object[] params, String... matches) {
-    return getSqlTemplate0(getSearchMode(), criteria, mainClz, "object_space_object", matches);
+    return getSqlTemplate0(getSearchMode(), criteria, mainClz, "storage_space_object", matches);
   }
 
   @Override

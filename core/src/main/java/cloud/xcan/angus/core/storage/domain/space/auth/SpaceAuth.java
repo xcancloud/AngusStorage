@@ -20,7 +20,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 
 @Entity
-@Table(name = "object_space_auth")
+@Table(name = "storage_space_auth")
 @EntityListeners({AuditingEntityListener.class})
 @Setter
 @Getter

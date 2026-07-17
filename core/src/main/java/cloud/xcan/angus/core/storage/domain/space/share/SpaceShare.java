@@ -25,7 +25,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Setter
 @Getter
 @Entity
-@Table(name = "object_space_share")
+@Table(name = "storage_space_share")
 @Accessors(chain = true)
 public class SpaceShare extends TenantAuditingEntity<SpaceShare, Long> implements Serializable {
 

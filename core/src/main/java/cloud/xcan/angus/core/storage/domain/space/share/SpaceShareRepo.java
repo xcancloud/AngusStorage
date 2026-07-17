@@ -10,7 +10,7 @@ public interface SpaceShareRepo extends BaseRepository<SpaceShare, Long> {
   SpaceShare findByQuickObjectId(Long quickObjectId);
 
   @Modifying
-  @Query(value = "DELETE FROM object_space_share WHERE id in ?1", nativeQuery = true)
+  @Query(value = "DELETE FROM storage_space_share WHERE id in ?1", nativeQuery = true)
   void deleteByIdIn(Collection<Long> ids);
 
 }

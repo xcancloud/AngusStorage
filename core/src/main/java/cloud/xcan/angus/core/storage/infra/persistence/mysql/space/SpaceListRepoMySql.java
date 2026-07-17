@@ -64,13 +64,13 @@ public class SpaceListRepoMySql extends AbstractSearchRepository<Space> implemen
       // Query has `VIEW` permission resource
       sql.append(
           " AND a.id IN (SELECT a1.id FROM object_space a1 WHERE a1.tenant_id=" + tenantId + " AND a1.auth = 0 "
-              + "UNION SELECT a2.id FROM object_space a2 INNER JOIN object_space_auth a3 "
+              + "UNION SELECT a2.id FROM object_space a2 INNER JOIN storage_space_auth a3 "
               +   "ON a2.id = a3.space_id AND a3.auth_object_id IN ")
           .append(authObjectIdsInValue).append(" AND a2.auth = 1 )");
     }else {
       // Query has `GRANT` permission resource
       sql.append(
-          " AND a.id IN (SELECT a2.id FROM object_space a2 INNER JOIN object_space_auth a3 "
+          " AND a.id IN (SELECT a2.id FROM object_space a2 INNER JOIN storage_space_auth a3 "
               +   "ON a2.id = a3.space_id AND a3.auth_object_id IN ")
           .append(authObjectIdsInValue).append(grantFilter + ")");
     }

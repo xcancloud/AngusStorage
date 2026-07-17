@@ -18,7 +18,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Setter
 @Getter
 @Accessors(chain = true)
-@Table(name = "bucket_biz_config")
+@Table(name = "storage_bucket_biz_config")
 @EntityListeners({AuditingEntityListener.class})
 public class BucketBizConfig extends EntitySupport<BucketBizConfig, Long> implements Serializable {
 

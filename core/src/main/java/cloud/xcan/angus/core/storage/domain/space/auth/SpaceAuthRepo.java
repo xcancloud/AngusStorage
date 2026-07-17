@@ -21,11 +21,11 @@ public interface SpaceAuthRepo extends BaseRepository<SpaceAuth, Long> {
       String authObjectType);
 
   @Modifying
-  @Query(value = "DELETE FROM object_space_auth WHERE space_id in ?1", nativeQuery = true)
+  @Query(value = "DELETE FROM storage_space_auth WHERE space_id in ?1", nativeQuery = true)
   void deleteBySpaceIdIn(Collection<Long> spaceIds);
 
   @Modifying
-  @Query(value = "DELETE FROM object_space_auth WHERE space_id = ?1 and creator = ?2", nativeQuery = true)
+  @Query(value = "DELETE FROM storage_space_auth WHERE space_id = ?1 and creator = ?2", nativeQuery = true)
   void deleteBySpaceIdAndCreator(Long spaceId, Boolean creator);
 
 }
