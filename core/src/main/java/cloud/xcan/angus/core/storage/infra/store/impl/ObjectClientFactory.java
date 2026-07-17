@@ -19,6 +19,10 @@ public class ObjectClientFactory {
   }
 
   public static ObjectClient of(PlatformStoreType storeType) {
+    if (storeType == null) {
+      throw new IllegalArgumentException(
+          "storeType is null: configure xcan.storage.storeType / STORAGE_TYPE");
+    }
     Map<String, ObjectClient> objectClientMap = SpringContextHolder.getCtx()
         .getBeansOfType(ObjectClient.class);
     return objectClientMap.values().stream()
