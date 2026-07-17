@@ -68,6 +68,9 @@ public class S3ObjectClient extends ObjectClient {
   @Override
   public void init(List<cloud.xcan.angus.core.storage.domain.bucket.Bucket> buckets)
       throws Exception {
+    if (amazonS3 == null) {
+      buildAmazonS3Client(objectProperties, true);
+    }
     for (cloud.xcan.angus.core.storage.domain.bucket.Bucket bucket : buckets) {
       if (!isBucketExisted(bucket.getName())) {
         createBucket(new CreateBucketRequest(bucket.getName())
@@ -300,18 +303,30 @@ public class S3ObjectClient extends ObjectClient {
     if (!force && nonNull(amazonS3)) {
       return amazonS3;
     }
+    String endpoint = objectProperties.getEndpoint();
+    String accessKey = objectProperties.getAccessKey();
+    String secretKey = objectProperties.getSecretKey();
+    if (endpoint == null || endpoint.isBlank() || accessKey == null || accessKey.isBlank()
+        || secretKey == null || secretKey.isBlank()) {
+      throw new IllegalStateException(
+          "S3 client requires endpoint/accessKey/secretKey "
+              + "(env STORAGE_S3_* or storage_setting pvalue)");
+    }
+    // Aliyun OSS / 部分兼容实现允许 region 为空，SDK 仍要求非空字符串
+    String region = objectProperties.getRegion();
+    if (region == null || region.isBlank()) {
+      region = "us-east-1";
+    }
     ClientConfiguration configuration = new ClientConfiguration();
     configuration.setMaxErrorRetry(1);
     configuration.setConnectionTimeout(6 * 1000);
     configuration.setSocketTimeout(2 * 60 * 60 * 1000);
-    configuration.setProtocol(Protocol.HTTP);
+    configuration.setProtocol(
+        endpoint.startsWith("https") ? Protocol.HTTPS : Protocol.HTTP);
     AwsClientBuilder.EndpointConfiguration endpointConfig =
-        new AwsClientBuilder.EndpointConfiguration(objectProperties.getEndpoint(),
-            objectProperties.getRegion());
-    AWSCredentials credentials = new BasicAWSCredentials(objectProperties.getAccessKey(),
-        objectProperties.getSecretKey());
-    AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(
-        credentials);
+        new AwsClientBuilder.EndpointConfiguration(endpoint, region);
+    AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
+    AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
     amazonS3 = AmazonS3Client.builder().withEndpointConfiguration(endpointConfig)
         .withClientConfiguration(configuration).withCredentials(credentialsProvider)
         .disableChunkedEncoding().withPathStyleAccessEnabled(false)

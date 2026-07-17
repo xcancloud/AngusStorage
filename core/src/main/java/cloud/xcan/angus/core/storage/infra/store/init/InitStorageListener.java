@@ -12,6 +12,7 @@ import cloud.xcan.angus.core.storage.domain.setting.StorageSettingKey;
 import cloud.xcan.angus.core.storage.domain.setting.StorageSettingRepo;
 import cloud.xcan.angus.core.storage.infra.store.ObjectProperties;
 import cloud.xcan.angus.core.storage.infra.store.impl.ObjectClientFactory;
+import cloud.xcan.angus.core.storage.infra.store.impl.S3ObjectClient;
 import cloud.xcan.angus.spec.utils.ObjectUtils;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +27,24 @@ public class InitStorageListener implements ApplicationListener<ApplicationReady
   public void onApplicationEvent(ApplicationReadyEvent contextStartedEvent) {
     try {
       ObjectProperties properties = loadSettingInDb();
+      ensureObjectClientReady(properties);
       initBucket(properties);
     } catch (Exception e) {
       log.error("System startup exception, system exit", e);
       SpringApplication.exit(contextStartedEvent.getApplicationContext(), () -> -1);
       System.exit(-1);
     }
+  }
+
+  /**
+   * Bean 构造时可能仅有残缺 env（无 STORAGE_S3_*），S3 客户端构建失败被吞掉；DB 覆盖配置后须强制重建。
+   */
+  private void ensureObjectClientReady(ObjectProperties properties) {
+    if (!PlatformStoreType.AWS_S3.equals(properties.getStoreType())) {
+      return;
+    }
+    S3ObjectClient s3ObjectClient = SpringContextHolder.getBean(S3ObjectClient.class);
+    s3ObjectClient.buildAmazonS3Client(properties, true);
   }
 
   private void initBucket(ObjectProperties properties) throws Exception {
