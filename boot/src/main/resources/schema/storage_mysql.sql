@@ -39,10 +39,11 @@ CREATE TABLE IF NOT EXISTS `storage_bucket_biz_config` (
   `encrypt`              TINYINT(1)   NULL,
   `multi_tenant_ctrl`    TINYINT(1)   NULL,
   `enabled_auth`         TINYINT(1)   NULL,
+  `allow_tenant_created` TINYINT(1)   NULL,
   `app_code`             VARCHAR(80)  NULL,
   `app_admin_code`       VARCHAR(80)  NULL,
   `cache_age`            INT          NOT NULL DEFAULT 0,
-  `allow_tenant_created` TINYINT(1)   NULL,
+  `private0`             TINYINT(1)   NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uidx_biz_key` (`biz_key`),
   KEY `idx_bucket_name` (`bucket_name`),
@@ -203,7 +204,7 @@ CREATE TABLE IF NOT EXISTS `storage_space_share` (
 -- ============================================================
 -- Setting
 -- ============================================================
-CREATE TABLE IF NOT EXISTS `storage_storage_setting` (
+CREATE TABLE IF NOT EXISTS `storage_setting` (
   `id`     BIGINT       NOT NULL,
   `pkey`   VARCHAR(40)  NOT NULL,
   `pvalue` LONGTEXT     NULL,

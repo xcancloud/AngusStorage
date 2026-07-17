@@ -87,6 +87,9 @@ public class BucketBizConfig extends EntitySupport<BucketBizConfig, Long> implem
   @Column(name = "allow_tenant_created")
   private Boolean allowTenantCreated;
 
+  @Column(name = "private0")
+  private Boolean private0;
+
   public boolean isMultiTenantCtrl() {
     return nonNull(multiTenantCtrl) && multiTenantCtrl;
   }
