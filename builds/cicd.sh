@@ -29,7 +29,7 @@ validate_parameters() {
         env.local|env.dev|env.prod) ;;
         *) echo "ERROR: Cloud edition requires env.local/dev/prod"; exit 1 ;;
       esac ;;
-    edition.community|edition.enterprise|edition.datacenter)
+    edition.community|edition.enterprise|edition.team)
       if [ "$env" != "env.priv" ]; then
         echo "ERROR: Private edition requires env.priv"; exit 1
       fi ;;
