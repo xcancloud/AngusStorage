@@ -1,6 +1,7 @@
 package cloud.xcan.angus.core.storage.domain.space.object;
 
 import cloud.xcan.angus.api.enums.FileType;
+import cloud.xcan.angus.api.enums.PlatformStoreType;
 import cloud.xcan.angus.core.biz.NameJoinRepository;
 import cloud.xcan.angus.persistence.jpa.repository.BaseRepository;
 import java.util.Collection;
@@ -55,8 +56,11 @@ public interface SpaceObjectRepo extends BaseRepository<SpaceObject, Long>,
   @Query(value = "SELECT level FROM storage_space_object WHERE space_id = ?1 AND id IN (?2) ORDER BY level ASC LIMIT 1", nativeQuery = true)
   int findMinLevelByIdIn(Long spaceId, Collection<Long> ids);
 
-  @Query(value = "SELECT count(*) FROM storage_space_object WHERE store_type <> ?1 limit 1", nativeQuery = true)
-  boolean existsByStoreTypeNot(String storeType);
+  /**
+   * 是否存在与指定 storeType 不同的对象。
+   * <p>勿用 native {@code count(*)} 映射 boolean（驱动返回 Long，会 ClassCastException）。
+   */
+  boolean existsByStoreTypeNot(PlatformStoreType storeType);
 
   @Modifying
   @Query(value = "DELETE FROM storage_space_object WHERE space_id in ?1", nativeQuery = true)

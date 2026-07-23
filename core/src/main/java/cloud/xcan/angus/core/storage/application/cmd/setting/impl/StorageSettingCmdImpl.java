@@ -70,7 +70,7 @@ public class StorageSettingCmdImpl extends CommCmd<StorageSetting, Long>
 
         // Check whether there is business data. When there is data, it cannot be modified by default
         assertTrue(setting.getStoreType().equals(objectProperties.getStoreType())
-                || !spaceObjectRepo.existsByStoreTypeNot(setting.getStoreType().getValue())
+                || !spaceObjectRepo.existsByStoreTypeNot(setting.getStoreType())
                 || (nonNull(setting.getForce()) && setting.getForce()),
             STORAGE_SETTING_MODIFY_TYPE_WARN_CODE, STORAGE_SETTING_MODIFY_TYPE_WARN);
       }
