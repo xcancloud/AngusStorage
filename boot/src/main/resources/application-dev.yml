@@ -28,10 +28,10 @@ angus:
         username: ${COMMON_POSTGRES_USER}
         password: ${COMMON_POSTGRES_PASSWORD}
   storage:
-    storeType: ${STORAGE_TYPE}
+    storeType: ${STORAGE_TYPE:LOCAL}
     proxyAddress: ${STORAGE_FILES_PROXY_ADDRESS}
     aesKey: ${STORAGE_FILES_ENCRYPTION_KEY}
-    localDir: ${STORAGE_LOCAL_DIR}
+    localDir: ${STORAGE_LOCAL_DIR:}
     region: ${STORAGE_S3_REGION:}
     endpoint: ${STORAGE_S3_ENDPOINT}
     accessKey: ${STORAGE_S3_ACCESS_KEY}

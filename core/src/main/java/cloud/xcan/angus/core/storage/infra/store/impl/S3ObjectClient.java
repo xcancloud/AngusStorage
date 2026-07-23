@@ -303,6 +303,14 @@ public class S3ObjectClient extends ObjectClient {
     if (!force && nonNull(amazonS3)) {
       return amazonS3;
     }
+    amazonS3 = createTemporaryClient(objectProperties);
+    return amazonS3;
+  }
+
+  /**
+   * Build a disposable S3 client for connection probes — does not touch the singleton field.
+   */
+  public static AmazonS3 createTemporaryClient(ObjectProperties objectProperties) {
     String endpoint = objectProperties.getEndpoint();
     String accessKey = objectProperties.getAccessKey();
     String secretKey = objectProperties.getSecretKey();
@@ -327,11 +335,10 @@ public class S3ObjectClient extends ObjectClient {
         new AwsClientBuilder.EndpointConfiguration(endpoint, region);
     AWSCredentials credentials = new BasicAWSCredentials(accessKey, secretKey);
     AWSCredentialsProvider credentialsProvider = new AWSStaticCredentialsProvider(credentials);
-    amazonS3 = AmazonS3Client.builder().withEndpointConfiguration(endpointConfig)
+    return AmazonS3Client.builder().withEndpointConfiguration(endpointConfig)
         .withClientConfiguration(configuration).withCredentials(credentialsProvider)
         .disableChunkedEncoding().withPathStyleAccessEnabled(false)
         .build();
-    return amazonS3;
   }
 
   @Override

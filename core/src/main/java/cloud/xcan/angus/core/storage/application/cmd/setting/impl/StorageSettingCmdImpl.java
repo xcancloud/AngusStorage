@@ -7,7 +7,9 @@ import static cloud.xcan.angus.core.storage.domain.StorageMessage.STORAGE_SETTIN
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isOpClient;
 import static cloud.xcan.angus.core.utils.PrincipalContextUtils.isSysAdmin;
 import static cloud.xcan.angus.remote.message.http.Forbidden.M.NO_SYS_ADMIN_PERMISSION;
+import static cloud.xcan.angus.spec.utils.ObjectUtils.isEmpty;
 import static java.util.Objects.nonNull;
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
 
 import cloud.xcan.angus.api.enums.PlatformStoreType;
 import cloud.xcan.angus.core.biz.BizTemplate;
@@ -76,6 +78,9 @@ public class StorageSettingCmdImpl extends CommCmd<StorageSetting, Long>
       @SneakyThrows
       @Override
       protected Void process() {
+        StorageSetting settingDb = storageSettingRepo.findByPkey(StorageSettingKey.SETTING);
+        mergeMaskedSecrets(setting, settingDb);
+
         BeanUtils.copyProperties(setting, objectProperties);
 
         try {
@@ -86,7 +91,6 @@ public class StorageSettingCmdImpl extends CommCmd<StorageSetting, Long>
           throw ProtocolException.of(e.getMessage());
         }
 
-        StorageSetting settingDb = storageSettingRepo.findByPkey(StorageSettingKey.SETTING);
         String value = objectMapper.writeValueAsString(setting);
         if (nonNull(settingDb)) {
           storageSettingRepo.updateValueByKey(StorageSettingKey.SETTING, value);
@@ -98,6 +102,33 @@ public class StorageSettingCmdImpl extends CommCmd<StorageSetting, Long>
         return null;
       }
     }.execute();
+  }
+
+  private static final String MASK = "******";
+
+  private void mergeMaskedSecrets(SettingData incoming, StorageSetting settingDb) {
+    SettingData saved = null;
+    try {
+      if (nonNull(settingDb) && nonNull(settingDb.getPvalue())) {
+        saved = settingDb.toSetting();
+      }
+    } catch (Exception ignore) {
+      // keep runtime properties as fallback
+    }
+    if (isMasked(incoming.getSecretKey())) {
+      String keep = saved != null && isNotBlank(saved.getSecretKey())
+          ? saved.getSecretKey() : objectProperties.getSecretKey();
+      incoming.setSecretKey(keep);
+    }
+    if (isMasked(incoming.getAccessKey())) {
+      String keep = saved != null && isNotBlank(saved.getAccessKey())
+          ? saved.getAccessKey() : objectProperties.getAccessKey();
+      incoming.setAccessKey(keep);
+    }
+  }
+
+  private static boolean isMasked(String secret) {
+    return isEmpty(secret) || MASK.equals(secret);
   }
 
   @Override

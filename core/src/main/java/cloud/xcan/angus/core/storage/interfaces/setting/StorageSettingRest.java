@@ -3,6 +3,7 @@ package cloud.xcan.angus.core.storage.interfaces.setting;
 import cloud.xcan.angus.core.storage.interfaces.setting.facade.StorageSettingFacade;
 import cloud.xcan.angus.core.storage.interfaces.setting.facade.dto.StorageSettingReplaceDto;
 import cloud.xcan.angus.core.storage.interfaces.setting.facade.vo.StorageSettingDetailVo;
+import cloud.xcan.angus.core.storage.interfaces.setting.facade.vo.StorageSettingTestVo;
 import cloud.xcan.angus.remote.ApiLocaleResult;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -12,6 +13,7 @@ import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,15 @@ public class StorageSettingRest {
   @GetMapping
   public ApiLocaleResult<StorageSettingDetailVo> settingDetail() {
     return ApiLocaleResult.success(storageSettingFacade.settingDetail());
+  }
+
+  @Operation(summary = "Test storage setting connectivity.", operationId = "storage:setting:test")
+  @ApiResponses(value = {
+      @ApiResponse(responseCode = "200", description = "Test completed")})
+  @PostMapping("/test")
+  public ApiLocaleResult<StorageSettingTestVo> settingTest(
+      @Valid @RequestBody StorageSettingReplaceDto dto) {
+    return ApiLocaleResult.success(storageSettingFacade.settingTest(dto));
   }
 
 }

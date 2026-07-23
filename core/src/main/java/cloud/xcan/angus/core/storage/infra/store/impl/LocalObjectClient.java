@@ -83,7 +83,7 @@ public class LocalObjectClient extends ObjectClient {
   public void init(List<cloud.xcan.angus.core.storage.domain.bucket.Bucket> buckets)
       throws Exception {
     String storagePath = isNotBlank(objectProperties.getLocalDir())
-        ? objectProperties.getLocalDir() : appDirUtils.getBizDataDir("files");
+        ? objectProperties.getLocalDir() : appDirUtils.getBizDataDir("storage_files");
     storagePath = StringUtils.removeEnd(storagePath, File.separator);
 
     if (!FileUtils.isExisted(storagePath)) {
